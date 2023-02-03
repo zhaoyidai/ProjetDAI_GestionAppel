@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+
+.style1{
+	border: 1px solid #333; 
+	padding:6px;
+	text-align: center;
+	padding-right: 45px;
+	padding-left: 45px;
+}
+
+.entetetab {
+	border: 1px solid #333;
+	text-align: center;
+	padding:5px;
+	background-color: #F0997D;
+	color: white;
+}
+
+.table1{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn{
+	margin:25px;
+	margin-left: 45%;
+	margin-right: 50%;
+}
