@@ -1,109 +1,260 @@
 package metier;
 
 import javax.persistence.*;
+
+import enumtype.Statut;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name="Users")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Users implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="CodeU")
+	private int id;
 
-    @Column(nullable = false)
-    private String prenom;
+	@Column(nullable = false, name="Prenom")
+	private String prenom;
 
-    @Column(nullable = false)
-    private String nom;
+	@Column(nullable = false , name="Nom")
+	private String nom;
 
-    @Column(nullable = false)
-    private String email;
+	@Column(nullable = false , name="Email")
+	private String email;
 
-    @Column(nullable = false)
-    private String password;
+	@Column(nullable = false, name="Password")
+	private String password;
 
-    //@ManyToOne
-    //private Fichier fichier;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, name="Statut")
+	private Statut statut;
 
-    public Users() {}
+	@Column(name="Formation")
+	private String formation;
 
-    public Users(String prenom, String nom, String email, String password) {
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.password = password;
-    }
+	@Column(name="NumTel")
+	private int numTel;
 
-    public Users(int id, String prenom, String nom, String email, String password) {
-        this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.email = email;
-        this.password = password;
-    }
+	@Column(name="DateNaiss")
+	@Temporal(javax.persistence.TemporalType.DATE)
+	private Date dateNaiss;
 
-    public int getId() {
-        return id;
-    }
+	@Column(name="NumBureau")
+	private int numBureau;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	@Column(name="UrlPhoto")
+	private String photo;
 
-    public String getPrenom() {
-        return prenom;
-    }
+	/**
+	 * Relations.
+	 */
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
+	/*----- DEPOSER -----*/
+	@OneToMany(mappedBy="usersJustificatif",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<Justificatif>justificatifs = new HashSet<>();
 
-    public String getNom() {
-        return nom;
-    }
+	public Set<Justificatif> getJustificatifs() {
+		return justificatifs;
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public void setJustificatifs(Set<Justificatif> justificatifs) {
+		this.justificatifs = justificatifs;
+	}
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/*----- DONNER -----*/
+	@OneToMany(mappedBy="usersSeance",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Set<Seance>seances = new HashSet<>();
 
-    public String getPassword() {
-        return password;
-    }
+	public Set<Seance> getSeances() {
+		return seances;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setSeances(Set<Seance> seances) {
+		this.seances = seances;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Users that = (Users) o;
-        return id == that.id;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+	/*----- ENSEIGNER -----*/
+	@ManyToMany
+	@JoinTable(name = "Enseigner",
+	joinColumns = @JoinColumn(name = "CodeUsers"),
+	inverseJoinColumns = @JoinColumn(name = "CodeCours"))
+	private Set<Cours>lescoursEnseignés = new HashSet(0);
 
-    /**public Fichier getFichier() {
-        return fichier;
-    }
+	/*----- PARTICIPER -----*/
+	@ManyToMany
+	@JoinTable(name = "Participer",
+	joinColumns = @JoinColumn(name = "CodeUsers"),
+	inverseJoinColumns = @JoinColumn(name = "CodeCours"))
+	private Set<Cours>lescoursParticipés = new HashSet(0);
 
-    public void setFichier(Fichier fichier) {
-        this.fichier = fichier;
-    }**/
+	/*----- ASSISTER -----*/
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+	@MapKeyJoinColumn(name = "CodeSeance", updatable = false, insertable = false)
+	private Map<Seance,Assister> assister = new HashMap(0);
+
+	/**
+	 * Constructeurs.
+	 */
+
+
+	public int getId() {
+		return id;
+	}
+
+	public Users(int id, String prenom, String nom, String email, String password, Statut statut, String formation,
+			int numTel, Date dateNaiss, int numBureau, String photo) {
+		super();
+		this.id = id;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.email = email;
+		this.password = password;
+		this.statut = statut;
+		this.formation = formation;
+		this.numTel = numTel;
+		this.dateNaiss = dateNaiss;
+		this.numBureau = numBureau;
+		this.photo = photo;
+	}
+
+	/**
+	 * Méthodes.
+	 */
+	public void addJustificatif (Justificatif j)
+	{
+		this.justificatifs.add(j);
+	}
+
+	public void suppJustificatif (Justificatif j)
+	{
+		this.justificatifs.remove(j);
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Statut getStatut() {
+		return statut;
+	}
+
+	public void setStatut(Statut statut) {
+		this.statut = statut;
+	}
+
+	public String getFormation() {
+		return formation;
+	}
+
+	public void setFormation(String formation) {
+		this.formation = formation;
+	}
+
+	public int getNumTel() {
+		return numTel;
+	}
+
+	public void setNumTel(int numTel) {
+		this.numTel = numTel;
+	}
+
+	public Date getDateNaiss() {
+		return dateNaiss;
+	}
+
+	public void setDateNaiss(Date dateNaiss) {
+		this.dateNaiss = dateNaiss;
+	}
+
+	public int getNumBureau() {
+		return numBureau;
+	}
+
+	public void setNumBureau(int numBureau) {
+		this.numBureau = numBureau;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", email=" + email + ", password=" + password
+				+ ", statut=" + statut + ", formation=" + formation + ", numTel=" + numTel + ", dateNaiss=" + dateNaiss
+				+ ", numBureau=" + numBureau + ", photo=" + photo + ", justificatifs=" + justificatifs + ", seances="
+				+ seances + ", lescoursEnseignés=" + lescoursEnseignés + ", lescoursParticipés=" + lescoursParticipés
+				+ ", assister=" + assister + "]";
+	}
+
+
+
+
+
+
+
 }

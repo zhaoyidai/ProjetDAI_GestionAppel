@@ -10,12 +10,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet(name = "ConnexionController", value = "/connexion")
+@WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/connexion.jsp").forward(request, response);
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     @Override
@@ -38,21 +38,21 @@ public class LoginController extends HttpServlet {
                 UsersDao usersDao = new UsersDao();
                 Integer usersId = usersDao.loginUtilisateur(email, password);
                 if (usersId == null) {
-                    request.setAttribute("generale_error", "Email ou mot de passe incorrect");
-                    request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+                    request.setAttribute("generale_error", "Email ou mot de passe incorrect ! Veuillez réessayer !");
+                    request.getRequestDispatcher("Login").forward(request, response);
                 } else {
                     request.getSession().setAttribute("auth", usersId);
-                    response.sendRedirect("/compte");
+                    response.sendRedirect("Accueil");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("generale_error", "Probleme technique ! Veuillez contacter l'administrateur.");
-                request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+                request.getRequestDispatcher("Login").forward(request, response);
             }
 
         } else {
             erreurs.forEach(request::setAttribute);
-            request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+            request.getRequestDispatcher("Login").forward(request, response);
         }
     }
 
