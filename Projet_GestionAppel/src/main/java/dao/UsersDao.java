@@ -2,6 +2,7 @@ package dao;
 
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import metier.Users;
@@ -13,23 +14,25 @@ public class UsersDao extends DAO<Users> {
     }
    
 
-    public Integer loginUtilisateur(String email, String pwd) {
-        Integer utilisateurId = null;
+    public Users loginUtilisateur(String email, String pwd) {
+        Users users = null;
+    	String hql = "select u " +
+                "from Users u " +
+                "where u.email = :email " +
+                "and u.password = :password ";
         try (Session session = getSession()) {
-            getTransaction(session);
-            Query<Integer> query = session.createQuery("select u.id " +
-                    "from Users u " +
-                    "where u.email = :email " +
-                    "and u.password = :password");
+        	Transaction transaction=getTransaction(session);
+            Query<Users>query = session.createQuery(hql);
             query.setParameter("email", email);
             query.setParameter("password", pwd);
             if (!query.getResultList().isEmpty()) {
-                utilisateurId = query.uniqueResult();
+            	users = query.uniqueResult();
             }
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return utilisateurId;
+        return users;
     }
 
     public boolean emailExiste(String email) {

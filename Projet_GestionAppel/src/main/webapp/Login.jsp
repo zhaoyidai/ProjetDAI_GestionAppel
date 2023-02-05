@@ -19,7 +19,8 @@
 <body class="img js-fullheight"
 	style="background-image: url(img/manuphoto.jpg);">
 	<%
-        String email = request.getParameter("email") == null ? "" : request.getParameter("email");
+	
+        String email = request.getAttribute("email") == null ? "" : (String) request.getAttribute("email");
         String emailErreur = request.getAttribute("email_error") == null ? "" : (String) request.getAttribute("email_error");
         String passwordErreur = request.getAttribute("password_error") == null ? "" : (String) request.getAttribute("password_error");
         String generaleErreur = request.getAttribute("generale_error") == null ? "" : (String) request.getAttribute("generale_error");
@@ -31,33 +32,34 @@
 					<div class="login-wrap p-0">
 						<h3 class="mb-4 text-center">UT1 - CAPITOLE</h3>
 						<div class=" mb-5" style="text-align: center;">
-					
-					<img class="img-fluid img-profile" src="img/logo2.png" alt="..." style="width : 150px; height : 150px;" />
-					
+
+							<img class="img-fluid img-profile" src="img/logo2.png" alt="..."
+								style="width: 150px; height: 150px;" />
+
 						</div>
-						<form method="post" action="LoginController" autocomplete="off" class="signin-form">
+						<form method="post" action="login" autocomplete="off"
+							class="signin-form">
 							<div class="form-group">
-								<input type="email" name="email" placeholder="Email"  class="form-control" required> 
-								<small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= emailErreur %></small>
+								<input type="email" name="email" placeholder="Email"
+									class="form-control" value="<%= email %>" required> <small
+									class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= emailErreur %></small>
 							</div>
 							<div class="form-group">
-								<input id="password-field" type="password" name="password" placeholder="Mot de passe"  class="form-control" required>
-								<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+								<input id="password-field" type="password" name="password"
+									placeholder="Mot de passe" class="form-control" required>
+								<span toggle="#password-field"
+									class="fa fa-fw fa-eye field-icon toggle-password"></span>
 							</div>
-							<small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= passwordErreur %></small>
+							<small
+								class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= passwordErreur %></small>
 							<div class="form-group">
-								<small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= generaleErreur %></small>
-								<button type="submit" class="form-control btn btn-primary submit px-3">Se connecter</button>
+								<small
+									class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= generaleErreur %></small>
+								<button type="submit"
+									class="form-control btn btn-primary submit px-5">Se
+									connecter</button>
 							</div>
 							<div class="form-group d-md-flex">
-								<div class="w-50">
-									<label class="checkbox-wrap checkbox-primary">Remember Me <input type="checkbox" checked> 
-									<span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#" style="color: #fff">Forgot Password</a>
-								</div>
 							</div>
 						</form>
 						<div class="connexion_overlay"></div>

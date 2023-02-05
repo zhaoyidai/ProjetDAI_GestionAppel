@@ -106,8 +106,13 @@ public class Users implements Serializable {
 	 */
 
 
+	
 	public int getId() {
 		return id;
+	}
+
+	public Users() {
+		super();
 	}
 
 	public Users(int id, String prenom, String nom, String email, String password, Statut statut, String formation,

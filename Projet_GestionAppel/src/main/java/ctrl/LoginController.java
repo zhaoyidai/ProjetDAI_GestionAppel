@@ -10,12 +10,16 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet("/LoginController")
+@WebServlet(name="/LoginController" , value="/login")
 public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+		HttpSession session = request.getSession(false);
+		if(session!=null){
+			session.invalidate();
+		}
+		response.sendRedirect("Login");
     }
 
     @Override
@@ -35,14 +39,18 @@ public class LoginController extends HttpServlet {
 
         if (erreurs.isEmpty()) {
             try {
-                UsersDao usersDao = new UsersDao();
-                Integer usersId = usersDao.loginUtilisateur(email, password);
+            	UsersDao usersDao = new UsersDao();
+				Users usersId = usersDao.loginUtilisateur(email, password);
                 if (usersId == null) {
                     request.setAttribute("generale_error", "Email ou mot de passe incorrect ! Veuillez réessayer !");
                     request.getRequestDispatcher("Login").forward(request, response);
                 } else {
                     request.getSession().setAttribute("auth", usersId);
-                    response.sendRedirect("Accueil");
+					request.getSession().setAttribute("email", usersId.getEmail());
+					request.getSession().setAttribute("nom", usersId.getNom());
+					request.getSession().setAttribute("prenom", usersId.getPrenom());
+					request.getSession().setAttribute("statut", usersId.getStatut());
+					response.sendRedirect("Accueil");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
