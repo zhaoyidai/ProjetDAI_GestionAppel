@@ -14,6 +14,15 @@
 		<servlet-name>login</servlet-name>
 		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>planning</servlet-name>
+	<jsp-file>/Planning.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>planning</servlet-name>
+		<url-pattern>/Planning</url-pattern>
+	</servlet-mapping>
+	
 	  <servlet>
 	<servlet-name>cours</servlet-name>
 	<jsp-file>/Cours.jsp</jsp-file>

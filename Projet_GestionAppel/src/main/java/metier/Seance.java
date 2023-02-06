@@ -99,6 +99,7 @@ public class Seance implements Serializable {
 	}
 		
 
+	public Seance() {}
 	public int getIdS() {
 		return idS;
 	}

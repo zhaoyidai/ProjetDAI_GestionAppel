@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class BD {
 	
 	//Propriétés
-	private static String URL= "jdbc:mysql://localhost:3307/db_21902975"; 
-	private static String LOGIN= "21902975";
-	private static String PWD= "00934A";
+	private static String URL= "jdbc:mysql://localhost:3307/db_22009896"; 
+	private static String LOGIN= "22009896";
+	private static String PWD= "V00WG6";
 	
 	private static Connection cx;
 	
