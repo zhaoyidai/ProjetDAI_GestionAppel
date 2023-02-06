@@ -23,6 +23,14 @@
 		<url-pattern>/Planning</url-pattern>
 	</servlet-mapping>
 	
+	  <servlet>
+	<servlet-name>cours</servlet-name>
+	<jsp-file>/Cours.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cours</servlet-name>
+		<url-pattern>/Cours</url-pattern>
+	</servlet-mapping>
 	<servlet>
 	<servlet-name>accueil</servlet-name>
 	<jsp-file>/Accueil.jsp</jsp-file>
@@ -33,14 +41,7 @@
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
 		 <!-- Filter definitions -->
- <filter>
- <filter-name>Filter</filter-name>
- <filter-class>metier.Filter</filter-class>
- </filter>
- <filter-mapping>
- <filter-name>Filter</filter-name>
- <url-pattern>*.jsf</url-pattern>
- </filter-mapping>
+
 	
   <welcome-file-list>
 	<welcome-file>Login</welcome-file>

@@ -23,7 +23,7 @@
 	%>
 	<section class="clean-block clean-hero">
 		<div class="text">
-			<p>Vous êtes connecté en tant que : ${ sessionScope.prenom } ${ sessionScope.nom }
+			<p>Vous êtes connecté en tant que : ${ sessionScope.id } ${ sessionScope.prenom } ${ sessionScope.nom }
 				(${ sessionScope.statut }) !</p>
 		</div>
 	</section>
@@ -56,7 +56,7 @@
 							<li class="nav-item"><a class="nav-link"
 								href="CtrlRedirect?type_action=planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
+								href="CoursController?id=${sessionScope.id}"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="/compte/liste-etudiant"><i
 									class="fas fa-user-graduate"></i><span>Etudiants</span></a></li>

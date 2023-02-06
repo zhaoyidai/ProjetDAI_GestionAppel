@@ -46,6 +46,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Login").forward(request, response);
                 } else {
                     request.getSession().setAttribute("auth", usersId);
+					request.getSession().setAttribute("id", usersId.getId());
 					request.getSession().setAttribute("email", usersId.getEmail());
 					request.getSession().setAttribute("nom", usersId.getNom());
 					request.getSession().setAttribute("prenom", usersId.getPrenom());
