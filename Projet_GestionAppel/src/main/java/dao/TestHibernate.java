@@ -91,8 +91,8 @@ public class TestHibernate
 	 */
 	public static void main (String[] args) throws ParseException
 		{
-//		TestHibernate.createUsers();
-		TestHibernate.loadSeance(2);
+		TestHibernate.createUsers();
+//		TestHibernate.loadSeance(2);
 		}
 
 } /*----- Fin de la classe TestHibernate -----*/
