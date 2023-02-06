@@ -24,15 +24,7 @@
 		<servlet-name>accueil</servlet-name>
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
-		 <!-- Filter definitions -->
- <filter>
- <filter-name>Filter</filter-name>
- <filter-class>metier.Filter</filter-class>
- </filter>
- <filter-mapping>
- <filter-name>Filter</filter-name>
- <url-pattern>*.jsf</url-pattern>
- </filter-mapping>
+
 	
   <welcome-file-list>
 	<welcome-file>Login</welcome-file>
