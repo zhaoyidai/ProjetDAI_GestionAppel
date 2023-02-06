@@ -41,7 +41,6 @@
 		<servlet-name>accueil</servlet-name>
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
-		 <!-- Filter definitions -->
 
 	
   <welcome-file-list>

@@ -18,6 +18,8 @@ import metier.Cours;
 import metier.Seance;
 import metier.Users;
 import org.apache.commons.lang3.time.DateUtils;
+import dao.HibernateUtil;
+import dao.TestHibernate;
 
 /**
  * Classe de test pour Hibernate.
@@ -54,22 +56,22 @@ public class TestHibernate
 			t.commit(); //Ferme la transaction et la session
 		}
 	}
-	
+
 	public static List<Seance> loadSeance(int id) {
-		
-		
-			List<Seance> seances = new ArrayList<>();
-	    	String hql = "select s " +
-	                "from Seance s,Users u " +
-	                "where s.usersSeance.id = :id " +
-	                "and s.usersSeance.id = u.id ";
-	        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-	        	Transaction transaction=session.beginTransaction();
-	            Query<Seance>query = session.createQuery(hql);
-	            query.setParameter("id", id);
-	            
-	            if (!query.getResultList().isEmpty()) {
-	            	seances=query.list();
+
+
+		List<Seance> seances = new ArrayList<>();
+		String hql = "select s " +
+				"from Seance s,Users u " +
+				"where s.usersSeance.id = :id " +
+				"and s.usersSeance.id = u.id ";
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+			Transaction transaction=session.beginTransaction();
+			Query<Seance>query = session.createQuery(hql);
+			query.setParameter("id", id);
+
+			if (!query.getResultList().isEmpty()) {
+				seances=query.list();
 //	            	for(Seance s:query.list()) {
 //	            		System.out.println(s.getIdS()+" "+s.getDuréeS());
 //	            	}
@@ -129,5 +131,40 @@ public class TestHibernate
 //		}
 		TestHibernate.loadEtudiant(2);
 		}
+
+		return seances;
+
+
+
+
+
+
+	}
+
+
+
+	private static void affichage (List l)
+	{
+		System.out.println("-----");
+		l.forEach(e -> {
+			for (Object obj : (Object[])e)
+				System.out.print(obj + " ");
+			System.out.println();
+		});
+		System.out.println("-----");
+	}
+
+
+
+	/**
+	 * Programme de test.
+	 * @throws ParseException
+	 */
+	public static void main (String[] args) throws ParseException
+	{
+		TestHibernate.createUsers();
+		TestHibernate.loadSeance(2);
+
+	}
 
 } /*----- Fin de la classe TestHibernate -----*/

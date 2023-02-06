@@ -77,7 +77,7 @@
 					<form>
 						<button class="btn rounded-circle border-0" id="sidebarToggle"
 							type="button">
-							<a href="DeconnexionController">Deconnexion</a>
+							<a href="DeconnexionController">Deconnexiosn</a>
 						</button>
 					</form>
 				</div>
