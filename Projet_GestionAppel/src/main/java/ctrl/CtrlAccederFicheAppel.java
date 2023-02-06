@@ -1,39 +1,33 @@
 package ctrl;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.TestHibernate;
 import metier.Seance;
 import metier.Users;
 
-
-
-
 /**
- * Servlet implementation class CtrlRedirect
+ * Servlet implementation class CtrlAccederFicheAppel
  */
-@WebServlet("/CtrlRedirect")
-public class CtrlRedirect extends HttpServlet {
+@WebServlet("/CtrlAccederFicheAppel")
+public class CtrlAccederFicheAppel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("type_action");
-
+		String idSeance = request.getParameter("idSeance");
 		
-		switch(action) {
+		switch(idSeance) {
 		case "planning":
 			
 			int id=((Users)request.getSession().getAttribute("auth")).getId();
@@ -44,6 +38,7 @@ public class CtrlRedirect extends HttpServlet {
 			break;
 		default:
 			request.getRequestDispatcher("Accueil").forward(request, response);}
+	
 	}
 
 	/**

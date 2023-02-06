@@ -89,12 +89,13 @@ public class Seance implements Serializable {
 	/**
 	 * Constructeurs.
 	 */
-	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel) {
+	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,Users u) {
 		super();
 		this.idS = idS;
 		this.duréeS = duréeS;
 		this.dateSeance = dateSeance;
 		this.heureDebut = heureDebut;
+		this.usersSeance=u;
 		StatutFicheAppel = statutFicheAppel;
 	}
 		

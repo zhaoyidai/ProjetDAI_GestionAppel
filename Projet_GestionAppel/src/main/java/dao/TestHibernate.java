@@ -16,13 +16,15 @@ import enumtype.Statut;
 import metier.Cours;
 import metier.Seance;
 import metier.Users;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * Classe de test pour Hibernate.
  */
 public class TestHibernate
 {
-	private static final SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	private static final SimpleDateFormat DFDATE = new SimpleDateFormat("dd-MM-yyyy");
 	
 	
 	public static void createUsers() throws ParseException {
@@ -31,20 +33,22 @@ public class TestHibernate
 			//Ouverture de transaction
 			Transaction t = session.beginTransaction();
 			
-			Users e1 = new Users(1 , "Test", "Chartelain", "etudiant@gmail.com", "123456789", Statut.ETUDIANT , "IPM" , 123456789 , DF.parse("02-02-2021") , 12 , "test");
-			Users e2 = new Users(2 , "Test", "Chartelain", "enseignant@gmail.com", "123456789", Statut.ENSEIGNANT , null , 123456789 , DF.parse("02-02-2021") , 12, "test");
-			Users e3 = new Users(3 , "Test", "Chartelain", "scolarite@gmail.com", "123456789", Statut.SCOLARITE , null , 123456789 , DF.parse("02-02-2021") , 12, "test");
-
-			
-			Cours c1 = new Cours(1, "Anglais");
-			
-			Seance s1 = new Seance(1 , 5 , DF.parse("02-02-2021"), DF.parse("02-02-2021") , FicheAppelEtat.EN_ATTENTE);
-			
+			Users e1 = new Users(1 , "Test", "Chartelain", "etudiant@gmail.com", "123456789", Statut.ETUDIANT , "IPM" , 123456789 , DFDATE.parse("02-02-2021") , 12 , "test");
+			Users e2 = new Users(2 , "Test", "Chartelain", "enseignant@gmail.com", "123456789", Statut.ENSEIGNANT , null , 123456789 , DFDATE.parse("02-02-2021") , 12, "test");
+			Users e3 = new Users(3 , "Test", "Chartelain", "scolarite@gmail.com", "123456789", Statut.SCOLARITE , null , 123456789 , DFDATE.parse("02-02-2021") , 12, "test");
 			session.save(e1);
 			session.save(e2);
 			session.save(e3);
+			
+			Cours c1 = new Cours(1, "Anglais");
 			session.save(c1);
+			Seance s1 = new Seance(1 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 08:00:00") , FicheAppelEtat.EN_ATTENTE,e2);
+			Seance s2 = new Seance(1 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 14:00:00") , FicheAppelEtat.EN_ATTENTE,e2);
+//			
+			
+			
 			session.save(s1);
+			session.save(s2);
 
 			t.commit(); //Ferme la transaction et la session
 		}
@@ -91,6 +95,7 @@ public class TestHibernate
 	 */
 	public static void main (String[] args) throws ParseException
 		{
+		
 		TestHibernate.createUsers();
 //		TestHibernate.loadSeance(2);
 		}
