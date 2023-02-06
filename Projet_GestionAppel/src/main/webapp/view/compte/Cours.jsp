@@ -1,14 +1,16 @@
 <%@page import="enumtype.Statut"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="metier.Users"%>
-<%@ page import="java.util.ArrayList" %>
+<%@page import="dao.UsersDao"%>
+<%@page import="dao.TestHibernate"%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>Accueil</title>
+<title>Cours</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" href="css/styles.css">
@@ -29,11 +31,15 @@
 
 <table border ="1">
 	<tr>
-		<td>Photo</td><td>Numéro étudiant</td><td>Prénom</td><td>Nom</td><td>Formation</td><td>Modifier</td>
+		<td>Photo</td><td>Numéro_étudiant</td><td>Prénom</td><td>Nom</td><td>Formation</td><td>Modifier</td>
 	</tr>
 <% 
-ArrayList<Users> liste = (ArrayList<Users>)request.getAttribute("users");
-for(Users us: liste)
+
+		UsersDao usersDao = new UsersDao();
+		List<Users> listeEtudiant = usersDao.listEtudiant();
+		
+	for(Users us : listeEtudiant)
+
 	out.println("<tr><td>" + us.getPhoto() + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td></td></tr>");
 %>	
 		

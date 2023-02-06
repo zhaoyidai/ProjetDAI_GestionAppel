@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -49,5 +52,26 @@ public class UsersDao extends DAO<Users> {
         }
         return false;
     }
+
+
+    // méthode permettant d'avoir la liste des étudiants
+    public List<Users> listEtudiant(){
+    	List<Users> etudiants = new ArrayList<>();
+    	String hql = "select u " +
+                "from Users u " +
+                "where u.statut LIKE 'ETUDIANT' ";
+        try (Session session = getSession()) {
+        	Transaction transaction=getTransaction(session);
+            Query<Users>query = session.createQuery(hql);
+            if (!query.getResultList().isEmpty()) {
+            	etudiants=query.list();
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return etudiants;
+    }
+
 
 }
