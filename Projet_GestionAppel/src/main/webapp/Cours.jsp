@@ -31,7 +31,7 @@
 
 <table border ="1">
 	<tr>
-		<td>Photo</td><td>Numéro_étudiant</td><td>Prénom</td><td>Nom</td><td>Formation</td><td>Modifier</td>
+		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Présent</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
 	</tr>
 <% 
 
@@ -40,7 +40,7 @@
 		
 	for(Users us : listeEtudiant)
 
-	out.println("<tr><td>" + us.getPhoto() + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td></td></tr>");
+	out.println("<tr><td>" + us.getPhoto() + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox'>" + "</td><td>" + "<input type='time'>"+"</td><td>" + "<input type='checkbox'>"+"</td><td>" + "<input type='text'>"+" </td></tr>");
 %>	
 		
 </table>
