@@ -134,6 +134,18 @@ public class Users implements Serializable {
 	/**
 	 * Méthodes.
 	 */
+	
+	public void addAssister(Assister a,Seance s) {
+		this.assister.put(s, a);
+	}
+	public Map<Seance, Assister> getAssister() {
+		return assister;
+	}
+
+	public void setAssister(Map<Seance, Assister> assister) {
+		this.assister = assister;
+	}
+
 	public void addJustificatif (Justificatif j)
 	{
 		this.justificatifs.add(j);
@@ -250,10 +262,7 @@ public class Users implements Serializable {
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", email=" + email + ", password=" + password
-				+ ", statut=" + statut + ", formation=" + formation + ", numTel=" + numTel + ", dateNaiss=" + dateNaiss
-				+ ", numBureau=" + numBureau + ", photo=" + photo + ", justificatifs=" + justificatifs + ", seances="
-				+ seances + ", lescoursEnseignés=" + lescoursEnseignés + ", lescoursParticipés=" + lescoursParticipés
-				+ ", assister=" + assister + "]";
+				+ ", statut=" + statut + ", formation=" + formation + ", numTel=" + numTel + ", dateNaiss=" + dateNaiss;
 	}
 
 

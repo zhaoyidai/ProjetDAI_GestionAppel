@@ -23,7 +23,8 @@
 		<url-pattern>/Planning</url-pattern>
 	</servlet-mapping>
 	
-	  <servlet>
+	
+	<servlet>
 	<servlet-name>cours</servlet-name>
 	<jsp-file>/Cours.jsp</jsp-file>
 	</servlet>

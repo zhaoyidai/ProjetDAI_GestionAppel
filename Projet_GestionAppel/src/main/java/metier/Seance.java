@@ -99,6 +99,16 @@ public class Seance implements Serializable {
 		StatutFicheAppel = statutFicheAppel;
 	}
 		
+	public void addAssister(Assister a,Users s) {
+		this.assister.put(s, a);
+	}
+	public Map<Users, Assister> getAssister() {
+		return assister;
+	}
+
+	public void setAssister(Map<Users, Assister> assister) {
+		this.assister = assister;
+	}
 
 	public Seance() {}
 	public int getIdS() {

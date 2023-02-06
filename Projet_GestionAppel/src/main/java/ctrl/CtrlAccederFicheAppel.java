@@ -1,7 +1,7 @@
 package ctrl;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.TestHibernate;
+import dao.UsersDao;
 import metier.Seance;
 import metier.Users;
 
@@ -26,19 +27,19 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idSeance = request.getParameter("idSeance");
+//		List<String> emails=new ArrayList<>();
+//		for(Users u:UsersDao.listEtudiant()) {
+//			
+//		}
+		int ids=Integer.valueOf(idSeance);
+		if(UsersDao.listEtudiant(ids)!=null) {
+			request.setAttribute("listeEtudiant", UsersDao.listEtudiant(ids));
+			request.getRequestDispatcher("Cours").forward(request, response);
+		}
+		else {
+			request.getRequestDispatcher("Accueil").forward(request, response);
+		}
 		
-		switch(idSeance) {
-		case "planning":
-			
-			int id=((Users)request.getSession().getAttribute("auth")).getId();
-			List<Seance> seances=TestHibernate.loadSeance(id);
-			
-			request.setAttribute("seances", seances);
-			request.getRequestDispatcher("Planning").forward(request, response);
-			break;
-		default:
-			request.getRequestDispatcher("Accueil").forward(request, response);}
-	
 	}
 
 	/**
