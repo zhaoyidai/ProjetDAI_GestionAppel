@@ -2,9 +2,14 @@ package dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import enumtype.FicheAppelEtat;
 import enumtype.Statut;
@@ -44,6 +49,40 @@ public class TestHibernate
 			t.commit(); //Ferme la transaction et la session
 		}
 	}
+	
+	public static List<Seance> loadSeance(int id) {
+		
+		
+			List<Seance> seances = new ArrayList<>();
+	    	String hql = "select s " +
+	                "from Seance s,Users u " +
+	                "where s.usersSeance.id = :id " +
+	                "and s.usersSeance.id = u.id ";
+	        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+	        	Transaction transaction=session.beginTransaction();
+	            Query<Seance>query = session.createQuery(hql);
+	            query.setParameter("id", id);
+	            
+	            if (!query.getResultList().isEmpty()) {
+	            	seances=query.list();
+//	            	for(Seance s:query.list()) {
+//	            		System.out.println(s.getIdS()+" "+s.getDuréeS());
+//	            	}
+
+	            	}
+	            transaction.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+			return seances;
+			
+
+			
+			
+					
+		
+	}
 
 	
 	/**
@@ -52,7 +91,8 @@ public class TestHibernate
 	 */
 	public static void main (String[] args) throws ParseException
 		{
-		TestHibernate.createUsers();
+//		TestHibernate.createUsers();
+		TestHibernate.loadSeance(2);
 		}
 
 } /*----- Fin de la classe TestHibernate -----*/

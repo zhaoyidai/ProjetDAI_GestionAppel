@@ -54,7 +54,7 @@
 							<li class="nav-item"><a href="/compte/accueil"><i
 									class="fas fa-home"></i><span>Accueil</span></a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="/compte/planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
+								href="CtrlRedirect?type_action=planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
 							<li class="nav-item"><a class="nav-link"

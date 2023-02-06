@@ -60,11 +60,11 @@ public class Cours implements Serializable{
 	 * Constructeurs.
 	 */
 	public Cours(int idC, String nomC) {
-		super();
+		
 		this.idC = idC;
 		this.nomC = nomC;
 	}
-	
+	public Cours() {}
 	public int getIdC() {
 		return idC;
 	}
