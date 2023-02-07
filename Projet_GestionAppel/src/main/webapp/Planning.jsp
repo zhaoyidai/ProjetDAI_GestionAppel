@@ -94,7 +94,7 @@ for(int i=0;i<lundi.size();i++){
 	Seance s=mercredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDuréeS());
+	timed.add((Calendar.HOUR), s.getDureeS());
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
@@ -108,7 +108,7 @@ for(int i=0;i<mardi.size();i++){
 	Seance s=mercredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDuréeS());
+	timed.add((Calendar.HOUR), s.getDureeS());
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
@@ -122,7 +122,7 @@ for(int i=0;i<mercredi.size();i++){
 	Seance s=mercredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDuréeS());
+	timed.add((Calendar.HOUR), s.getDureeS());
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
@@ -136,7 +136,7 @@ for(int i=0;i<jeudi.size();i++){
 	Seance s=mercredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDuréeS());
+	timed.add((Calendar.HOUR), s.getDureeS());
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
@@ -150,7 +150,7 @@ for(int i=0;i<vendredi.size();i++){
 	Seance s=mercredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDuréeS());
+	timed.add((Calendar.HOUR), s.getDureeS());
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
