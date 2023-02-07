@@ -132,14 +132,14 @@ public class TestHibernate
 		TestHibernate.loadEtudiant(2);
 		}
 
-		return seances;
+		
 
 
 
 
 
 
-	}
+	
 
 
 
@@ -160,11 +160,6 @@ public class TestHibernate
 	 * Programme de test.
 	 * @throws ParseException
 	 */
-	public static void main (String[] args) throws ParseException
-	{
-		TestHibernate.createUsers();
-		TestHibernate.loadSeance(2);
-
-	}
+	
 
 } /*----- Fin de la classe TestHibernate -----*/
