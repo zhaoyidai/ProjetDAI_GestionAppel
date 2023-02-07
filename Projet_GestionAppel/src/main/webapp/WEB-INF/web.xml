@@ -41,6 +41,38 @@
 		<servlet-name>accueil</servlet-name>
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
+<<<<<<< Updated upstream
+=======
+	<servlet>
+	<servlet-name>planning</servlet-name>
+	<jsp-file>/Planning.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>planning</servlet-name>
+		<url-pattern>/Planning</url-pattern>
+	</servlet-mapping>
+	<servlet>
+	<servlet-name>cours</servlet-name>
+	<jsp-file>/Cours.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>cours</servlet-name>
+		<url-pattern>/Cours</url-pattern>
+	</servlet-mapping>
+		 <!-- Filter definitions -->
+<servlet>
+	<servlet-name>consultation</servlet-name>
+	<jsp-file>/ConsultationJustif.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>consultation</servlet-name>
+		<url-pattern>/ConsultationJustif</url-pattern>
+	</servlet-mapping>
+
+>>>>>>> Stashed changes
 
 	
   <welcome-file-list>
