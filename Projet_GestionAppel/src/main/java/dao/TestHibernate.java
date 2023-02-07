@@ -17,7 +17,8 @@ import metier.Cours;
 
 import metier.Seance;
 import metier.Users;
-import org.apache.commons.lang3.time.DateUtils;
+
+import dao.HibernateUtil;
 import dao.TestHibernate;
 
 /**
@@ -161,7 +162,11 @@ public class TestHibernate
 //			System.out.println(u);
 //		}
 //		TestHibernate.loadEtudiant(2);
-		TestHibernate.loadEtudiantparticip(1);
+		System.out.println("test");
+		List<Users> us=UsersDao.listEtudiant(1);
+//		for(Users u:us) {
+//			System.out.println(u.getPhoto());
+//		}
 		}
 
 		
