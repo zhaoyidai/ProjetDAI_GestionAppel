@@ -17,7 +17,7 @@ import metier.Cours;
 
 import metier.Seance;
 import metier.Users;
-import org.apache.commons.lang3.time.DateUtils;
+
 import dao.HibernateUtil;
 import dao.TestHibernate;
 
@@ -116,7 +116,36 @@ public class TestHibernate
 		
 				
 	}
-	
+	public static List<Users> listEtudiant(int id){
+    	List<Users> etudiants = new ArrayList<>();
+//    	String hql = "select u.id, u.nom, u.prenom, u.formation,  " +
+//    				 "case when u.photo is null then 'img/person-icon.png' else u.photo end " +
+//    				 "from Seance s,Users u,Assister a " +
+//    				 "where s.idS = :id " +
+//    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+    	String hql = "select u " +
+				 "from Seance s,Users u,Assister a " +
+				 "where s.idS = :id " +
+				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+    	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        	Transaction transaction=session.beginTransaction();
+            Query<Users>query = session.createQuery(hql);
+            query.setParameter("id", id);
+            if (!query.getResultList().isEmpty()) {
+            	etudiants=query.list();
+            }
+            transaction.commit();
+            for(Users u:etudiants) {
+            	if(u.getPhoto() == "" || u.getPhoto()==null) {
+            		u.setPhoto("img/person-icon.png");
+            	}
+            }
+            return etudiants;
+        } catch (Exception e) {
+            System.out.println("~~Error~~"+e.getMessage());
+        }
+        return null;
+    }
 	/**
 	 * Programme de test.
 	 * @throws ParseException 
@@ -129,7 +158,12 @@ public class TestHibernate
 //		for(Users u:UsersDao.listEtudiant()) {
 //			System.out.println(u);
 //		}
-		TestHibernate.loadEtudiant(2);
+//		TestHibernate.loadEtudiant(2);
+		System.out.println("test");
+		List<Users> us=UsersDao.listEtudiant(1);
+//		for(Users u:us) {
+//			System.out.println(u.getPhoto());
+//		}
 		}
 
 		
@@ -143,16 +177,7 @@ public class TestHibernate
 
 
 
-	private static void affichage (List l)
-	{
-		System.out.println("-----");
-		l.forEach(e -> {
-			for (Object obj : (Object[])e)
-				System.out.print(obj + " ");
-			System.out.println();
-		});
-		System.out.println("-----");
-	}
+
 
 
 
