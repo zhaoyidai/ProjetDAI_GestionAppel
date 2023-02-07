@@ -18,6 +18,7 @@ import metier.Users;
 
 
 
+
 /**
  * Servlet implementation class CtrlRedirect
  */
@@ -30,6 +31,7 @@ public class CtrlRedirect extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("type_action");
+
 		
 		switch(action) {
 		case "planning":

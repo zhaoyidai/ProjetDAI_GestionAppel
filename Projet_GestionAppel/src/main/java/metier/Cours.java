@@ -48,12 +48,12 @@ public class Cours implements Serializable{
 	
 	
 	/*----- ENSEIGNER -----*/
-	@ManyToMany(mappedBy = "lescoursEnseignés")
-	private Set<Users> usersEnseignés = new HashSet(0);
+	@ManyToMany(mappedBy = "lescoursEnseignes")
+	private Set<Users> usersEnseignes = new HashSet(0);
 	
 	/*----- PARTICPER -----*/
-	@ManyToMany(mappedBy = "lescoursParticipés")
-	private Set<Users>usersParticipés = new HashSet(0);
+	@ManyToMany(mappedBy = "lescoursParticipes")
+	private Set<Users>usersParticipes = new HashSet(0);
 
 	
 	/**
@@ -81,6 +81,22 @@ public class Cours implements Serializable{
 		this.nomC = nomC;
 	}
 
+	public Set<Users> getUsersEnseignes() {
+		return usersEnseignes;
+	}
+
+	public void setUsersEnseignes(Set<Users> usersEnseignes) {
+		this.usersEnseignes = usersEnseignes;
+	}
+
+	public Set<Users> getUsersParticipes() {
+		return usersParticipes;
+	}
+
+	public void setUsersParticipes(Set<Users> usersParticipes) {
+		this.usersParticipes = usersParticipes;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idC);
@@ -100,8 +116,8 @@ public class Cours implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cours [idC=" + idC + ", nomC=" + nomC + ", seance=" + seance + ", usersEnseignés=" + usersEnseignés
-				+ ", usersParticipés=" + usersParticipés + "]";
+		return "Cours [idC=" + idC + ", nomC=" + nomC + ", seance=" + seance + ", usersEnseignes=" + usersEnseignes
+				+ ", usersParticipes=" + usersParticipes + "]";
 	}
 	
 	

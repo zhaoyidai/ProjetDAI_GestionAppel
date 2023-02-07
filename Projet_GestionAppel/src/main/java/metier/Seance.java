@@ -34,10 +34,10 @@ public class Seance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idSeance")
 	private int idS;
-	
-	@Column(name="DuréeSeance")
-	private int duréeS;
-	
+
+	@Column(name="DureeSeance")
+	private int dureeS;
+
 	@Column(name="DateSeance")
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dateSeance;
@@ -45,21 +45,21 @@ public class Seance implements Serializable {
 	@Column(name="HeureDebut")
 	@Temporal(javax.persistence.TemporalType.TIME)
 	private Date heureDebut;
-	 
+
 	@Enumerated(EnumType.STRING)
 	@Column(name="StatutFicheAppel")
 	private FicheAppelEtat StatutFicheAppel;
-	
+
 	/**
 	 * Relations.
 	 */
-	
+
 	/*----- DONNER -----*/
 	@ManyToOne(fetch =  FetchType.EAGER)
 	@JoinColumn(name="CodeUsers")
 	private Users usersSeance;
 
-	
+
 	public Users getUsersSeance() {
 		return usersSeance;
 	}
@@ -80,29 +80,41 @@ public class Seance implements Serializable {
 	public void setCoursSeance(Cours coursSeance) {
 		this.coursSeance = coursSeance;
 	}
-	
+
 	/*----- ASSISTER -----*/
 	@OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
 	@MapKeyJoinColumn(name = "CodeUsers", updatable = false, insertable = false)
 	private Map<Users,Assister> assister = new HashMap(0);
-	
+
 	/**
 	 * Constructeurs.
 	 */
-	
-		
+
+
 
 	public Seance() {}
 	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,
 			Users usersSeance, Cours coursSeance) {
 		super();
 		this.idS = idS;
-		this.duréeS = duréeS;
+		this.dureeS = dureeS;
 		this.dateSeance = dateSeance;
 		this.heureDebut = heureDebut;
+		this.usersSeance=u;
 		StatutFicheAppel = statutFicheAppel;
 		this.usersSeance = usersSeance;
 		this.coursSeance = coursSeance;
+	}
+
+	public void addAssister(Assister a,Users s) {
+		this.assister.put(s, a);
+	}
+	public Map<Users, Assister> getAssister() {
+		return assister;
+	}
+
+	public void setAssister(Map<Users, Assister> assister) {
+		this.assister = assister;
 	}
 
 	public int getIdS() {
@@ -113,12 +125,12 @@ public class Seance implements Serializable {
 		this.idS = idS;
 	}
 
-	public int getDuréeS() {
-		return duréeS;
+	public int getDureeS() {
+		return dureeS;
 	}
 
-	public void setDuréeS(int duréeS) {
-		this.duréeS = duréeS;
+	public void setDureeS(int dureeS) {
+		this.dureeS = dureeS;
 	}
 
 	public Date getDateSeance() {
@@ -164,12 +176,12 @@ public class Seance implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Seance [idS=" + idS + ", duréeS=" + duréeS + ", dateSeance=" + dateSeance + ", heureDebut=" + heureDebut
+		return "Seance [idS=" + idS + ", dureeS=" + dureeS + ", dateSeance=" + dateSeance + ", heureDebut=" + heureDebut
 				+ ", StatutFicheAppel=" + StatutFicheAppel + ", usersSeance=" + usersSeance + ", coursSeance="
 				+ coursSeance + ", assister=" + assister + "]";
 	}
 
 
-	
-	
+
+
 }

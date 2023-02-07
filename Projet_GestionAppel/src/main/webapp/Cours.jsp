@@ -1,8 +1,6 @@
 <%@page import="enumtype.Statut"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="metier.Users"%>
-<%@page import="dao.UsersDao"%>
-<%@page import="dao.TestHibernate"%>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page pageEncoding="UTF-8"%>
@@ -31,19 +29,21 @@
 
 <table border ="1">
 	<tr>
-		<td>Photo</td><td>Numéro_étudiant</td><td>Prénom</td><td>Nom</td><td>Formation</td><td>Modifier</td>
+		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Présent</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
 	</tr>
 <% 
-
-		UsersDao usersDao = new UsersDao();
-		List<Users> listeEtudiant = usersDao.listEtudiant();
+	
+		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
 		
-	for(Users us : listeEtudiant)
-
-	out.println("<tr><td>" + us.getPhoto() + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td></td></tr>");
+	for(Users us : listeEtudiant){
+		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox'>" + "</td><td>" + "<input type='time'>"+"</td><td>" + "<input type='checkbox'>"+"</td><td>" + "<input type='text'>"+" </td></tr>");
+		
+		/*  out.println(us.toString()); */
+	}
+		
 %>	
-		
-</table>
+</table>		
+
 
 
 

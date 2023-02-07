@@ -59,6 +59,11 @@ public class Justificatif implements Serializable {
 	}
 	
 	
+	public Justificatif() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Constructeurs.
 	 */
