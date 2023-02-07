@@ -172,8 +172,11 @@ svg {
   overflow: hidden;
   vertical-align: middle; }
 
-table {
-  border-collapse: collapse; }
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
 
 caption {
   padding-top: 0.75rem;
@@ -8346,3 +8349,4 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #fbceb5;
         color: #fff; }
+

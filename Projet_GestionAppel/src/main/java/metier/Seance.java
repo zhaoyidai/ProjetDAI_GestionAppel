@@ -89,16 +89,28 @@ public class Seance implements Serializable {
 	/**
 	 * Constructeurs.
 	 */
-	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel) {
+	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,Users u) {
 		super();
 		this.idS = idS;
 		this.duréeS = duréeS;
 		this.dateSeance = dateSeance;
 		this.heureDebut = heureDebut;
+		this.usersSeance=u;
 		StatutFicheAppel = statutFicheAppel;
 	}
 		
+	public void addAssister(Assister a,Users s) {
+		this.assister.put(s, a);
+	}
+	public Map<Users, Assister> getAssister() {
+		return assister;
+	}
 
+	public void setAssister(Map<Users, Assister> assister) {
+		this.assister = assister;
+	}
+
+	public Seance() {}
 	public int getIdS() {
 		return idS;
 	}
