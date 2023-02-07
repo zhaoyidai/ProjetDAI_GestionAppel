@@ -56,9 +56,14 @@ public class UsersDao extends DAO<Users> {
     	List<Users> etudiants = new ArrayList<>();
     	String hql = "select u " +
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 "from Seance s,Users u,Assister a " +
                 "where s.idS = :id " +
                 "and s.idS = a.seance.idS and a.users.id=u.id ";
+=======
+                "from Seance s,Cours c " +
+                " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
+>>>>>>> Stashed changes
 =======
                 "from Seance s,Cours c " +
                 " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";

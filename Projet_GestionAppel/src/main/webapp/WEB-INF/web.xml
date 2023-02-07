@@ -42,7 +42,10 @@
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	<servlet>
 	<servlet-name>planning</servlet-name>
 	<jsp-file>/Planning.jsp</jsp-file>
