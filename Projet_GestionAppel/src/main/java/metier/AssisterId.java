@@ -20,6 +20,11 @@ public class AssisterId  implements Serializable{
 
 	@Column(name = "CodeSeance")
 	private int codeSeance;
+	
+	public AssisterId() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public AssisterId(int codeUsers, int codeSeance) {
 		super();

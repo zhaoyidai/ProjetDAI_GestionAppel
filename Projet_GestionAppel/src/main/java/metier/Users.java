@@ -87,14 +87,14 @@ public class Users implements Serializable {
 	@JoinTable(name = "Enseigner",
 	joinColumns = @JoinColumn(name = "CodeUsers"),
 	inverseJoinColumns = @JoinColumn(name = "CodeCours"))
-	private Set<Cours>lescoursEnseignés = new HashSet(0);
+	private Set<Cours>lescoursEnseignes = new HashSet(0);
 
 	/*----- PARTICIPER -----*/
 	@ManyToMany
 	@JoinTable(name = "Participer",
 	joinColumns = @JoinColumn(name = "CodeUsers"),
 	inverseJoinColumns = @JoinColumn(name = "CodeCours"))
-	private Set<Cours>lescoursParticipés = new HashSet(0);
+	private Set<Cours>lescoursParticipes = new HashSet(0);
 
 	/*----- ASSISTER -----*/
 	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
@@ -132,7 +132,7 @@ public class Users implements Serializable {
 	}
 
 	/**
-	 * Méthodes.
+	 * Methodes.
 	 */
 	
 	public void addAssister(Assister a,Seance s) {

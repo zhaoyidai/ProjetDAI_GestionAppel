@@ -35,8 +35,8 @@ public class Seance implements Serializable {
 	@Column(name="idSeance")
 	private int idS;
 	
-	@Column(name="DuréeSeance")
-	private int duréeS;
+	@Column(name="DureeSeance")
+	private int dureeS;
 	
 	@Column(name="DateSeance")
 	@Temporal(javax.persistence.TemporalType.DATE)
@@ -89,10 +89,10 @@ public class Seance implements Serializable {
 	/**
 	 * Constructeurs.
 	 */
-	public Seance(int idS, int duréeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,Users u) {
+	public Seance(int idS, int dureeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,Users u) {
 		super();
 		this.idS = idS;
-		this.duréeS = duréeS;
+		this.dureeS = dureeS;
 		this.dateSeance = dateSeance;
 		this.heureDebut = heureDebut;
 		this.usersSeance=u;
@@ -119,12 +119,12 @@ public class Seance implements Serializable {
 		this.idS = idS;
 	}
 
-	public int getDuréeS() {
-		return duréeS;
+	public int getDureeS() {
+		return dureeS;
 	}
 
-	public void setDuréeS(int duréeS) {
-		this.duréeS = duréeS;
+	public void setDureeS(int dureeS) {
+		this.dureeS = dureeS;
 	}
 
 	public Date getDateSeance() {
@@ -170,7 +170,7 @@ public class Seance implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Seance [idS=" + idS + ", duréeS=" + duréeS + ", dateSeance=" + dateSeance + ", heureDebut=" + heureDebut
+		return "Seance [idS=" + idS + ", dureeS=" + dureeS + ", dateSeance=" + dateSeance + ", heureDebut=" + heureDebut
 				+ ", StatutFicheAppel=" + StatutFicheAppel + ", usersSeance=" + usersSeance + ", coursSeance="
 				+ coursSeance + ", assister=" + assister + "]";
 	}

@@ -17,7 +17,7 @@ import metier.Cours;
 
 import metier.Seance;
 import metier.Users;
-import org.apache.commons.lang3.time.DateUtils;
+
 import dao.HibernateUtil;
 import dao.TestHibernate;
 
@@ -117,23 +117,75 @@ public class TestHibernate
 				
 	}
 	
+	public static List<Users> loadEtudiantparticip(int id) {
+		List<Users> etudiants=new ArrayList<>();
+		String hql = "select u " +
+                "from Seance s,Cours c " +
+                " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
+		
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        	Transaction transaction=session.beginTransaction();
+            Query<Users>query = session.createQuery(hql);
+            query.setParameter("id", id);
+            
+            if (!query.getResultList().isEmpty()) {
+            	etudiants=query.list();
+            	for(Users s:query.list()) {
+            		System.out.println(s.getId());
+            	}
+
+            	}
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+		return etudiants;		
+			
+
+			
+		
+				
+	}
+	
 	/**
 	 * Programme de test.
 	 * @throws ParseException 
 	 */
 	public static void main (String[] args) throws ParseException
 		{
+//		System.out.println("test");
 //		TestHibernate.loadSeanceMap(3);
 //		TestHibernate.createUsers();
 //		TestHibernate.loadSeance(3);
 //		for(Users u:UsersDao.listEtudiant()) {
 //			System.out.println(u);
 //		}
-		TestHibernate.loadEtudiant(2);
+//		TestHibernate.loadEtudiant(2);
+		System.out.println("test");
+		List<Users> us=UsersDao.listEtudiant(1);
+//		for(Users u:us) {
+//			System.out.println(u.getPhoto());
+//		}
 		}
 
 		
+	public static void afficheEtu(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			Transaction t= session.beginTransaction();
+			
+			Seance e=session.get(Seance.class, id);
+			Cours c=e.getCoursSeance();
+			System.out.println(c.getNomC());
+			for(Object s:c.getUsersParticipes().toArray()) {
+				Users u=(Users)s;
+				System.out.println(u.getEmail());
+			}
+			t.commit();
 
+			}
+		
+	}
 
 
 
@@ -143,17 +195,7 @@ public class TestHibernate
 
 
 
-	private static void affichage (List l)
-	{
-		System.out.println("-----");
-		l.forEach(e -> {
-			for (Object obj : (Object[])e)
-				System.out.print(obj + " ");
-			System.out.println();
-		});
-		System.out.println("-----");
-	}
-
+	
 
 
 	/**

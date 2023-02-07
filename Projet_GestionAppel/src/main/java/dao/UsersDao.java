@@ -3,7 +3,8 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -54,10 +55,16 @@ public class UsersDao extends DAO<Users> {
     }
     public static List<Users> listEtudiant(int id){
     	List<Users> etudiants = new ArrayList<>();
+//    	String hql = "select u.id, u.nom, u.prenom, u.formation,  " +
+//    				 "case when u.photo is null then 'img/person-icon.png' else u.photo end " +
+//    				 "from Seance s,Users u,Assister a " +
+//    				 "where s.idS = :id " +
+//    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
     	String hql = "select u " +
-                "from Seance s,Users u,Assister a " +
-                "where s.idS = :id " +
-                "and s.idS = a.seance.idS and a.users.id=u.id ";
+				 "from Seance s,Users u,Assister a " +
+				 "where s.idS = :id " +
+				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+
     	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
         	Transaction transaction=session.beginTransaction();
             Query<Users>query = session.createQuery(hql);
@@ -66,6 +73,17 @@ public class UsersDao extends DAO<Users> {
             	etudiants=query.list();
             }
             transaction.commit();
+            for(Users u:etudiants) {
+            	Pattern pattern = Pattern.compile("img", Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(u.getPhoto());
+                boolean matchFound = matcher.find();
+                if(!matchFound) {
+                  
+            		u.setPhoto("img/person-icon.png");
+//            		System.out.println("test");
+            	}
+            	System.out.println(u.getPhoto());
+            }
             return etudiants;
         } catch (Exception e) {
             System.out.println("~~Error~~"+e.getMessage());
