@@ -37,7 +37,7 @@
 		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
 		
 	for(Users us : listeEtudiant){
-		out.println("<tr><td>" + us.getPhoto() + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox'>" + "</td><td>" + "<input type='time'>"+"</td><td>" + "<input type='checkbox'>"+"</td><td>" + "<input type='text'>"+" </td></tr>");
+		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox'>" + "</td><td>" + "<input type='time'>"+"</td><td>" + "<input type='checkbox'>"+"</td><td>" + "<input type='text'>"+" </td></tr>");
 		
 		/*  out.println(us.toString()); */
 	}
