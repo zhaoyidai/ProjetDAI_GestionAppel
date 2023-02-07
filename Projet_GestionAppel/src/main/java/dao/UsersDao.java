@@ -61,9 +61,15 @@ public class UsersDao extends DAO<Users> {
 //    				 "where s.idS = :id " +
 //    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
     	String hql = "select u " +
+<<<<<<< HEAD
 				 "from Seance s,Users u,Assister a " +
 				 "where s.idS = :id " +
 				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+=======
+                "from Seance s,Users u,Assister a " +
+                "where s.idS = :id " +
+                "and s.idS = a.seance.idS and a.users.id=u.id ";
+>>>>>>> parent of ed8e56d (up)
     	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
         	Transaction transaction=session.beginTransaction();
             Query<Users>query = session.createQuery(hql);
