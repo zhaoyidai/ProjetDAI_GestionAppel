@@ -55,9 +55,10 @@ public class UsersDao extends DAO<Users> {
     public static List<Users> listEtudiant(int id){
     	List<Users> etudiants = new ArrayList<>();
     	String hql = "select u " +
-                "from Seance s,Users u,Assister a " +
-                "where s.idS = :id " +
-                "and s.idS = a.seance.idS and a.users.id=u.id ";
+    				 "case when u.photo = '' then 'img/person-icon.png' else u.photo end " +
+    				 "from Seance s,Users u,Assister a " +
+    				 "where s.idS = :id " +
+    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
     	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
         	Transaction transaction=session.beginTransaction();
             Query<Users>query = session.createQuery(hql);
