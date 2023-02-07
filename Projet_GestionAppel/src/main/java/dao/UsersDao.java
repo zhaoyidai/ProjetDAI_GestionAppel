@@ -62,9 +62,15 @@ public class UsersDao extends DAO<Users> {
 //    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
     	String hql = "select u " +
 <<<<<<< HEAD
+<<<<<<< HEAD
 				 "from Seance s,Users u,Assister a " +
 				 "where s.idS = :id " +
 				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+=======
+                "from Seance s,Users u,Assister a " +
+                "where s.idS = :id " +
+                "and s.idS = a.seance.idS and a.users.id=u.id ";
+>>>>>>> parent of ed8e56d (up)
 =======
                 "from Seance s,Users u,Assister a " +
                 "where s.idS = :id " +
