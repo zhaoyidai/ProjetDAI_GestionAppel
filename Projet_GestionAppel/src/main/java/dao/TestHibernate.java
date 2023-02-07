@@ -116,42 +116,45 @@ public class TestHibernate
 		
 				
 	}
-	public static List<Users> listEtudiant(int id){
-    	List<Users> etudiants = new ArrayList<>();
-//    	String hql = "select u.id, u.nom, u.prenom, u.formation,  " +
-//    				 "case when u.photo is null then 'img/person-icon.png' else u.photo end " +
-//    				 "from Seance s,Users u,Assister a " +
-//    				 "where s.idS = :id " +
-//    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
-    	String hql = "select u " +
-				 "from Seance s,Users u,Assister a " +
-				 "where s.idS = :id " +
-				 "and s.idS = a.seance.idS and a.users.id=u.id ";
-    	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+	
+	public static List<Users> loadEtudiantparticip(int id) {
+		List<Users> etudiants=new ArrayList<>();
+		String hql = "select u " +
+                "from Seance s,Cours c " +
+                " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
+		
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
         	Transaction transaction=session.beginTransaction();
             Query<Users>query = session.createQuery(hql);
             query.setParameter("id", id);
+            
             if (!query.getResultList().isEmpty()) {
             	etudiants=query.list();
-            }
-            transaction.commit();
-            for(Users u:etudiants) {
-            	if(u.getPhoto() == "" || u.getPhoto()==null) {
-            		u.setPhoto("img/person-icon.png");
+            	for(Users s:query.list()) {
+            		System.out.println(s.getId());
             	}
-            }
-            return etudiants;
+
+            	}
+            transaction.commit();
         } catch (Exception e) {
-            System.out.println("~~Error~~"+e.getMessage());
+            e.printStackTrace();
         }
-        return null;
-    }
+        
+		return etudiants;		
+			
+
+			
+		
+				
+	}
+	
 	/**
 	 * Programme de test.
 	 * @throws ParseException 
 	 */
 	public static void main (String[] args) throws ParseException
 		{
+//		System.out.println("test");
 //		TestHibernate.loadSeanceMap(3);
 //		TestHibernate.createUsers();
 //		TestHibernate.loadSeance(3);
@@ -167,7 +170,22 @@ public class TestHibernate
 		}
 
 		
+	public static void afficheEtu(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			Transaction t= session.beginTransaction();
+			
+			Seance e=session.get(Seance.class, id);
+			Cours c=e.getCoursSeance();
+			System.out.println(c.getNomC());
+			for(Object s:c.getUsersParticipes().toArray()) {
+				Users u=(Users)s;
+				System.out.println(u.getEmail());
+			}
+			t.commit();
 
+			}
+		
+	}
 
 
 
@@ -177,8 +195,7 @@ public class TestHibernate
 
 
 
-
-
+	
 
 
 	/**
