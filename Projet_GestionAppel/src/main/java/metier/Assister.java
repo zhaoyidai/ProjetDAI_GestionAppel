@@ -16,7 +16,7 @@ import enumtype.AppelEtat;
 public class Assister {
 
 	/**
-	 * Propriétés.
+	 * Proprietes.
 	 */
 	@EmbeddedId
 	private AssisterId id;
@@ -31,13 +31,18 @@ public class Assister {
 
 	/*----- Assister vers users -----*/
 	@ManyToOne
-	@JoinColumn(name = "CodeUsers", insertable = false, updatable = false)	// "insertable" et "updatable" sont à "false" pour éviter la persistance.
-	private Users users;												// Dans ce cas, le propriétaire de la relation est la collection côté @OneToMany.
+	@JoinColumn(name = "CodeUsers", insertable = false, updatable = false)	// "insertable" et "updatable" sont à "false" pour eviter la persistance.
+	private Users users;												// Dans ce cas, le proprietaire de la relation est la collection côte @OneToMany.
 
 	/*----- Assister vers seance -----*/
 	@ManyToOne
     @JoinColumn(name = "CodeSeance", insertable = false, updatable = false)
 	private Seance seance;
+	
+	public Assister() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Assister(AssisterId id, AppelEtat status, Users users, Seance seance) {
 		super();
