@@ -103,6 +103,22 @@ public class Cours implements Serializable{
 		return "Cours [idC=" + idC + ", nomC=" + nomC + ", seance=" + seance + ", usersEnseignés=" + usersEnseignés
 				+ ", usersParticipés=" + usersParticipés + "]";
 	}
+
+	public Set<Users> getUsersEnseignés() {
+		return usersEnseignés;
+	}
+
+	public void setUsersEnseignés(Set<Users> usersEnseignés) {
+		this.usersEnseignés = usersEnseignés;
+	}
+
+	public Set<Users> getUsersParticipés() {
+		return usersParticipés;
+	}
+
+	public void setUsersParticipés(Set<Users> usersParticipés) {
+		this.usersParticipés = usersParticipés;
+	}
 	
 	
 }

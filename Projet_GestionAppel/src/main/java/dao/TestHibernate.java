@@ -16,6 +16,7 @@ import enumtype.Statut;
 import metier.Cours;
 
 import metier.Seance;
+
 import metier.Users;
 import org.apache.commons.lang3.time.DateUtils;
 import dao.HibernateUtil;
@@ -72,9 +73,9 @@ public class TestHibernate
 
 			if (!query.getResultList().isEmpty()) {
 				seances=query.list();
-//	            	for(Seance s:query.list()) {
-//	            		System.out.println(s.getIdS()+" "+s.getDuréeS());
-//	            	}
+	            	for(Seance s:query.list()) {
+	            		System.out.println(s.getIdS()+" "+s.getDuréeS());
+	            	}
 
 	            	}
 	            transaction.commit();
@@ -117,30 +118,27 @@ public class TestHibernate
 				
 	}
 	
-	/**
-	 * Programme de test.
-	 * @throws ParseException 
-	 */
-	public static void main (String[] args) throws ParseException
-		{
-//		TestHibernate.loadSeanceMap(3);
-//		TestHibernate.createUsers();
-//		TestHibernate.loadSeance(3);
-//		for(Users u:UsersDao.listEtudiant()) {
-//			System.out.println(u);
-//		}
-		TestHibernate.loadEtudiant(2);
-		}
+	
+	public static void afficheEtu(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			Transaction t= session.beginTransaction();
+			
+			Seance e=session.get(Seance.class, id);
+			Cours c=e.getCoursSeance();
+			System.out.println(c.getNomC());
+			for(Object s:c.getUsersParticipés().toArray()) {
+				Users u=(Users)s;
+				System.out.println(u.getEmail());
+			}
+			t.commit();
 
-		return seances;
-
-
-
-
-
-
+			}
+		
 	}
-
+	
+	
+	
+	
 
 
 	private static void affichage (List l)
@@ -153,18 +151,23 @@ public class TestHibernate
 		});
 		System.out.println("-----");
 	}
-
-
-
-	/**
+/**
 	 * Programme de test.
-	 * @throws ParseException
+	 * @throws ParseException 
 	 */
 	public static void main (String[] args) throws ParseException
-	{
-		TestHibernate.createUsers();
-		TestHibernate.loadSeance(2);
-
+		{
+		System.out.println("test");
+//		TestHibernate.loadSeanceMap(3);
+//		TestHibernate.createUsers();
+//		TestHibernate.loadSeance(3);
+//		for(Users u:UsersDao.listEtudiant(2)) {
+//			System.out.println(u);
+//		}
+//		TestHibernate.loadEtudiant(2);
+		TestHibernate.afficheEtu(2);
+		
 	}
+	
+}
 
-} /*----- Fin de la classe TestHibernate -----*/

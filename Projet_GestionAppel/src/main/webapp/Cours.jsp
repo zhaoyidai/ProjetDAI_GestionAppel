@@ -47,7 +47,7 @@
 
 
 
-<a href="Accueil.jsp">Retour</a>
+<a href="Accueil">Retour</a>
 
 </body>
 </html>

@@ -74,24 +74,7 @@ public class UsersDao extends DAO<Users> {
     }
 
 
-    // méthode permettant d'avoir la liste des étudiants
-    public List<Users> listEtudiant(){
-    	List<Users> etudiants = new ArrayList<>();
-    	String hql = "select u " +
-                "from Users u " +
-                "where u.statut LIKE 'ETUDIANT' ";
-        try (Session session = getSession()) {
-        	Transaction transaction=getTransaction(session);
-            Query<Users>query = session.createQuery(hql);
-            if (!query.getResultList().isEmpty()) {
-            	etudiants=query.list();
-            }
-            transaction.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return etudiants;
-    }
+    
 
 
 }
