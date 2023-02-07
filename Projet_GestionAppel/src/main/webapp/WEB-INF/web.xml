@@ -41,6 +41,17 @@
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+	<servlet-name>justificatif</servlet-name>
+	<jsp-file>/Justificatif.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>justificatif</servlet-name>
+		<url-pattern>/Justificatif</url-pattern>
+	</servlet-mapping>
+	
+
 	
   <welcome-file-list>
 	<welcome-file>Login</welcome-file>
