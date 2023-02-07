@@ -68,8 +68,7 @@
 								href="/compte/formation"><i class="fas fa-home"></i><span>Récapitulaif
 										alternance</span></a></li>
 							<li class="nav-item"><a class="nav-link "
-								href="/compte/scolarite-justificatif"><i
-									class="fas fa-clock"></i><span>Justificatifs</span></a></li>
+								href="ScolJustificatifController"><i"class="fas fa-clock"></i><span>Justificatifs</span></a></li>
 						</c:when>
 					</c:choose>
 				</ul>

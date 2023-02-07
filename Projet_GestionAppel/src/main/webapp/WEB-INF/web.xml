@@ -25,9 +25,27 @@
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
 		 <!-- Filter definitions -->
+<servlet>
+	<servlet-name>consultation</servlet-name>
+	<jsp-file>/ConsultationJustif.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>consultation</servlet-name>
+		<url-pattern>/ConsultationJustif</url-pattern>
+	</servlet-mapping>
+
 
 	
   <welcome-file-list>
 	<welcome-file>Login</welcome-file>
 	</welcome-file-list>
 </web-app>
+
+ 	
+
+	
+
+
+
+	
