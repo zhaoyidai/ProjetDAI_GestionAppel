@@ -44,7 +44,7 @@
 %>	
 </table>		
 
-
+<a href="CtrlValiderFiche?ids=${param.idSeance }"><button>Valider</button></a>
 
 
 <a href="Accueil.jsp">Retour</a>

@@ -80,6 +80,7 @@
 						</button>
 					</form>
 				</div>
+				<div>${requestScope.msg_info}</div>
 			</div>
 		</nav>
 		<footer class="bg-white sticky-footer">

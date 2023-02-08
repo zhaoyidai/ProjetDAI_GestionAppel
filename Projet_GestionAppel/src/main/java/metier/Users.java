@@ -57,7 +57,7 @@ public class Users implements Serializable {
 	 */
 
 	/*----- DEPOSER -----*/
-	@OneToMany(mappedBy="usersJustificatif",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="usersJustificatif",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Justificatif>justificatifs = new HashSet<>();
 
 	public Set<Justificatif> getJustificatifs() {
@@ -70,7 +70,7 @@ public class Users implements Serializable {
 
 
 	/*----- DONNER -----*/
-	@OneToMany(mappedBy="usersSeance",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="usersSeance",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Seance>seances = new HashSet<>();
 
 	public Set<Seance> getSeances() {

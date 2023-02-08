@@ -26,7 +26,8 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HashMap<String, String> erreurs = new HashMap<>();
-
+//		String msg = request.getParameter("msg_info");
+        
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
@@ -45,6 +46,7 @@ public class LoginController extends HttpServlet {
 					request.setAttribute("generale_error", "Email ou mot de passe incorrect ! Veuillez réessayer !");
 					request.getRequestDispatcher("Login").forward(request, response);
 				} else {
+//					request.setAttribute("msg_info", "msg");
 					request.getSession().setAttribute("auth", usersId);
 					request.getSession().setAttribute("id", usersId.getId());
 					request.getSession().setAttribute("email", usersId.getEmail());
