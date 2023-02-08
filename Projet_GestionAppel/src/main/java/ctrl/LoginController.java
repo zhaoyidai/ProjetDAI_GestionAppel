@@ -40,8 +40,8 @@ public class LoginController extends HttpServlet {
 
 		if (erreurs.isEmpty()) {
 			try {
-				UsersDao usersDao = new UsersDao();
-				Users usersId = usersDao.loginUtilisateur(email, password);
+				
+				Users usersId = UsersDao.loginUtilisateur(email, password);
 				if (usersId == null) {
 					request.setAttribute("generale_error", "Email ou mot de passe incorrect ! Veuillez réessayer !");
 					request.getRequestDispatcher("Login").forward(request, response);

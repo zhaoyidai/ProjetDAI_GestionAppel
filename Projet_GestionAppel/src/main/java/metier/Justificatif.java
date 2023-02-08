@@ -67,6 +67,18 @@ public class Justificatif implements Serializable {
 	/**
 	 * Constructeurs.
 	 */
+
+	public Justificatif(boolean validation, String url, Date dateDeb, Date dateFin,
+			Users usersJustificatif) {
+		super();
+		this.validation = validation;
+		this.url = url;
+		this.dateDeb = dateDeb;
+		this.dateFin = dateFin;
+		this.usersJustificatif = usersJustificatif;
+	}
+	
+	
 	public Justificatif(int codeJust, boolean validation, String url, Date dateDeb, Date dateFin,
 			Users usersJustificatif) {
 		super();

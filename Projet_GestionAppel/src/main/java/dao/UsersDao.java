@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+import metier.Seance;
 import metier.Users;
 
 public class UsersDao extends DAO<Users> {
@@ -19,14 +20,14 @@ public class UsersDao extends DAO<Users> {
     }
    
 
-    public Users loginUtilisateur(String email, String pwd) {
+    public static Users loginUtilisateur(String email, String pwd) {
         Users users = null;
     	String hql = "select u " +
                 "from Users u " +
                 "where u.email = :email " +
                 "and u.password = :password ";
-        try (Session session = getSession()) {
-        	Transaction transaction=getTransaction(session);
+        try (Session session = UsersDao.getSession()) {
+        	Transaction transaction=UsersDao.getTransaction(session);
             Query<Users>query = session.createQuery(hql);
             query.setParameter("email", email);
             query.setParameter("password", pwd);
@@ -125,4 +126,26 @@ public class UsersDao extends DAO<Users> {
 //    }
 
 
+    // méthode permettant d'avoir la liste des seances a laquelle l'utilisateur est absent.
+    public List<Seance> listAbsencesEtudiant(String id){
+    	List<Seance> seances = new ArrayList<>();
+    	String hql = "select s , c " +
+                "from Users u , Seance s , Cours c, Assister a" +
+                "where u.id = a.users "+
+                "and s.idS = a.seance "+
+                "and c.idC = s.coursSeance"+
+                "and a.statut LIKE 'ABSENCE' "+
+                "and u.id = :id ";
+        try (Session session = getSession()) {
+        	Transaction transaction=getTransaction(session);
+            Query<Seance>query = session.createQuery(hql);
+            if (!query.getResultList().isEmpty()) {
+            	seances=query.list();
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return seances;
+    }
 }

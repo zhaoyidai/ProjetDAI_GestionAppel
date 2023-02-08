@@ -49,8 +49,8 @@ public class TestHibernate
 			
 			Cours c1 = new Cours(1, "Anglais");
 			session.save(c1);
-			Seance s1 = new Seance(1 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 08:00:00") , FicheAppelEtat.EN_ATTENTE,e2);
-			Seance s2 = new Seance(1 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 14:00:00") , FicheAppelEtat.EN_ATTENTE,e2);
+			Seance s1 = new Seance(1 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 08:00:00") , FicheAppelEtat.EN_ATTENTE,e2,c1);
+			Seance s2 = new Seance(2 , 3 , DFDATE.parse("02-02-2021"), DF.parse("02-02-2021 14:00:00") , FicheAppelEtat.EN_ATTENTE,e2, c1);
 //			
 			
 			
@@ -168,7 +168,7 @@ public class TestHibernate
 //		for(Users u:UsersDao.listEtudiant()) {
 //			System.out.println(u);
 //		}
-		TestHibernate.loadEtudiant(1);
+//		TestHibernate.loadEtudiant(1);
 //		System.out.println("test");
 //		List<Users> us=UsersDao.listEtudiant(1);
 //		for(Users u:us) {
@@ -178,6 +178,7 @@ public class TestHibernate
 //		TestHibernate.insertAssister(2);
 //		loadEtudiantparticip(2);
 //		TestHibernate.validerFiche(2);
+		TestHibernate.changerStatusEtu(3, 3, AppelEtat.ABSENCE);
 		}
 
 		
@@ -251,6 +252,20 @@ public class TestHibernate
 			session.save(s);
 			s.setStatutFicheAppel(FicheAppelEtat.VALIDER);
 			session.update(s);
+			t.commit();
+			}
+	}
+	
+	public static void changerStatusEtu(int idu,int ids,AppelEtat a) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, idu);
+			AssisterId ai=new AssisterId(idu,ids);
+			Assister assi=session.get(Assister.class, ai);
+			assi.setStatus(a);
+			session.update(assi);
 			t.commit();
 			}
 	}

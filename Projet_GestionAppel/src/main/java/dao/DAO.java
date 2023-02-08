@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class DAO<T> {
 
-    private final SessionFactory SESSION_FACTORY = HibernateUtil.getSessionFactory();
+    private final static SessionFactory SESSION_FACTORY = HibernateUtil.getSessionFactory();
     private Class<T> entity;
 
     /**
@@ -28,7 +28,7 @@ public abstract class DAO<T> {
     /**
      * @return Un objet de type Session
      */
-    protected final Session getSession() {
+    protected final static Session getSession() {
         Session session = null;
         try {
             session = SESSION_FACTORY.getCurrentSession();
@@ -45,7 +45,7 @@ public abstract class DAO<T> {
      * @param session L'objet Session
      * @return Un objet de type Transaction
      */
-    protected final Transaction getTransaction(Session session) {
+    protected final static Transaction getTransaction(Session session) {
         Transaction transaction = session.getTransaction();
         if (!TransactionStatus.ACTIVE.equals(transaction.getStatus())) {
             transaction = session.beginTransaction();

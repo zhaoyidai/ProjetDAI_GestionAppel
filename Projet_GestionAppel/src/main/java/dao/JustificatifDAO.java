@@ -1,8 +1,15 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
-
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,8 +35,8 @@ public class JustificatifDAO extends DAO<Justificatif> {
 
 		ArrayList<Justificatif> listeJustif = new ArrayList<>();
 		String hql = "select j " +
-				"from Justificatif j,Users u" +
-				"where j.id = u.id ";
+				"from Justificatif j,Users u " +
+				"where j.usersJustificatif.id = u.id ";
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -49,5 +56,25 @@ public class JustificatifDAO extends DAO<Justificatif> {
 }
 
 	
-
+	
+	/*
+	 * 	Méthode qui permet de retourner la liste des justificatifs 
+	 */
+	public void createJustificatif (Date dateDebut, Date dateFin, String Url, boolean validation, Users  users) {
+		/*----- Ouverture de la session -----*/
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+			{
+			/*----- Ouverture d'une transaction -----*/
+			Transaction t = session.beginTransaction();
+			System.out.println(Url);
+			Justificatif j1 = new Justificatif(validation,Url,dateDebut,dateFin,users);
+			session.save(j1);
+			t.commit();
+			session.close();
+	}
+	}
+	
+	
+	
+	 
 }

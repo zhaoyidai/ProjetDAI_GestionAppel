@@ -26,10 +26,10 @@ public class ScolJustifcatifController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
-//		 JustificatifDAO justificatifDAO = new JustificatifDAO();
-//		 ArrayList<Justificatif> justif = new ArrayList<>();
-//		 justif = justificatifDAO.loadJustificatif();
-//		 request.setAttribute("Justificatif", justif);
+		 JustificatifDAO justificatifDAO = new JustificatifDAO();
+		 ArrayList<Justificatif> justif = new ArrayList<>();
+		 justif = justificatifDAO.loadJustificatif();
+		 request.setAttribute("Justificatif", justif);
 	     request.getRequestDispatcher("ConsultationJustif").forward(request, response);
 		
 	}
