@@ -147,7 +147,7 @@ for(int i=0;i<jeudi.size();i++){
   }
 out.println("</li><li>Vendredi");
 for(int i=0;i<vendredi.size();i++){
-	Seance s=mercredi.get(i);
+	Seance s=vendredi.get(i);
 	Calendar timed=Calendar.getInstance();
 	timed.setTime(s.getHeureDebut());
 	timed.add((Calendar.HOUR), s.getDureeS());

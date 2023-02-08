@@ -175,7 +175,8 @@ public class TestHibernate
 //		}
 //		afficheEtu(1);
 //		TestHibernate.insertAssister(2);
-		TestHibernate.validerFiche(2);
+		loadEtudiantparticip(2);
+//		TestHibernate.validerFiche(2);
 		}
 
 		
