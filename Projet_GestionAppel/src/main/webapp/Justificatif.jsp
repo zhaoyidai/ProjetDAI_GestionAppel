@@ -10,21 +10,41 @@
 </head>
 <body>
  <h1>Liste des absences</h1>
- <h5>Merci de justifier vois absenses</h5>
-<%-- <%     
-	ArrayList<Seance>listeseances  = (ArrayList<Seance>) session.getAttribute("listeAbscences");
+ <h5>Merci de justifier vos absenses</h5>
+<%    
+HttpSession sessionliste = request.getSession();
+ArrayList<Seance>listeseances = (ArrayList<Seance>)sessionliste.getAttribute("listesabsences");
  						for(Seance m : listeseances){						
-%> --%>
+%> 
 
-	<table>
+	<table border=1>
 	<tr>
-	<%-- <td><%= m %></td> --%>
-	<td>
+	<td><h3>Nom : <%= m.getCoursSeance().getNomC() %></h3></td>
+	</tr>
+	<tr>
+	<td><h3>Date : <%= m.getDateSeance()%></h3></td>
+	</tr>
+	<tr>
+	<td><h3>Heure : <%= m.getHeureDebut()%></h3></td>
+	</tr>
+	<tr>
+	<td><h3>Durée : <%= m.getDureeS() %></h3></td>
+	</tr>
+	<tr>
+	<tr>
     <c:if test="${ !empty fichier }"><p><c:out value="Le fichier ${ fichier } (${ description }) a été uploadé !" /></p></c:if>
-    <form method="post" action="Test" enctype="multipart/form-data">
+    <form method="post" action="DepotFichierController?" enctype="multipart/form-data">
         <p>
             <label for="description">Description du fichier : </label>
             <input type="text" name="description" id="description" />
+        </p>
+          <p>
+            <label for="description">Dates de debut : </label>
+            <input type="date" name="debut" id="dated" />
+        </p>
+         <p>
+            <label for="description">Dates de fin : </label>
+            <input type="date" name="fin" id="datef" />
         </p>
         <p>
             <label for="fichier">Fichier à envoyer : </label>
@@ -36,9 +56,9 @@
     </td>
     </tr>
     </table>
-<%-- <%     
+ <%     
  						}
 	
-%> --%>
+%> 
 </body>
 </html>

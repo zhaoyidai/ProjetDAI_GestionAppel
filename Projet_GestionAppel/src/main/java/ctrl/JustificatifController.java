@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dao.SeanceDAO;
 import dao.UsersDao;
 import metier.Seance;
 
@@ -24,11 +26,16 @@ public class JustificatifController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		int idU =  Integer.parseInt(id);
 		
-		request.setAttribute("id", id);
 		
-		UsersDao users = new UsersDao();
-		List<Seance>seances =  users.listAbsencesEtudiant(id);
+		request.setAttribute("id", idU);
+		SeanceDAO seanceDAO = new SeanceDAO();
+		
+		HttpSession sessionliste = request.getSession();
+		List<Seance>seances =  seanceDAO.listAbsencesEtudiant(idU);
+		sessionliste.setAttribute("listesabsences", seances);
+		
 		request.setAttribute("listeAbscences", seances);
 		request.getRequestDispatcher("Justificatif").forward(request, response);
 	}

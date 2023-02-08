@@ -45,7 +45,7 @@
 				<ul class="navbar-nav text-light" id="accordionSidebar">
 					<c:choose>
 						<c:when test="${sessionScope.statut== Statut.ETUDIANT}">
-							<li class="nav-item"><a href="/compte/accueil"><i
+							<li class="nav-item"><a href="ProfilController"><i
 									class="fas fa-home"></i><span>Mon profil</span></a></li>
 							<li class="nav-item"><a href="JustificatifController?id=${sessionScope.id}"><i
 									class="fas fa-clock"></i><span>Mes Absences</span></a></li>
