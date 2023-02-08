@@ -34,10 +34,10 @@ public class Seance implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idSeance")
 	private int idS;
-	
+
 	@Column(name="DureeSeance")
 	private int dureeS;
-	
+
 	@Column(name="DateSeance")
 	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date dateSeance;
@@ -45,21 +45,21 @@ public class Seance implements Serializable {
 	@Column(name="HeureDebut")
 	@Temporal(javax.persistence.TemporalType.TIME)
 	private Date heureDebut;
-	 
+
 	@Enumerated(EnumType.STRING)
 	@Column(name="StatutFicheAppel")
 	private FicheAppelEtat StatutFicheAppel;
-	
+
 	/**
 	 * Relations.
 	 */
-	
+
 	/*----- DONNER -----*/
 	@ManyToOne(fetch =  FetchType.EAGER)
 	@JoinColumn(name="CodeUsers")
 	private Users usersSeance;
 
-	
+
 	public Users getUsersSeance() {
 		return usersSeance;
 	}
@@ -80,25 +80,33 @@ public class Seance implements Serializable {
 	public void setCoursSeance(Cours coursSeance) {
 		this.coursSeance = coursSeance;
 	}
-	
+
 	/*----- ASSISTER -----*/
 	@OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
 	@MapKeyJoinColumn(name = "CodeUsers", updatable = false, insertable = false)
 	private Map<Users,Assister> assister = new HashMap(0);
-	
+
 	/**
 	 * Constructeurs.
 	 */
-	public Seance(int idS, int dureeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,Users u) {
+
+
+
+	public Seance() {}
+
+
+	public Seance(int idS, int dureeS, Date dateSeance, Date heureDebut, FicheAppelEtat statutFicheAppel,
+			Users usersSeance, Cours coursSeance) {
 		super();
 		this.idS = idS;
 		this.dureeS = dureeS;
 		this.dateSeance = dateSeance;
 		this.heureDebut = heureDebut;
-		this.usersSeance=u;
 		StatutFicheAppel = statutFicheAppel;
+		this.usersSeance = usersSeance;
+		this.coursSeance = coursSeance;
 	}
-		
+
 	public void addAssister(Assister a,Users s) {
 		this.assister.put(s, a);
 	}
@@ -110,7 +118,6 @@ public class Seance implements Serializable {
 		this.assister = assister;
 	}
 
-	public Seance() {}
 	public int getIdS() {
 		return idS;
 	}
@@ -176,6 +183,6 @@ public class Seance implements Serializable {
 	}
 
 
-	
-	
+
+
 }

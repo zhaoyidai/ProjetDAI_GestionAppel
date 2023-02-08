@@ -121,4 +121,8 @@ public class Cours implements Serializable{
 	}
 	
 	
+	public void addSeance(Seance s) {
+		this.seance.add(s);
+	}
+	
 }
