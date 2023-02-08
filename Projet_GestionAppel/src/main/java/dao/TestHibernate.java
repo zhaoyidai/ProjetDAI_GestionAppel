@@ -10,9 +10,13 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+import enumtype.AppelEtat;
 import enumtype.FicheAppelEtat;
 import enumtype.Statut;
+import metier.Assister;
+import metier.AssisterId;
 import metier.Cours;
 
 import metier.Seance;
@@ -124,7 +128,9 @@ public class TestHibernate
                 " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-        	Transaction transaction=session.beginTransaction();
+			Transaction t = session.getTransaction();
+	        if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
             Query<Users>query = session.createQuery(hql);
             query.setParameter("id", id);
             
@@ -135,7 +141,7 @@ public class TestHibernate
             	}
 
             	}
-            transaction.commit();
+//            t.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,36 +168,91 @@ public class TestHibernate
 //			System.out.println(u);
 //		}
 //		TestHibernate.loadEtudiant(2);
-		System.out.println("test");
-		List<Users> us=UsersDao.listEtudiant(1);
+//		System.out.println("test");
+//		List<Users> us=UsersDao.listEtudiant(1);
 //		for(Users u:us) {
 //			System.out.println(u.getPhoto());
 //		}
+//		afficheEtu(1);
+//		TestHibernate.insertAssister(2);
+		loadEtudiantparticip(2);
+//		TestHibernate.validerFiche(2);
 		}
 
 		
-	public static void afficheEtu(int id) {
+	public static boolean affichestatus(int id) {
 		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
-			Transaction t= session.beginTransaction();
+			Transaction t = session.getTransaction();
+	        if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
 			
 			Seance e=session.get(Seance.class, id);
-			Cours c=e.getCoursSeance();
-			System.out.println(c.getNomC());
-			for(Object s:c.getUsersParticipes().toArray()) {
-				Users u=(Users)s;
-				System.out.println(u.getEmail());
+			
+//			t.commit();
+			if(e.getStatutFicheAppel().toString()=="EN_ATTENTE") {
+				return true;
+			}else {
+				return false;
 			}
-			t.commit();
-
+			
 			}
 		
 	}
 
 
+	public static void insertAssister(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<Users> etus=new ArrayList<>();
+			Transaction t = session.getTransaction();
+	        if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			
+			Seance s=session.get(Seance.class, id);
+//			session.save(s);
+			String hql = "select u " +
+	                "from Seance s,Cours c " +
+	                " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
+			Query<Users>query = session.createQuery(hql);
+            query.setParameter("id", id);
+            
+            if (!query.getResultList().isEmpty()) {
+            	etus=query.list();
+            	}
+//			List<Users> etus=TestHibernate.loadEtudiantparticip(id);
+			System.out.println("size : "+etus.size());
+			for(Users us:etus) {
+				System.out.println(us.getEmail());
+				AssisterId ai=new AssisterId(us.getId(),id);
+//				System.out.println(ai.getCodeSeance());
+				Assister a=new Assister(ai,AppelEtat.PRESENCE,us,s);
+//				System.out.println(ai.getCodeSeance());
+//				session.save(a);
+//				
+//				session.save(ai);
+				s.addAssister(a,us);
+//				System.out.println(ai.getCodeSeance());
+				us.addAssister(a,s);
+				
+			}
+			t.commit();
+			}
+			
+	}
 
 
-
-	
+	public static void validerFiche(int ids) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<Users> etus=new ArrayList<>();
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Seance s=session.get(Seance.class, ids);
+			session.save(s);
+			s.setStatutFicheAppel(FicheAppelEtat.VALIDER);
+			session.update(s);
+			t.commit();
+			}
+	}
 
 
 
