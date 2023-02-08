@@ -26,26 +26,18 @@
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
-	<%
 
-	%>
-<<<<<<< Updated upstream
 	<section class="clean-block clean-hero">
 		<div class="text">
-			<p>Vous êtes connecté en tant que : ${ sessionScope.prenom } ${ sessionScope.nom }
-				(${ sessionScope.statut }) !</p>
+			
 		</div>
 	</section>
-<h1>Liste des étudiants</h1>
-<form action="CtrlEnregistrer" method="get">
-<input type="text" name="idSeance" value="${param.idSeance }">
-<table id="table" border ="1">
-	<tr>
-		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
-	</tr>
-<% 
-=======
-	<!-- Page Wrapper -->
+
+
+
+
+
+
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -213,7 +205,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Accueil</h1>
+						<h1 class="h3 mb-0 text-gray-800">Liste d'appel</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Justificatifs
@@ -224,13 +216,10 @@
 					<!-- Milieu -->
 					<div class="row">
 						<section class="clean-block clean-hero">
-							<div class="text">
-								<p>Vous êtes connecté en tant que : ${ sessionScope.prenom }
-									${ sessionScope.nom } (${ sessionScope.statut }) !</p>
-							</div>
+							
 						</section>
-						<h1>Liste des étudiants</h1>
-
+<form action="CtrlEnregistrer" method="get">
+<input type="text" name="idSeance" value="${param.idSeance }">
 						<table id="table" border="1">
 							<tr>
 								<td>Photo</td>
@@ -238,13 +227,13 @@
 								<td>Nom</td>
 								<td>Prénom</td>
 								<td>Formation</td>
-								<td>Présent</td>
+								
 								<td>Retard</td>
 								<td>Absent</td>
 								<td>Commentaire</td>
 							</tr>
 							<% 
->>>>>>> Stashed changes
+
 
 		
 		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
@@ -253,24 +242,23 @@
 		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='retard'></td><td>" + "<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\"></td><td>" + "<input type='text'>"+" </td></tr>");
 		/*  out.println(us.toString()); */
 	}
-<<<<<<< Updated upstream
+
 %>	
 </table>	
-<input type="submit" value="Enregistrer">	
-</form>
+<input type="submit" value="Enregistrer">
 <a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
-=======
-%>
-						</table>
+	
+</form>
 
-						<a href="CtrlRecap?idSeance=${param.idSeance }"><button
-								id="btn_valider">Valider</button></a> <a href="Accueil.jsp">Retour</a>
+
+
+						
 					</div>
 
 					<!-- Content Row -->
 
 					<div class="row">
->>>>>>> Stashed changes
+
 
 <a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
 
