@@ -19,14 +19,14 @@ public class UsersDao extends DAO<Users> {
     }
    
 
-    public Users loginUtilisateur(String email, String pwd) {
+    public static Users loginUtilisateur(String email, String pwd) {
         Users users = null;
     	String hql = "select u " +
                 "from Users u " +
                 "where u.email = :email " +
                 "and u.password = :password ";
-        try (Session session = getSession()) {
-        	Transaction transaction=getTransaction(session);
+        try (Session session = UsersDao.getSession()) {
+        	Transaction transaction=UsersDao.getTransaction(session);
             Query<Users>query = session.createQuery(hql);
             query.setParameter("email", email);
             query.setParameter("password", pwd);
