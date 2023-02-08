@@ -12,8 +12,7 @@ public class AccueilController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "accueil");
-        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+        request.getRequestDispatcher("Accueil.jsp").forward(request, response);
     }
 
     @Override

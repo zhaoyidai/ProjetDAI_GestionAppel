@@ -54,6 +54,15 @@
 	<jsp-file>/ConsultationJustif.jsp</jsp-file>
 	</servlet>
 	
+			<servlet>
+	<servlet-name>confirmation</servlet-name>
+	<jsp-file>/Confirmation.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>confirmation</servlet-name>
+		<url-pattern>/Confirmation</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>consultation</servlet-name>
 		<url-pattern>/ConsultationJustif</url-pattern>
