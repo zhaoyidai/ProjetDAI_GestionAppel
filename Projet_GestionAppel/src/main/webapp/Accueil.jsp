@@ -51,7 +51,7 @@
 									class="fas fa-clock"></i><span>Mes Absences</span></a></li>
 						</c:when>
 						<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-							<li class="nav-item"><a href="/compte/accueil"><i
+							<li class="CtrlRedirect?type_action=accueil"><a href="/compte/accueil"><i
 									class="fas fa-home"></i><span>Accueil</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="CtrlRedirect?type_action=planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
@@ -80,6 +80,7 @@
 						</button>
 					</form>
 				</div>
+				<div>${requestScope.msg_info}</div>
 			</div>
 		</nav>
 		<footer class="bg-white sticky-footer">

@@ -27,12 +27,13 @@
 	</section>
 <h1>Liste des étudiants</h1>
 
-<table border ="1">
+<table id="table" border ="1">
 	<tr>
 		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Présent</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
 	</tr>
 <% 
-	
+
+		
 		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
 		
 	for(Users us : listeEtudiant){
@@ -41,10 +42,10 @@
 %>	
 </table>		
 
-
+<a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
 
 
 <a href="Accueil.jsp">Retour</a>
-
+<script type="text/JavaScript" src="js/fonctionjs.js"></script>
 </body>
 </html>

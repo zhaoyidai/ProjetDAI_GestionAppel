@@ -35,7 +35,7 @@ public class Cours implements Serializable{
 	 */
 	
 	/*----- APPARTENIR -----*/
-	@OneToMany(mappedBy="coursSeance",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="coursSeance",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Seance>seance = new HashSet<>();
 
 	public Set<Seance> getSeance() {

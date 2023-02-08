@@ -1,7 +1,6 @@
 package ctrl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,16 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.EtudiantPresence;
 import dao.TestHibernate;
 import dao.UsersDao;
-import metier.Seance;
 import metier.Users;
 
 /**
- * Servlet implementation class CtrlAccederFicheAppel
+ * Servlet implementation class CtrlRecap
  */
-@WebServlet("/CtrlAccederFicheAppel")
-public class CtrlAccederFicheAppel extends HttpServlet {
+@WebServlet("/CtrlRecap")
+public class CtrlRecap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -27,22 +26,18 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idSeance = request.getParameter("idSeance");
-//		List<String> emails=new ArrayList<>();
-//		for(Users u:UsersDao.listEtudiant()) {
-//			
-//		}
+
 		int ids=Integer.valueOf(idSeance);
-		List<Users> listeEtudiant=UsersDao.listEtudiant(ids,TestHibernate.affichestatus(ids));
+		List<EtudiantPresence> listeEtudiant=TestHibernate.loadEtudiant(ids);
 		if(listeEtudiant!=null) {
 			request.setAttribute("idSeance",idSeance);
 			
 			request.setAttribute("listeEtudiant", listeEtudiant);
-			request.getRequestDispatcher("Cours").forward(request, response);
+			request.getRequestDispatcher("Recap").forward(request, response);
 		}
 		else {
 			request.getRequestDispatcher("Accueil").forward(request, response);
 		}
-		
 	}
 
 	/**
