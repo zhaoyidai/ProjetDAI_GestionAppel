@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -199,6 +201,58 @@ public class TestHibernate
 			}
 		
 	}
+	
+	
+	 public static List<Users> listEtudiant(int id,boolean premier){
+	    	List<Users> etudiants = new ArrayList<>();
+//	    	String hql = "select u.id, u.nom, u.prenom, u.formation,  " +
+//	    				 "case when u.photo is null then 'img/person-icon.png' else u.photo end " +
+//	    				 "from Seance s,Users u,Assister a " +
+//	    				 "where s.idS = :id " +
+//	    				 "and s.idS = a.seance.idS and a.users.id=u.id ";
+	    	String hql="";
+	    	if(premier) {
+	    		
+	    	
+	    	hql = "select u " +
+					 "from Seance s,Users u,Assister a " +
+					 "where s.idS = :id " +
+					 "and s.idS = a.seance.idS and a.users.id=u.id ";}
+	    	else {
+	    		hql="select u " +
+	                    "from Seance s,Cours c " +
+	                    " join c.usersParticipes u where s.idS = :id and s.coursSeance.idC = c.idC";
+	    	}
+
+	    	try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+	        	Transaction transaction=session.getTransaction();
+	        	
+		        if (!TransactionStatus.ACTIVE.equals(transaction.getStatus())) {
+		        	transaction = session.beginTransaction();}
+	            Query<Users>query = session.createQuery(hql);
+	            query.setParameter("id", id);
+	            if (!query.getResultList().isEmpty()) {
+	            	etudiants=query.list();
+	            }
+//	            transaction.commit();
+	            for(Users u:etudiants) {
+	            	Pattern pattern = Pattern.compile("img", Pattern.CASE_INSENSITIVE);
+	                Matcher matcher = pattern.matcher(u.getPhoto());
+	                boolean matchFound = matcher.find();
+	                if(!matchFound) {
+	                  
+	            		u.setPhoto("img/person-icon.png");
+//	            		System.out.println("test");
+	            	}
+	            	System.out.println(u.getPhoto());
+	            }
+	            return etudiants;
+	        } catch (Exception e) {
+	            System.out.println("~~Error~~"+e.getMessage());
+	        }
+	        return null;
+	    }
+
 
 
 	public static void insertAssister(int id) {

@@ -32,7 +32,7 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 //			
 //		}
 		int ids=Integer.valueOf(idSeance);
-		List<Users> listeEtudiant=UsersDao.listEtudiant(ids,TestHibernate.affichestatus(ids));
+		List<Users> listeEtudiant= TestHibernate.listEtudiant(ids,TestHibernate.affichestatus(ids));
 		if(listeEtudiant!=null) {
 			request.setAttribute("idSeance",idSeance);
 			
