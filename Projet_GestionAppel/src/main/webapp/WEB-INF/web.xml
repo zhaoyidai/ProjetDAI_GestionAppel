@@ -32,7 +32,14 @@
 		<servlet-name>planning</servlet-name>
 		<url-pattern>/Planning</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+	<servlet-name>recap</servlet-name>
+	<jsp-file>/Recap.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>recap</servlet-name>
+		<url-pattern>/Recap</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 	<servlet-name>cours</servlet-name>

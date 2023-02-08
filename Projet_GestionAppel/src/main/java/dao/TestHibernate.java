@@ -89,23 +89,24 @@ public class TestHibernate
 			return seances;				
 		
 	}
-	public static List<Users> loadEtudiant(int id) {
-		List<Users> etudiants=new ArrayList<>();
-		String hql = "select u " +
-                "from Seance s,Users u,Assister a " +
+//	users et status presence
+	public static List<EtudiantPresence> loadEtudiant(int id) {
+		List<EtudiantPresence> etudiants=new ArrayList<>();
+		String hql = "select new dao.EtudiantPresence(u,a.status) " +
+                "from metier.Seance s,metier.Users u,metier.Assister a " +
                 "where s.idS = :id " +
                 "and s.idS = a.seance.idS and a.users.id=u.id ";
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
         	Transaction transaction=session.beginTransaction();
-            Query<Users>query = session.createQuery(hql);
+            Query<EtudiantPresence>query = session.createQuery(hql);
             query.setParameter("id", id);
             
             if (!query.getResultList().isEmpty()) {
             	etudiants=query.list();
-//            	for(Users s:query.list()) {
-//            		System.out.println(s.getId());
-//            	}
+            	for(EtudiantPresence s:query.list()) {
+            		System.out.println(s.getU().getEmail()+" status : "+s.getStatus());
+            	}
 
             	}
             transaction.commit();
@@ -167,7 +168,7 @@ public class TestHibernate
 //		for(Users u:UsersDao.listEtudiant()) {
 //			System.out.println(u);
 //		}
-//		TestHibernate.loadEtudiant(2);
+		TestHibernate.loadEtudiant(1);
 //		System.out.println("test");
 //		List<Users> us=UsersDao.listEtudiant(1);
 //		for(Users u:us) {
@@ -175,7 +176,7 @@ public class TestHibernate
 //		}
 //		afficheEtu(1);
 //		TestHibernate.insertAssister(2);
-		loadEtudiantparticip(2);
+//		loadEtudiantparticip(2);
 //		TestHibernate.validerFiche(2);
 		}
 
