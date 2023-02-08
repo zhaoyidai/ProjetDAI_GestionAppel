@@ -236,8 +236,7 @@
 
 					<!-- Milieu -->
 					<div class="row">
-						<h1>Milieu Après déconnexion</h1>
-
+						<h3>${requestScope.msg_info}</h3>
 					</div>
 
 					<!-- Content Row -->

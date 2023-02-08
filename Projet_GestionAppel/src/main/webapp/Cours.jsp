@@ -1,6 +1,7 @@
 <%@page import="enumtype.Statut"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="metier.Users"%>
+<%@page import="dao.EtudiantPresence"%>
 <%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page pageEncoding="UTF-8"%>
@@ -60,7 +61,7 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
 					<!-- Nav Item - Accueil enseigants -->
-					<li class="nav-item active"><a class="nav-link" href="#">
+					<li class="nav-item active"><a class="nav-link" href="Accueil">
 							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
 					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
@@ -219,7 +220,7 @@
 							
 						</section>
 <form action="CtrlEnregistrer" method="get">
-<input type="text" name="idSeance" value="${param.idSeance }">
+<input type="text" style="display:none;" name="idSeance" value="${param.idSeance }">
 						<table id="table" border="1">
 							<tr>
 								<td>Photo</td>
@@ -227,7 +228,7 @@
 								<td>Nom</td>
 								<td>Prénom</td>
 								<td>Formation</td>
-								
+								<td>Présence</td>
 								<td>Retard</td>
 								<td>Absent</td>
 								<td>Commentaire</td>
@@ -235,18 +236,37 @@
 							<% 
 
 
+		List<EtudiantPresence> listeEtudiant=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
+		/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
 		
-		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
+	for(EtudiantPresence u : listeEtudiant){
+		Users us=u.getU();
+		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td>"); 
+		if(u.getStatus().toString()=="PRESENCE"){
+			out.println("<td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='presence' checked></td>");
+		}else{
+			out.println("<td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='presence'></td>");
+		}
 		
-	for(Users us : listeEtudiant){
-		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='retard'></td><td>" + "<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\"></td><td>" + "<input type='text'>"+" </td></tr>");
+		if(u.getStatus().toString()=="RETARD"){
+			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"retard\" checked></td>");
+		}else{
+			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"retard\"></td>");
+		}
+		
+		if(u.getStatus().toString()=="ABSENCE"){
+			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\" checked></td><td>" + "<input type='text'>"+" </td></tr>");
+		}else{
+			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\"></td><td>" + "<input type='text'>"+" </td></tr>");
+			
+		}
 		/*  out.println(us.toString()); */
 	}
 
 %>	
 </table>	
 <input type="submit" value="Enregistrer">
-<a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
+
 	
 </form>
 
@@ -259,7 +279,7 @@
 
 					<div class="row">
 
-
+<a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
 <a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
 
 						<!-- Pie Chart -->

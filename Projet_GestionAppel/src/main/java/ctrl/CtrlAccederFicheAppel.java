@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.EtudiantPresence;
 import dao.TestHibernate;
 import dao.UsersDao;
 import metier.Seance;
@@ -27,16 +28,18 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idSeance = request.getParameter("idSeance");
-//		List<String> emails=new ArrayList<>();
-//		for(Users u:UsersDao.listEtudiant()) {
-//			
-//		}
+
 		int ids=Integer.valueOf(idSeance);
-		List<Users> listeEtudiant= TestHibernate.listEtudiant(ids,TestHibernate.affichestatus(ids));
-		if(listeEtudiant!=null) {
+		if(TestHibernate.affichestatus(ids)) {
+			TestHibernate.initAssister(ids);
+			TestHibernate.insertAssister(ids);
+		}
+		List<EtudiantPresence> listetu=TestHibernate.loadEtudiant(ids);
+//		List<Users> listeEtudiant= TestHibernate.listEtudiant(ids,TestHibernate.affichestatus(ids));
+		if(listetu!=null) {
 			request.setAttribute("idSeance",idSeance);
 			
-			request.setAttribute("listeEtudiant", listeEtudiant);
+			request.setAttribute("listeEtudiant", listetu);
 			request.getRequestDispatcher("Cours").forward(request, response);
 		}
 		else {

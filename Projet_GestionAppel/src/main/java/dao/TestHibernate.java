@@ -275,9 +275,9 @@ public class TestHibernate
             	etus=query.list();
             	}
 //			List<Users> etus=TestHibernate.loadEtudiantparticip(id);
-			System.out.println("size : "+etus.size());
+//			System.out.println("size : "+etus.size());
 			for(Users us:etus) {
-				System.out.println(us.getEmail());
+//				System.out.println(us.getEmail());
 				AssisterId ai=new AssisterId(us.getId(),id);
 //				System.out.println(ai.getCodeSeance());
 				Assister a=new Assister(ai,AppelEtat.PRESENCE,us,s);
@@ -306,6 +306,20 @@ public class TestHibernate
 			session.save(s);
 			s.setStatutFicheAppel(FicheAppelEtat.VALIDER);
 			session.update(s);
+			t.commit();
+			}
+	}
+	//mettre status de Seance en enregistrer
+	public static void initAssister(int ids) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<Users> etus=new ArrayList<>();
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Seance s=session.get(Seance.class, ids);
+			session.save(s);
+			s.setStatutFicheAppel(FicheAppelEtat.ENREGISTRER);
+			session.update(s);			
 			t.commit();
 			}
 	}

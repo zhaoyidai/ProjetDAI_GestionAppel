@@ -23,16 +23,28 @@ public class CtrlEnregistrer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] listeAbs=(String[])request.getParameterValues("absence");
 		String[] listeRet=(String[])request.getParameterValues("retard");
+		String[] listePre=(String[])request.getParameterValues("presence");
 		String idSeance = request.getParameter("idSeance");
 		int ids=Integer.valueOf(idSeance);
-		for(String i:listeAbs) {
+		if(listeAbs!=null) {
+			for(String i:listeAbs) {
 			int idu=Integer.valueOf(i);
 			TestHibernate.changerStatusEtu(idu, ids, AppelEtat.ABSENCE);
 		}
-		for(String ir:listeRet) {
+		}
+		if(listeRet!=null) {
+			for(String ir:listeRet) {
 			int idu=Integer.valueOf(ir);
 			TestHibernate.changerStatusEtu(idu, ids, AppelEtat.RETARD);
 		}
+		}
+		if(listePre!=null) {
+			for(String ir:listePre) {
+			int idu=Integer.valueOf(ir);
+			TestHibernate.changerStatusEtu(idu, ids, AppelEtat.PRESENCE);
+		}
+		}
+		
 		request.setAttribute("msg_info", "Fiche d'Appel"+idSeance+" enregistré.");
 		request.getRequestDispatcher("Accueil").forward(request, response);
 	}
