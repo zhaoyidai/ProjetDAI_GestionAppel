@@ -26,10 +26,11 @@
 		</div>
 	</section>
 <h1>Liste des étudiants</h1>
-
+<form action="CtrlEnregistrer" method="get">
+<input type="text" name="idSeance" value="${param.idSeance }">
 <table id="table" border ="1">
 	<tr>
-		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Présent</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
+		<td>Photo</td><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Formation</td><td>Retard</td><td>Absent</td><td>Commentaire</td>
 	</tr>
 <% 
 
@@ -37,13 +38,16 @@
 		List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant");
 		
 	for(Users us : listeEtudiant){
-		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox'>" + "</td><td>" + "<input type='time'>"+"</td><td>" + "<input type='checkbox'>"+"</td><td>" + "<input type='text'>"+" </td></tr>");
+		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td><td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='retard'></td><td>" + "<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\"></td><td>" + "<input type='text'>"+" </td></tr>");
+		/*  out.println(us.toString()); */
 	}
 %>	
-</table>		
-
+</table>	
+<input type="submit" value="Enregistrer">	
+</form>
 <a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
 
+<a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
 
 <a href="Accueil.jsp">Retour</a>
 <script type="text/JavaScript" src="js/fonctionjs.js"></script>
