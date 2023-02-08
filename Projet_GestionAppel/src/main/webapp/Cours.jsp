@@ -47,6 +47,7 @@
 </form>
 <a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
 
+<a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
 
 <a href="Accueil.jsp">Retour</a>
 <script type="text/JavaScript" src="js/fonctionjs.js"></script>
