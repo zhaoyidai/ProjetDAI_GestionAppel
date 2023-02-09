@@ -40,6 +40,8 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 			if(TestHibernate.affichestatusvalide(ids)) {
 				request.setAttribute("msg_valide","Seance"+idSeance+" est deja validé");
 				request.setAttribute("valideb",true);
+			}else {
+				request.setAttribute("valideb",false);
 			}
 			request.setAttribute("idSeance",idSeance);
 			

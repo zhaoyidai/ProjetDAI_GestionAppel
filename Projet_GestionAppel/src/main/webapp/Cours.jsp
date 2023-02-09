@@ -249,24 +249,20 @@
 		if(u.getStatus().toString()=="ABSENCE"){
 			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\" onchange=onlyCheck(\"absence\","+row+") style=\"zoom:280%\" checked></td></tr>");
 		}else{
-			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\" onchange=onlyCheck(\"absence\","+row+") ></td></tr>");
+			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\" onchange=onlyCheck(\"absence\","+row+") style=\"zoom:280%\"></td></tr>");
 			
 		}
 		row++;
 		/*  out.println(us.toString()); */
 	}
+out.println("</table>");
 
-%>	
-</table>
-	
-
-<%
 boolean valid=(boolean)request.getAttribute("valideb");
 if(valid){
 	out.println("fiche validé");
 }else{
 	out.println("<input type=\"submit\" value=\"Enregistrer\">");
-}
+} 
 %>
 
 </form>

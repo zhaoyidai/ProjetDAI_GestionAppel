@@ -208,6 +208,14 @@ public class TestHibernate
 //			
 //			}
 		
+		for(Cours c:TestHibernate.allCours()) {
+			System.out.print(c.getNomC()+" :[ ");
+			
+			for(int i:TestHibernate.listeSeance(c.getIdC())) {
+				System.out.print(i+" ");
+			}
+		}
+		System.out.print("\n ]");
 		}
 
 	public static boolean affichestatusvalide(int id) {
@@ -382,8 +390,42 @@ public class TestHibernate
 			}
 	}
 
+	public static List<Cours> allCours() {
+		List<Cours> cours = new ArrayList<>();
+		String hql = "select c " +
+				"from Cours c";
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+			Transaction transaction=session.beginTransaction();
+			Query<Cours>query = session.createQuery(hql);
+			
 
+			if (!query.getResultList().isEmpty()) {
+				cours=query.list();
 
+				return cours;
+	            	}
+	            transaction.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        
+				return null;
+		
+	}
+	public static List<Integer> listeSeance(int idC){
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<Integer> etus=new ArrayList<>();
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Cours c=session.get(Cours.class, idC);
+			for(Seance s:c.getSeance()) {
+				etus.add(s.getIdS());
+			}
+			return etus;
+			
+			}
+	}
 	
 
 
