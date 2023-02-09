@@ -210,7 +210,24 @@ public class TestHibernate
 		
 		}
 
+	public static boolean affichestatusvalide(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			Transaction t = session.getTransaction();
+	        if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			
+			Seance e=session.get(Seance.class, id);
+			
+//			t.commit();
+			if(e.getStatutFicheAppel().toString()=="VALIDER") {
+				return true;
+			}else {
+				return false;
+			}
+			
+			}
 		
+	}
 	public static boolean affichestatus(int id) {
 		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
 			Transaction t = session.getTransaction();

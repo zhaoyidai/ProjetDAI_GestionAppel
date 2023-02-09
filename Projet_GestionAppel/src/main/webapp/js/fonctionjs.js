@@ -36,22 +36,25 @@ function onlyStatus(){
 			*/
 			
 			
-			
+		
 			if(table.rows[i].cells[6].firstChild.name==name){
+				
 				table.rows[i].cells[5].firstChild.checked=false;
 				table.rows[i].cells[7].firstChild.checked=false;
 			}
 			else if(table.rows[i].cells[7].firstChild.name==name){
+				
 				table.rows[i].cells[6].firstChild.checked=false;
 				table.rows[i].cells[5].firstChild.checked=false;
 			}
 			else if(table.rows[i].cells[5].firstChild.name==name){
+				
 				table.rows[i].cells[6].firstChild.checked=false;
 				table.rows[i].cells[7].firstChild.checked=false;
 			}
-	}
-	}
- }
+			}
+		}
+ 	}
 
  
  document.addEventListener("DOMContentLoaded", () => {
