@@ -14,15 +14,15 @@ public class Mail {
 	  /**
 	   * Host du mail.
 	   */
-	  private static final String HOST = "smtp.gmail.com";
+	  private static final String HOST = "smtp-mail.outlook.com";
 	  /**
 	   * Adresse de la boite mail d'envoi.
 	   */
-	  private static final String USER = "chartelain.david@gmail.com";
+	  private static final String USER = "homeweb31@outlook.com";
 	  /**
 	   * Mot de passe de la boite mail d'envoi.
 	   */
-	  private static final String MDP = "chartelain972";
+	  private static final String MDP = "ProjetAgile";
 	  
 
 	  /**
@@ -31,18 +31,15 @@ public class Mail {
 	   * @param a Action acheté qui correspond à l'envoi.
 	   * @param qte Quantité d'action acheter.
 	   */
-	  public final void envoyerMail(final String to, final  Users users, Date datedeb, Date datefin) {
+	  public final void envoyerMail(final String to, final  Users users, String datedeb, String datefin) {
 	   Properties props = new Properties();
-	   props.put("mail.smtp.host","smtp.gmail.com");
+	   props.put("mail.smtp.host", this.HOST);
 	   props.put("mail.smtp.auth", "true");
-	   props.put("mail.smtp.ssl.enable", "true");
-	    props.setProperty("mail.smtp.socketFactory.fallback", "false");
-	    props.setProperty("mail.smtp.port", "25");
-	    props.setProperty("mail.smtp.socketFactory.port", "25");
+	   props.put("mail.smtp.starttls.enable", "true");
 
 	   Authenticator auth = new Authenticator() {
 	      protected PasswordAuthentication getPasswordAuthentication() {
-	              return new PasswordAuthentication(USER, "ProjetAgile");
+	              return new PasswordAuthentication(USER, MDP);
 	      }
 	    };
 	    Session session = Session.getInstance(props, auth);

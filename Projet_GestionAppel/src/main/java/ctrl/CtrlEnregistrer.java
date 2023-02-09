@@ -45,8 +45,8 @@ public class CtrlEnregistrer extends HttpServlet {
 		}
 		}
 		
-		request.setAttribute("msg_info", "Fiche d'Appel"+idSeance+" enregistré.");
-		request.getRequestDispatcher("Accueil").forward(request, response);
+		request.setAttribute("msg_info", "La fiche d'Appel "+idSeance+" a été enregistrée !");
+		request.getRequestDispatcher("CtrlAccederFicheAppel").forward(request, response);
 	}
 
 	/**

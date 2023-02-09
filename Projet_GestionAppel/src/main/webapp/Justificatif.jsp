@@ -16,7 +16,7 @@
 
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>Justificatifs d'absences</title>
 </head>
 <body>
 	<!-- Page Wrapper -->
@@ -163,34 +163,25 @@
 										</a>
 									</div></li>
 					</ul>
-
 				</nav>
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Accueil</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Justificatifs
-							d'abscences</a>
-
 					</div>
-
 					<!-- Milieu -->
 					<div class="row">
 
 						<h1>Liste des absences</h1>
 						<h5>Merci de justifier vos absenses</h5>
-						<%    
-HttpSession sessionliste = request.getSession();
-ArrayList<Seance>listeseances = (ArrayList<Seance>)sessionliste.getAttribute("listesabsences");
- 						for(Seance m : listeseances){						
-%>
-
+						<%
+						HttpSession sessionliste = request.getSession();
+						ArrayList<Seance> listeseances = (ArrayList<Seance>) sessionliste.getAttribute("listesabsences");
+						for (Seance m : listeseances) {
+						%>
 						<table border=1>
 							<tr>
 								<td><h3>
@@ -214,33 +205,7 @@ ArrayList<Seance>listeseances = (ArrayList<Seance>)sessionliste.getAttribute("li
 							</tr>
 							<tr>
 							<tr>
-								<c:if test="${ !empty fichier }">
-									<p>
-										<c:out
-											value="Le fichier ${ fichier } (${ description }) a été uploadé !" />
-									</p>
-								</c:if>
-								<form method="post" action="DepotFichierController?"
-									enctype="multipart/form-data">
-									<p>
-										<label for="description">Description du fichier : </label> <input
-											type="text" name="description" id="description" />
-									</p>
-									<p>
-										<label for="description">Dates de debut : </label> <input
-											type="date" name="debut" id="dated" />
-									</p>
-									<p>
-										<label for="description">Dates de fin : </label> <input
-											type="date" name="fin" id="datef" />
-									</p>
-									<p>
-										<label for="fichier">Fichier à envoyer : </label> <input
-											type="file" name="fichier" id="fichier" />
-									</p>
 
-									<input type="submit" />
-								</form>
 								</td>
 							</tr>
 						</table>
@@ -248,20 +213,35 @@ ArrayList<Seance>listeseances = (ArrayList<Seance>)sessionliste.getAttribute("li
  						}
 	
 %>
+						<c:if test="${ !empty fichier }">
+							<p>
+								<c:out
+									value="Le fichier ${ fichier } (${ description }) a été uploadé !" />
+							</p>
+						</c:if>
+						<form method="post" action="DepotFichierController?"
+							enctype="multipart/form-data">
+							<p>
+								<label for="description">Description du fichier : </label> <input
+									type="text" name="description" id="description" />
+							</p>
+							<p>
+								<label for="description">Dates de debut : </label> <input
+									type="date" name="debut" id="dated" />
+							</p>
+							<p>
+								<label for="description">Dates de fin : </label> <input
+									type="date" name="fin" id="datef" />
+							</p>
+							<p>
+								<label for="fichier">Fichier à envoyer : </label> <input
+									type="file" name="fichier" id="fichier" />
+							</p>
+
+							<input type="submit" />
+						</form>
+
 					</div>
-
-					<!-- Content Row -->
-
-					<div class="row">
-
-
-						<!-- Pie Chart -->
-						<div class="col-xl-4 col-lg-5"></div>
-					</div>
-
-					<!-- Content Row -->
-					<div class="row"></div>
-
 				</div>
 				<!-- /.container-fluid -->
 
