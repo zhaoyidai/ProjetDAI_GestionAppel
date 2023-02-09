@@ -8,6 +8,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
+<%@page import="ctrl.CtrlRedirect" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,8 @@
 <link rel="stylesheet" href="formLogin/css/planning.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-
+<link rel="stylesheet" href="js/timetablejs.css">
+    <link rel="stylesheet" href="js/demo.css">
 <!-- Custom fonts for this template-->
 <link href="formAccueil/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -210,9 +212,18 @@
     <th>Mardi</th>
     <th>Mercredi</th>
   </tr> -->
-						<ul>
-							<%
-List<Seance> seances=(List<Seance>)request.getAttribute("seances");
+						<!-- <ul> -->
+						<select id="semaine">
+						<option value="none">------</option>
+<%
+List<String> seaminesaffi=(List<String>)request.getAttribute("semainesaff");
+List<Integer> semaines=(List<Integer>)request.getAttribute("semaines");
+for(int i=0;i<seaminesaffi.size();i++){
+	out.println("<option value =\""+semaines.get(i)+"\">"+seaminesaffi.get(i)+"</option>");
+}
+
+out.println("</select>");
+/* List<Seance> seances=(List<Seance>)request.getAttribute("seances");
 Calendar calendar = Calendar.getInstance(); 
 List<Seance> lundi=new ArrayList<>();
 List<Seance> mardi=new ArrayList<>();
@@ -251,8 +262,7 @@ for(Seance s:seances){
         break;
 
     }
-	/* out.println("<p>Cours : "+s.getCoursSeance().getNomC()+" Jour : "+daytext+" Debut : "+s.getHeureDebut()+" Duree : "+s.getDuréeS()+" Fin :"+formatted+" <a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p>");
-  */
+
   
 	
  }
@@ -265,10 +275,9 @@ for(int i=0;i<lundi.size();i++){
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	/* 
-	String formatted = format1.format(date); */
+
 	
-	out.println("<p>__________________</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
+	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
   }
 out.println("</li><li>Mardi");
 for(int i=0;i<mardi.size();i++){
@@ -279,11 +288,10 @@ for(int i=0;i<mardi.size();i++){
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	/* 
-	String formatted = format1.format(date); */
 	
-	out.println("<p>__________________</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-  }
+	
+	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
+	  }
 out.println("</li><li>Mercredi");
 for(int i=0;i<mercredi.size();i++){
 	Seance s=mercredi.get(i);
@@ -293,11 +301,10 @@ for(int i=0;i<mercredi.size();i++){
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	/* 
-	String formatted = format1.format(date); */
 	
-	out.println("<p>__________________</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"+"</li>"); 
-  }
+	
+	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
+	  }
 out.println("</li><li>Jeudi");
 for(int i=0;i<jeudi.size();i++){
 	Seance s=jeudi.get(i);
@@ -307,11 +314,10 @@ for(int i=0;i<jeudi.size();i++){
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	/* 
-	String formatted = format1.format(date); */
+
 	
-	out.println("<p>__________________</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"+"</li>"); 
-  }
+	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
+	    }
 out.println("</li><li>Vendredi");
 for(int i=0;i<vendredi.size();i++){
 	Seance s=vendredi.get(i);
@@ -321,21 +327,22 @@ for(int i=0;i<vendredi.size();i++){
 	Date date = timed.getTime(); 
 	
 	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	/* 
-	String formatted = format1.format(date); */
 	
-	out.println("<p>__________________</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"+"</li>"); 
-  }
+	
+	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
+	   } */
 %>
-							</li>
-						</ul>
+
+						<!-- 	</li>
+						</ul> -->
 						<!--  </table> -->
 					</div>
 
 					<!-- Content Row -->
 
 					<div class="row">
-
+<div id="edt" class="row">
+</div>
 
 						<!-- Pie Chart -->
 						<div class="col-xl-4 col-lg-5"></div>
@@ -346,7 +353,95 @@ for(int i=0;i<vendredi.size();i++){
 
 				</div>
 				<!-- /.container-fluid -->
+<div class="timetable"></div>
+<span id="cachee" style="display:none"></span>
+    <script src="js/timetable.js"></script>
 
+    <script>
+    function joursemaine(nbs){
+    	nbs=nbs-1;
+    	switch (nbs) {
+    	  case 1:
+    	    return "Lundi";
+    	    break;
+    	  case 2:
+    	    	return "Mardi";
+    	    	
+    	        break;
+    	    case 3:
+    	    	return "Mercredi";
+    	    	
+    	        break;
+    	    case 4:
+    	    	return "Jeudi";
+    	    	
+    	        break;
+    	    case 5:
+    	    	return "Vendredi";
+    	    	
+    	        break;
+    	  default:
+    	    console.log(`Sorry, we are out of ${nbs}.`);
+    	}}
+    function afficheEdt ()
+   	{
+   	
+   	// Objet XMLHttpRequest.
+   	var xhr = new XMLHttpRequest();
+   	var e = document.getElementById("semaine");
+   	
+   	var value = e.value;
+
+   	// Requête au serveur avec les paramètres éventuels.
+   	xhr.open("GET","CtrlPlanningJson?week="+value);
+
+   	// On précise ce que l'on va faire quand on aura reçu la réponse du serveur.
+   	xhr.onload = function()
+   		{
+   		// Si la requête http s'est bien passée.
+   		if (xhr.status === 200)
+   			{
+   			// Elément html que l'on va mettre à jour.
+   			var elt = document.getElementById("edt");
+   			var jsontext=JSON.parse(xhr.responseText);
+   			var timetable = new Timetable();
+   			timetable.setScope(8,20);
+   			timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi',  'Vendredi']);
+   	        
+   			for(i=0;i<jsontext.length;i++){
+   				var hdebh=jsontext[i]["heureDebut"].slice(0,2);
+   				console.log(hdebh);
+   				var hdebm=jsontext[i]["heureDebut"].slice(3,5);
+   				
+   				var hfinh=jsontext[i]["heureFin"].slice(0,2);
+   				var hfinm=jsontext[i]["heureFin"].slice(3,5);
+   				/* console.log(jsontext[i]["nomCours"]+" "+jsontext[i]["jour"]+" "+hdebh+":"+hdebm+"-"+hfinh+":"+hfinm);
+   				 */
+   				  timetable.addEvent(jsontext[i]["nomCours"],joursemaine(jsontext[i]["jour"]) , new Date(2015,7,17,hdebh,hdebm), new Date(2015,7,17,hfinh,hfinm), { url: jsontext[i]["lien"] });
+   				  
+   				/* console.log(jsontext[i]["lien"]+" "+jsontext[i]["nomCours"]+" "+jsontext[i]["jour"]); */ 
+   			}
+   			
+   			
+   			var renderer = new Timetable.Renderer(timetable);
+   	      	renderer.draw('.timetable');
+   			
+   			}
+   		};
+
+   	// Envoie de la requête.
+   	xhr.send();
+   	}
+   	
+    
+   	
+   document.addEventListener("DOMContentLoaded", () => {
+
+   	document.getElementById("semaine").addEventListener("change",afficheEdt);
+   	
+
+   });
+    </script>
 			</div>
 			<!-- End of Main Content -->
 
@@ -392,5 +487,6 @@ for(int i=0;i<vendredi.size();i++){
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+	<!-- <script type="text/JavaScript" src="js/planningjs.js"></script> -->
 </body>
 </html>

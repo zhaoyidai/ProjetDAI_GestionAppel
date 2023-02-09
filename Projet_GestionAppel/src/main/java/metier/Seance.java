@@ -2,7 +2,10 @@ package metier;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -181,8 +184,43 @@ public class Seance implements Serializable {
 				+ ", StatutFicheAppel=" + StatutFicheAppel + ", usersSeance=" + usersSeance + ", coursSeance="
 				+ coursSeance + ", assister=" + assister + "]";
 	}
+	
+// le nb de semaine
+	public static int datetest(Date date) {
 
-
-
-
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setFirstDayOfWeek(GregorianCalendar.MONDAY);
+		calendar.setMinimalDaysInFirstWeek(4);
+		calendar.setTime(date);
+		return calendar.get(GregorianCalendar.WEEK_OF_YEAR);
+	}
+	private static final SimpleDateFormat DFDATE = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat DFHEURE = new SimpleDateFormat("HH:mm:ss");
+	public static String dateofweek(int i) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.clear();
+		cal.set(Calendar.WEEK_OF_YEAR, i);
+		cal.set(Calendar.YEAR,2023 );
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//	    Integer correction = 1-cal.get(GregorianCalendar.DAY_OF_WEEK);
+//	    cal.add(Calendar.DATE, correction);
+		Date d=cal.getTime();
+		return(DFDATE.format(d));
+//	    return d.toString();
+	}
+	
+	public static int jour(Date d) {
+		Calendar calendar = Calendar.getInstance(); 
+		calendar.setTime(d);
+		
+		return calendar.get(Calendar.DAY_OF_WEEK); 
+	}
+	
+	public static String dateFin(Date d,int duree) {
+		Calendar timed=Calendar.getInstance();
+		timed.setTime(d);
+		timed.add((Calendar.MINUTE), duree);
+		Date date = timed.getTime(); 
+		return DFHEURE.format(date);
+	}
 }
