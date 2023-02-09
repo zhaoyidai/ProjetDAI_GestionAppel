@@ -75,7 +75,7 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<li class="nav-item"><a class="nav-link" href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
 					<!-- Nav Item - Tables -->
 					<li class="nav-item"><a class="nav-link" href="#"> <i
@@ -223,114 +223,7 @@ for(int i=0;i<seaminesaffi.size();i++){
 }
 
 out.println("</select>");
-/* List<Seance> seances=(List<Seance>)request.getAttribute("seances");
-Calendar calendar = Calendar.getInstance(); 
-List<Seance> lundi=new ArrayList<>();
-List<Seance> mardi=new ArrayList<>();
-List<Seance> mercredi=new ArrayList<>();
-List<Seance> jeudi=new ArrayList<>();
-List<Seance> vendredi=new ArrayList<>();
-for(Seance s:seances){
-    
-	calendar.setTime(s.getDateSeance());
-	
-	int day = calendar.get(Calendar.DAY_OF_WEEK); 
-	String daytext="";
-	switch (day) {
-    case 1:
-    	daytext = "Lundi";
-    	lundi.add(s);
-        break;
-    case 2:
-    	daytext = "Mardi";
-    	mardi.add(s);
-        break;
-    case 3:
-    	daytext = "Mercredi";
-    	mercredi.add(s);
-        break;
-    case 4:
-    	daytext = "Jeudi";
-    	jeudi.add(s);
-        break;
-    case 5:
-    	daytext = "Vendredi";
-    	vendredi.add(s);
-        break;
-    case 6:
-    	daytext = "Samedi";
-        break;
 
-    }
-
-  
-	
- }
-out.println("<li>Lundi");
-for(int i=0;i<lundi.size();i++){
-	Seance s=mercredi.get(i);
-	Calendar timed=Calendar.getInstance();
-	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDureeS());
-	Date date = timed.getTime(); 
-	
-	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-
-	
-	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-  }
-out.println("</li><li>Mardi");
-for(int i=0;i<mardi.size();i++){
-	Seance s=mercredi.get(i);
-	Calendar timed=Calendar.getInstance();
-	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDureeS());
-	Date date = timed.getTime(); 
-	
-	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	
-	
-	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-	  }
-out.println("</li><li>Mercredi");
-for(int i=0;i<mercredi.size();i++){
-	Seance s=mercredi.get(i);
-	Calendar timed=Calendar.getInstance();
-	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDureeS());
-	Date date = timed.getTime(); 
-	
-	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	
-	
-	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-	  }
-out.println("</li><li>Jeudi");
-for(int i=0;i<jeudi.size();i++){
-	Seance s=jeudi.get(i);
-	Calendar timed=Calendar.getInstance();
-	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDureeS());
-	Date date = timed.getTime(); 
-	
-	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-
-	
-	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-	    }
-out.println("</li><li>Vendredi");
-for(int i=0;i<vendredi.size();i++){
-	Seance s=vendredi.get(i);
-	Calendar timed=Calendar.getInstance();
-	timed.setTime(s.getHeureDebut());
-	timed.add((Calendar.HOUR), s.getDureeS());
-	Date date = timed.getTime(); 
-	
-	SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-	
-	
-	out.println("<p>__________________</p><p>week"+s.datetest(s.getDateSeance())+"</p><p>Cours : "+s.getCoursSeance().getNomC()+" </p><p>Debut : "+s.getHeureDebut()+" </p><p>Fin :"+format1.format(date)+" </p><p><a href=\"CtrlAccederFicheAppel?idSeance="+s.getIdS()+"\">Fiche d'appel</a></p><p>__________________</p>"); 
-	   } */
 %>
 
 						<!-- 	</li>

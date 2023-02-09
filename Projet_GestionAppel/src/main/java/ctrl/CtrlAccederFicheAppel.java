@@ -37,6 +37,10 @@ public class CtrlAccederFicheAppel extends HttpServlet {
 		List<EtudiantPresence> listetu=TestHibernate.loadEtudiant(ids);
 //		List<Users> listeEtudiant= TestHibernate.listEtudiant(ids,TestHibernate.affichestatus(ids));
 		if(listetu!=null) {
+			if(TestHibernate.affichestatusvalide(ids)) {
+				request.setAttribute("msg_valide","Seance"+idSeance+" est deja validé");
+				request.setAttribute("valideb",true);
+			}
 			request.setAttribute("idSeance",idSeance);
 			
 			request.setAttribute("listeEtudiant", listetu);
