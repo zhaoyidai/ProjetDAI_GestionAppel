@@ -37,7 +37,7 @@ public class ValidationAbsenceController extends HttpServlet {
 					//Je crée une nouvelle session
 					HttpSession session = request.getSession();
 					//je crée un nouvel attribut listeIDsession dans ma session en affectant a celui ci ma liste d'ID (listemessage)
-					session.setAttribute("listeIDsession", listevalidation);
+					session.setAttribute("liste", listevalidation);
 					//Je redirectionne vers ma page Confirmation.jsp
 					request.getRequestDispatcher("Confirmation").forward(request, response);
 	}

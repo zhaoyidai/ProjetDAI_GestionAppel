@@ -57,9 +57,9 @@ public class LoginController extends HttpServlet {
 					if(usersId.getStatut() == Statut.ENSEIGNANT) {
 						response.sendRedirect("CtrlRedirect?type_action=planning");
 					}else if(usersId.getStatut() == Statut.ETUDIANT) {
-						response.sendRedirect("Accueil");
+						response.sendRedirect("JustificatifController?id="+usersId.getId());
 					}else  {
-						response.sendRedirect("Accueil");
+						response.sendRedirect("ScolJustificatifController");
 					}
 				
 				}
@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
 			}
 
 		} else {
-			erreurs.forEach(request::setAttribute);
+			request.setAttribute("generale_error", "Probleme technique ! Veuillez contacter l'administrateur");
 			request.getRequestDispatcher("Login").forward(request, response);
 		}
 	}

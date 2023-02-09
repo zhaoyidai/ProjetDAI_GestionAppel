@@ -109,7 +109,7 @@ public class DepotFichierController extends HttpServlet {
 				justificatif.createJustificatif(datedeb, datefin, chemin, false, users);
 				//Un mail est envoyé à la scolarité à chaque insertion de justificatif
 				Mail mail = new Mail();
-				mail.envoyerMail("chartelain.david@gmail.com", users,debut,fin);
+				mail.envoyerMailScolarité("chartelain.david@gmail.com", users, debut, fin);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

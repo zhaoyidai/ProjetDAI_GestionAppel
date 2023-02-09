@@ -41,11 +41,11 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut== Statut.ETUDIANT}">
-					<li class="nav-item active"><a class="nav-link" href="#">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
+					<li class="nav-item "><a class="nav-link" href="#">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
 					</a></li>
 					<!-- Nav Item - Pages Collapse Menu -->
-					<li class="nav-item"><a class="nav-link collapsed"
+					<li class="nav-item active"><a class="nav-link collapsed"
 						href="JustificatifController?id=${sessionScope.id}"
 						data-target="#collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Absences</span>
 					</a></li>
