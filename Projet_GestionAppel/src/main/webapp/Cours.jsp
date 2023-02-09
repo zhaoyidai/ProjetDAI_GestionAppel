@@ -60,10 +60,6 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-					<!-- Nav Item - Accueil enseigants -->
-					<li class="nav-item active"><a class="nav-link" href="Accueil">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
-					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -206,22 +202,18 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Liste d'appel</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Justificatifs
-							d'abscences</a>
-
+						<h1 class="h3 mb-0 text-gray-800">Liste d'appel</h1>						
 					</div>
+					<strong style="color: green">${requestScope.msg_info}</strong>
 
 					<!-- Milieu -->
 					<div class="row">
 						<section class="clean-block clean-hero">
-							
 						</section>
 <form action="CtrlEnregistrer" method="get">
 <input type="text" style="display:none;" name="idSeance" value="${param.idSeance }">
-						<table id="table" border="1">
+		<table id="table" border="1" class="table table-bordered" id="dataTable"
+							width="100%" cellspacing="0">
 							<tr>
 								<td>Photo</td>
 								<td>Numéro_étudiant</td>
@@ -231,14 +223,14 @@
 								<td>Présence</td>
 								<td>Retard</td>
 								<td>Absent</td>
-								
 							</tr>
 							<% 
 
 
 		List<EtudiantPresence> listeEtudiant=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
 		/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
-	int row=1;	
+	int row=1;
+		out.println("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 	for(EtudiantPresence u : listeEtudiant){
 		Users us=u.getU();
 		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td>"); 
@@ -270,15 +262,10 @@
 
 	
 </form>
-
-
-
 						
 					</div>
-
-					<!-- Content Row -->
-
 					<div class="row">
+					
 
 <a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
 <a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
@@ -289,7 +276,6 @@
 
 					<!-- Content Row -->
 					<div class="row"></div>
-
 				</div>
 				<!-- /.container-fluid -->
 

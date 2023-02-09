@@ -94,7 +94,7 @@ public class TestHibernate
 //	users et status presence
 	public static List<EtudiantPresence> loadEtudiant(int id) {
 		List<EtudiantPresence> etudiants=new ArrayList<>();
-		String hql = "select new dao.EtudiantPresence(u,a.status) " +
+		String hql = "select new dao.EtudiantPresence(u,a.status,s.dateSeance) " +
                 "from metier.Seance s,metier.Users u,metier.Assister a " +
                 "where s.idS = :id " +
                 "and s.idS = a.seance.idS and a.users.id=u.id ";

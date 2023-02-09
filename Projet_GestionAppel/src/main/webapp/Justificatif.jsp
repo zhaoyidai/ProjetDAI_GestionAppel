@@ -16,7 +16,7 @@
 
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>Justificatifs d'absences</title>
 </head>
 <body>
 	<!-- Page Wrapper -->
