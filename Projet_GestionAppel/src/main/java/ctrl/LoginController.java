@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import dao.UsersDao;
+import enumtype.Statut;
 import metier.Users;
 
 import javax.servlet.annotation.*;
@@ -53,7 +54,14 @@ public class LoginController extends HttpServlet {
 					request.getSession().setAttribute("nom", usersId.getNom());
 					request.getSession().setAttribute("prenom", usersId.getPrenom());
 					request.getSession().setAttribute("statut", usersId.getStatut());
-					response.sendRedirect("Accueil");
+					if(usersId.getStatut() == Statut.ENSEIGNANT) {
+						response.sendRedirect("CtrlRedirect?type_action=planning");
+					}else if(usersId.getStatut() == Statut.ETUDIANT) {
+						response.sendRedirect("Accueil");
+					}else  {
+						response.sendRedirect("Accueil");
+					}
+				
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

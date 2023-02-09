@@ -203,11 +203,12 @@
 								+ us.getId() + "</td><td>" + us.getNom() + "</td><td>" + us.getPrenom() + "</td><td>" + us.getFormation()
 								+ "</td>");
 
-								if (u.getStatus().toString() == "ABSENCE") {
+								/* if (u.getStatus().toString() == "ABSENCE") {
 									out.println("<td>Absente</td>");
 								} else {
 									out.println("<td>Presente</td>");
-								}
+								} */
+								out.println("<td>"+u.getStatus().toString()+"</td>");
 							}
 							%>
 						</table>

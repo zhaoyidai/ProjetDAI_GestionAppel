@@ -67,10 +67,6 @@
 					</a></li>
 				</c:when>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-					<!-- Nav Item - Accueil enseigants -->
-					<li class="nav-item active"><a class="nav-link" href="#">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
-					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"

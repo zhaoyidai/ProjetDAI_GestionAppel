@@ -26,19 +26,24 @@ Document document = new Document();
 PdfWriter writer=PdfWriter.getInstance(document, response.getOutputStream());
 document.open();
 Paragraph p = new Paragraph();
-p.add("Text 1");
+p.add("UT1 Capitole Toulouse");
 p.setAlignment(Element.ALIGN_CENTER);
 document.add(p);
+
 Paragraph p2 = new Paragraph();
-p2.add("Text 2"); //no alignment
+
+List<EtudiantPresence> etudiants=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
+
+
+p2.add("Récapitulatif d'absences du" + etudiants.get(0).getDateSeance()); //no alignment
+
+
 document.add(p2);
 Font f = new Font();
 f.setStyle(Font.BOLD);
 f.setSize(8);
-document.add(new Paragraph("This is my paragraph 3", f));
-document.add(Image.getInstance("C:\\Users\\zdai2\\Downloads\\logo.jpg"));
 
-List<EtudiantPresence> etudiants=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
+
 /* Paragraph p3=null; */
 PdfPTable table=new PdfPTable(3);
 table.setWidths(new int[]{1, 1, 1});
@@ -48,7 +53,13 @@ table.addCell("Status");
 for(EtudiantPresence e:etudiants){
 	table.addCell(e.getU().getNom());
 	table.addCell(e.getU().getPrenom());
-	table.addCell(e.getStatus().toString());
+	if (e.getStatus().toString() == "ABSENCE"){
+		table.addCell(e.getStatus().toString());
+	}
+	else{
+		table.addCell("PRESENCE");
+	}
+	
 	/* p3 = new Paragraph();
 	p3.add(e.getU().getNom()+" "+e.getU().getPrenom()+" "+e.getStatus());
 	document.add(p3); */
