@@ -3,6 +3,9 @@ package dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -151,11 +154,28 @@ public class TestHibernate
         
 		return etudiants;		
 			
-
-			
-		
-				
 	}
+	private static final SimpleDateFormat DFHEURE = new SimpleDateFormat("HH:mm:ss");
+	public static String dateFin(Date d,int duree) {
+		Calendar timed=Calendar.getInstance();
+		timed.setTime(d);
+		timed.add((Calendar.MINUTE), duree);
+		Date date = timed.getTime(); 
+		return DFHEURE.format(date);
+	}
+	
+	public static String dateofweek(int i) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.clear();
+		cal.set(Calendar.WEEK_OF_YEAR, i);
+		cal.set(Calendar.YEAR,2023 );
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//	    Integer correction = 1-cal.get(GregorianCalendar.DAY_OF_WEEK);
+//	    cal.add(Calendar.DATE, correction);
+		Date d=cal.getTime();
+	    return d.toString();
+	}
+	
 	
 	/**
 	 * Programme de test.
@@ -180,7 +200,14 @@ public class TestHibernate
 //		TestHibernate.insertAssister(2);
 //		loadEtudiantparticip(2);
 //		TestHibernate.validerFiche(2);
-		TestHibernate.changerStatusEtu(3, 3, AppelEtat.ABSENCE);
+//		TestHibernate.changerStatusEtu(3, 3, AppelEtat.ABSENCE);
+//		System.out.println(TestHibernate.dateofweek(5));
+//		try(Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+//			Transaction t = session.getTransaction();
+//			Seance s1=session.get(Seance.class, 1);
+//			
+//			}
+		
 		}
 
 		

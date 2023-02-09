@@ -48,7 +48,13 @@ table.addCell("Status");
 for(EtudiantPresence e:etudiants){
 	table.addCell(e.getU().getNom());
 	table.addCell(e.getU().getPrenom());
-	table.addCell(e.getStatus().toString());
+	if (e.getStatus().toString() == "ABSENCE"){
+		table.addCell(e.getStatus().toString());
+	}
+	else{
+		table.addCell("PRESENCE");
+	}
+	
 	/* p3 = new Paragraph();
 	p3.add(e.getU().getNom()+" "+e.getU().getPrenom()+" "+e.getStatus());
 	document.add(p3); */
