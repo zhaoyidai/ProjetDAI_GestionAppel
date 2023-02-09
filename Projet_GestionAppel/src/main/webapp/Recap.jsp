@@ -174,11 +174,11 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Liste des étudiants</h1>
-						
+
 					</div>
 					<!-- Milieu -->
 					<div class="row">
-						
+
 
 						<table id="table" border="1">
 							<tr>
@@ -191,8 +191,8 @@
 							</tr>
 							<%
 							List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
-						
-					
+
+
 
 							for (EtudiantPresence u : listeEtudiant) {
 								Users us = u.getU();
@@ -201,11 +201,12 @@
 								+ "</td>");
 
 								if (u.getStatus().toString() == "ABSENCE") {
-								
+
 									out.println("<td>Absente</td>");
 								} else {
 									out.println("<td>Presente</td>");
-								}
+								} 
+								out.println("<td>"+u.getStatus().toString()+"</td>");
 							}
 							%>
 						</table>

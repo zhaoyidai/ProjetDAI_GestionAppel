@@ -23,6 +23,26 @@
 		<url-pattern>/graphique</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>absence</servlet-name>
+		<jsp-file>/Absence.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>absence</servlet-name>
+		<url-pattern>/absence</url-pattern>
+	</servlet-mapping>
+	
+			<servlet>
+		<servlet-name>indicateur</servlet-name>
+		<jsp-file>/Indicateur.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>indicateur</servlet-name>
+		<url-pattern>/indicateur</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 	<servlet-name>accueil</servlet-name>
 	<jsp-file>/Accueil.jsp</jsp-file>

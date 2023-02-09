@@ -170,53 +170,53 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Accueil</h1>
+						<h1 class="h3 mb-0 text-gray-800">Liste de mes absences</h1>
 					</div>
+					
+					<div> 						
+						<h5 class="msgEleve">Merci de justifier vos absenses</h5>
+						<style>
+						.msgEleve{
+						color:  blue; 
+						font-family: sans-serif;
+						}
+						</style>
+					</div>
+					
+						<%
+						HttpSession sessionliste = request.getSession();
+						ArrayList<Seance> listeseances = (ArrayList<Seance>) sessionliste.getAttribute("listesabsences");%>
+						
+						<table border=1 class="table table-bordered" id="dataTable"
+							width="100%" cellspacing="0">
+						<tr>
+							<td>Nom</td>
+							<td>Date</td>
+							<td>Heure</td>
+							<td>Durée</td>
+							
+						</tr>
+						<% 
+						for (Seance m : listeseances) {
+						%>
+							<tr>
+								<td><%= m.getCoursSeance().getNomC() %></td>
+								<td><%= m.getDateSeance()%></td>
+								<td><%= m.getHeureDebut()%></td>
+								<td><%= m.getDureeS() %></td>
+							</tr>
+						<%     
+ 						}
+						%>
+						</table>
+						
+						
 					<!-- Milieu -->
 					<div class="row">
 
-						<h1>Liste des absences</h1>
-						<h5>Merci de justifier vos absenses</h5>
-						<%
-						HttpSession sessionliste = request.getSession();
-						ArrayList<Seance> listeseances = (ArrayList<Seance>) sessionliste.getAttribute("listesabsences");
-						for (Seance m : listeseances) {
-						%>
-						<table border=1>
-							<tr>
-								<td><h3>
-										Nom :
-										<%= m.getCoursSeance().getNomC() %></h3></td>
-							</tr>
-							<tr>
-								<td><h3>
-										Date :
-										<%= m.getDateSeance()%></h3></td>
-							</tr>
-							<tr>
-								<td><h3>
-										Heure :
-										<%= m.getHeureDebut()%></h3></td>
-							</tr>
-							<tr>
-								<td><h3>
-										Durée :
-										<%= m.getDureeS() %></h3></td>
-							</tr>
-							<tr>
-							<tr>
-
-								</td>
-							</tr>
-						</table>
-						<%     
- 						}
-	
-%>
 						<c:if test="${ !empty fichier }">
 							<p>
-								<c:out
-									value="Le fichier ${ fichier } (${ description }) a été uploadé !" />
+								<c:out value="Le fichier ${ fichier } (${ description }) a été uploadé !"/>
 							</p>
 						</c:if>
 						<form method="post" action="DepotFichierController?"

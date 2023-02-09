@@ -16,7 +16,7 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 Connection connection = DriverManager.getConnection(
     "jdbc:mysql://localhost:3307/db_21708799", "21708799", "01053S");
 Statement statement = connection.createStatement();
-ResultSet resultSet = statement.executeQuery("SELECT CodeSeance, COUNT(*) FROM Assister WHERE Status = 'ABSENCE' GROUP BY CodeSeance");
+ResultSet resultSet = statement.executeQuery("SELECT CodeSeance, COUNT(*) FROM Assister WHERE Status LIKE 'ABSENCE%' GROUP BY CodeSeance");
 
 List<String> labels = new ArrayList<>();
 List<String> data = new ArrayList<>();
@@ -27,11 +27,11 @@ while (resultSet.next()) {
 }
 %>
 <body>
-<canvas id="myChart"></canvas>
+<canvas id="graphiqueAbsence"></canvas>
 </body>    
 </html>
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('graphiqueAbsence').getContext('2d');
 var chart = new Chart(ctx, {
     type: 'line',
     data: {
