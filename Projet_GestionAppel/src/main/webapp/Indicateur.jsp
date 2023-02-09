@@ -32,8 +32,15 @@
 
 %>
 <body>
-<canvas id="graphMoyenne" width = "400" height = "400"></canvas>
-
+<h1><center>Graphique répartition des status</center></h1><br>
+<canvas id="graphMoyenne" width = "400" height = "400"></canvas><br><br>
+<center>
+<button style="background-color:green" disabled ><p style="color:white"><strong>PRESENCE</strong></p></button>
+<button style="background-color:red" disabled ><p style="color:white"><strong>ABSENCE</strong></p></button>
+<button style="background-color:orange" disabled ><p style="color:white"><strong>ABSENCE JUSTIFIEE</strong></p></button>
+<button style="background-color:yellow" disabled ><p style="color:Black"><strong>RETARD</strong></p></button>
+<button style="background-color:grey" disabled ><p style="color:white"><strong>NON NOTIFIER</strong></p></button>
+</center>
 <script>
     var ctx = document.getElementById('graphMoyenne').getContext('2d');
     var chart = new Chart(ctx, {
