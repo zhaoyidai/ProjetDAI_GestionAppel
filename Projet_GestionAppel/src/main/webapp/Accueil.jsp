@@ -80,7 +80,7 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<li class="nav-item"><a class="nav-link" href="CtrlRedirectGraph?type_action=graphique"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
 					<!-- Nav Item - Tables -->
 					<li class="nav-item"><a class="nav-link" href="#"> <i
