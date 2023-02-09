@@ -219,34 +219,10 @@
 									<td>Retard</td>
 									<td>Absent</td>
 								</tr>
-								<%
-								List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
-								/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
-								int row = 1;
-								out.println("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
-								for (EtudiantPresence u : listeEtudiant) {
-									Users us = u.getU();
-									out.println("<tr><td><img  src=\"" + us.getPhoto() + "\"style=\"width: 50px; height: 50px;\" />" + "</td><td>"
-									+ us.getId() + "</td><td>" + us.getNom() + "</td><td>" + us.getPrenom() + "</td><td>" + us.getFormation()
-									+ "</td>");
-									if (u.getStatus().toString() == "PRESENCE") {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ") checked></td>");
-									} else {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ")></td>");
-									}
+<%
 
-									if (u.getStatus().toString() == "RETARD") {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ") checked></td>");
-									} else {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ")></td>");
-									}
-
-		List<EtudiantPresence> listeEtudiant=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
-		/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
+	List<EtudiantPresence> listeEtudiant=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
+	/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
 	int row=1;
 
 	for(EtudiantPresence u : listeEtudiant){
@@ -273,14 +249,14 @@
 		row++;
 		/*  out.println(us.toString()); */
 	}
-out.println("</table>");
-
-boolean valid=(boolean)request.getAttribute("valideb");
-if(valid){
-	out.println("fiche validé");
-}else{
-	out.println("<input type=\"submit\" value=\"Enregistrer\">");
-} 
+	out.println("</table>");
+	
+	boolean valid=(boolean)request.getAttribute("valideb");
+	if(valid){
+		out.println("fiche validé");
+	}else{
+		out.println("<input type=\"submit\" value=\"Enregistrer\">");
+	} 
 %>
 
 </form>

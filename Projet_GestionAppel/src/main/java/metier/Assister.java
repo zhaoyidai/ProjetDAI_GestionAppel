@@ -84,6 +84,10 @@ public class Assister {
 		this.seance = seance;
 	}
 
+	public AppelEtat getStatus() {
+		return status;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
