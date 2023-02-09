@@ -37,11 +37,11 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
 					<!-- Nav Item - Accueil Scolarite -->
-					<li class="nav-item active"><a class="nav-link"
+					<li class="nav-item "><a class="nav-link"
 						href="AccueilController"> <i
-							class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span></a></li>
+							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span></a></li>
 					<!-- Nav Item - Charts -->
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item active"><a class="nav-link"
 						href="ScolJustificatifController"> <i
 							class="fas fa-fw fa-chart-area"></i> <span>Justificatifs
 								absences</span></a></li>
@@ -150,7 +150,6 @@
 									</div></li>
 					</ul>
 				</nav>
-			</div>
 			<!-- End of Topbar -->
 			<!-- Begin Page Content -->
 			<div class="container-fluid">
@@ -166,22 +165,21 @@
 							width="100%" cellspacing="0">
 							<thead>
 								<tr>
-									<th>Etudiant</th>
-									<th>Date de debut</th>
-									<th>Date de fin</th>
-									<th>Justificatif</th>
-									<th>Etat</th>
-									<th>Validation</th>
+									<th class="text-center">Etudiant</th>
+									<th class="text-center">Date de debut</th>
+									<th class="text-center">Date de fin</th>
+									<th class="text-center">Justificatif</th>
+									<th colspan="2" class="text-center">Validation</th>
 								</tr>
 							</thead>
 							<%
 							ArrayList<Justificatif> just = (ArrayList<Justificatif>) request.getAttribute("Justificatif");
+							int row = 1;
 							for (Justificatif j : just) {
 								out.println("<tr><td>" + j.getUsersJustificatif().getNom() + " " + j.getUsersJustificatif().getPrenom()
-								+ "</td><td>" + j.getDateDeb() + "</td><td>" + j.getDateFin() + "</td><td><a href='' class='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'><i class='fas fa-download fa-sm text-white-50'></i> Justificatifs dabscences</a></td><td>"
-								+ j.isValidation() + "</td><td><input type='checkbox' name='chbx' value='"+ j.getUsersJustificatif().getId()+ "'/> Valider</td></tr>");
+								+ "</td><td>" + j.getDateDeb() + "</td><td>" + j.getDateFin() + "</td><td><a href='"+j.getUrl()+"' class='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'><i class='fas fa-download fa-sm text-white-50'></i> Justificatifs abscences</a></td><td><input type='checkbox' name='valider'  onchange=onlyCheckJustif(\"valider\"," + row + ") value='"+ j.getUsersJustificatif().getId()+ "'/> Valider</td><td><input type='checkbox' name='refuser'  onchange=onlyCheckJustif(\"refuser\"," + row + ") value='"+ j.getUsersJustificatif().getId()+ "'/> Refuser</td></tr>");
+							row++;
 							}
-							System.out.print(just.size());
 							%>
 						</table>
 						<br> <a class="btn btn-success btn-icon-split center"> <span class="icon text-white-50"> <i
@@ -204,6 +202,7 @@
 			</div>
 			<!-- End of Content Wrapper -->
 		</div>
+		</div>
 		<!-- End of Page Wrapper -->
 		<!-- Scroll to Top Button-->
 		<a class="scroll-to-top rounded" href="#page-top"> <i
@@ -225,5 +224,6 @@
 		<!-- Page level custom scripts -->
 		<script src="formAccueil/js/demo/chart-area-demo.js"></script>
 		<script src="formAccueil/js/demo/chart-pie-demo.js"></script>
+		<script type="text/JavaScript" src="js/fonctionjs.js"></script>
 </body>
 </html>

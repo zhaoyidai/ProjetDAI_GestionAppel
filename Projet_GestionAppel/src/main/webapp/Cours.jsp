@@ -29,9 +29,7 @@
 <body id="page-top">
 
 	<section class="clean-block clean-hero">
-		<div class="text">
-			
-		</div>
+		<div class="text"></div>
 	</section>
 
 
@@ -61,7 +59,7 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
 					<!-- Nav Item - Utilities Collapse Menu -->
-					<li class="nav-item"><a class="nav-link collapsed"
+					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
 						data-target="#collapseUtilities"> <i
 							class="fas fa-fw fa-wrench"></i> <span>Planning</span>
@@ -193,59 +191,79 @@
 										</a>
 									</div></li>
 					</ul>
-
 				</nav>
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Liste d'appel</h1>						
+						<h1 class="h3 mb-0 text-gray-800">Liste d'appel</h1>
 					</div>
 					<strong style="color: green">${requestScope.msg_info}</strong>
-
 					<!-- Milieu -->
 					<div class="row">
-						<section class="clean-block clean-hero">
-						</section>
-<form action="CtrlEnregistrer" method="get">
-<input type="text" style="display:none;" name="idSeance" value="${param.idSeance }">
-		<table id="table" border="1" class="table table-bordered" id="dataTable"
-							width="100%" cellspacing="0">
-							<tr>
-								<td>Photo</td>
-								<td>Numéro_étudiant</td>
-								<td>Nom</td>
-								<td>Prénom</td>
-								<td>Formation</td>
-								<td>Présence</td>
-								<td>Retard</td>
-								<td>Absent</td>
-							</tr>
-							<% 
+						<section class="clean-block clean-hero"></section>
+						<form action="CtrlEnregistrer" method="get">
+							<input type="text" style="display: none;" name="idSeance"
+								value="${param.idSeance }">
+							<table id="table" border="1" class="table table-bordered"
+								id="dataTable" width="100%" cellspacing="0">
+								<tr>
+									<td>Photo</td>
+									<td>Numéro_étudiant</td>
+									<td>Nom</td>
+									<td>Prénom</td>
+									<td>Formation</td>
+									<td>Présence</td>
+									<td>Retard</td>
+									<td>Absent</td>
+								</tr>
+								<%
+								List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
+								/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
+								int row = 1;
+								out.println("<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+								for (EtudiantPresence u : listeEtudiant) {
+									Users us = u.getU();
+									out.println("<tr><td><img  src=\"" + us.getPhoto() + "\"style=\"width: 50px; height: 50px;\" />" + "</td><td>"
+									+ us.getId() + "</td><td>" + us.getNom() + "</td><td>" + us.getPrenom() + "</td><td>" + us.getFormation()
+									+ "</td>");
+									if (u.getStatus().toString() == "PRESENCE") {
+										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
+										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ") checked></td>");
+									} else {
+										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
+										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ")></td>");
+									}
 
+									if (u.getStatus().toString() == "RETARD") {
+										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
+										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ") checked></td>");
+									} else {
+										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
+										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ")></td>");
+									}
 
 		List<EtudiantPresence> listeEtudiant=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
 		/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
 	int row=1;
-		
+
 	for(EtudiantPresence u : listeEtudiant){
 		Users us=u.getU();
-		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td>"); 
+		out.println("<tr><td><img  src=\""+ us.getPhoto() +"\"style=\"width: 50px; height: 50px;\" />" + "</td><td>" + us.getId() + "</td><td>"  + us.getNom() + "</td><td>"  + us.getPrenom() +"</td><td>"  + us.getFormation() +"</td>");
 		if(u.getStatus().toString()=="PRESENCE"){
 			out.println("<td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='presence' onchange=onlyCheck(\"presence\","+row+") style=\"zoom:280%\" checked></td>");
 		}else{
 			out.println("<td>" + "<input type='checkbox' value=\""+us.getId()+"\" name='presence' onchange=onlyCheck(\"presence\","+row+") style=\"zoom:280%\"></td>");
 		}
-		
+
 		if(u.getStatus().toString()=="RETARD"){
 			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"retard\" onchange=onlyCheck(\"retard\","+row+") style=\"zoom:280%\" checked></td>");
 		}else{
 			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"retard\" onchange=onlyCheck(\"retard\","+row+") style=\"zoom:280%\"></td>");
 		}
-		
+
 		if(u.getStatus().toString()=="ABSENCE"){
 			out.println("<td>" +"<input type='checkbox' value=\""+ us.getId() +"\" name=\"absence\" onchange=onlyCheck(\"absence\","+row+") style=\"zoom:280%\" checked></td></tr>");
 		}else{
@@ -266,26 +284,21 @@ if(valid){
 %>
 
 </form>
-						
+
 					</div>
 					<div class="row">
-					
-
-<a href="CtrlRecap?idSeance=${param.idSeance }"><button id="btn_valider">Valider</button></a>
-<a href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
-
+						<a href="CtrlRecap?idSeance=${param.idSeance }"><button
+								id="btn_valider">Valider</button></a> <a
+							href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
 						<!-- Pie Chart -->
 						<div class="col-xl-4 col-lg-5"></div>
 					</div>
-
 					<!-- Content Row -->
 					<div class="row"></div>
 				</div>
 				<!-- /.container-fluid -->
-
 			</div>
 			<!-- End of Main Content -->
-
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
@@ -295,20 +308,14 @@ if(valid){
 				</div>
 			</footer>
 			<!-- End of Footer -->
-
 		</div>
 		<!-- End of Content Wrapper -->
-
 	</div>
 	<!-- End of Page Wrapper -->
-
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
-
-
-
 	<!-- Bootstrap core JavaScript-->
 	<script src="formAccueil/vendor/jquery/jquery.min.js"></script>
 	<script src="formAccueil/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

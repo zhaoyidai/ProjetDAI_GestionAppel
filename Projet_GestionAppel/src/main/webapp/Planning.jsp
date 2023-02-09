@@ -63,7 +63,7 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
 					<!-- Nav Item - Utilities Collapse Menu -->
-					<li class="nav-item"><a class="nav-link collapsed"
+					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
 						data-target="#collapseUtilities"> <i
 							class="fas fa-fw fa-wrench"></i> <span>Planning</span>

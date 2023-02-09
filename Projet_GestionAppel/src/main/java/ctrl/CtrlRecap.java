@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.EtudiantPresence;
 import dao.TestHibernate;
@@ -31,7 +32,8 @@ public class CtrlRecap extends HttpServlet {
 		List<EtudiantPresence> listeEtudiant=TestHibernate.loadEtudiant(ids);
 		if(listeEtudiant!=null) {
 			request.setAttribute("idSeance",idSeance);
-			
+			HttpSession listeabsent = request.getSession();
+			listeabsent.setAttribute("listeAbsent", listeEtudiant);
 			request.setAttribute("listeEtudiant", listeEtudiant);
 			request.getRequestDispatcher("Recap").forward(request, response);
 		}

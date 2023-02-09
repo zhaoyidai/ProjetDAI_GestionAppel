@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="enumtype.Statut"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="metier.Users"%>
@@ -45,11 +46,8 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
 					<!-- Nav Item - Accueil enseigants -->
-					<li class="nav-item active"><a class="nav-link" href="#">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
-					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
-					<li class="nav-item"><a class="nav-link collapsed"
+					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
 						data-target="#collapseUtilities"> <i
 							class="fas fa-fw fa-wrench"></i> <span>Planning</span>
@@ -176,14 +174,11 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Liste des étudiants</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Justificatifs
-							d'abscences</a>
+
 					</div>
 					<!-- Milieu -->
 					<div class="row">
-						
+
 
 						<table id="table" border="1">
 							<tr>
@@ -197,23 +192,26 @@
 							<%
 							List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
 
+
+
 							for (EtudiantPresence u : listeEtudiant) {
 								Users us = u.getU();
 								out.println("<tr><td><img  src=\"" + us.getPhoto() + "\"style=\"width: 50px; height: 50px;\" />" + "</td><td>"
 								+ us.getId() + "</td><td>" + us.getNom() + "</td><td>" + us.getPrenom() + "</td><td>" + us.getFormation()
 								+ "</td>");
 
-								/* if (u.getStatus().toString() == "ABSENCE") {
+								if (u.getStatus().toString() == "ABSENCE") {
+
 									out.println("<td>Absente</td>");
 								} else {
 									out.println("<td>Presente</td>");
-								} */
+								} 
 								out.println("<td>"+u.getStatus().toString()+"</td>");
 							}
 							%>
 						</table>
 						<a href="CtrlValiderFiche?ids=${param.idSeance }"><button
-								id="btn_valider">Valider</button></a> <a href="Accueil.jsp">Retour</a>
+								id="btn_valider">Valider</button></a> <a href="CtrlRedirect?type_action=planning">Retour</a>
 					</div>
 					<!-- Content Row -->
 					<div class="row">

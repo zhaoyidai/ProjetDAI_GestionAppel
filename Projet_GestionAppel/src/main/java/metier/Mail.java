@@ -31,7 +31,7 @@ public class Mail {
 	   * @param a Action acheté qui correspond à l'envoi.
 	   * @param qte Quantité d'action acheter.
 	   */
-	  public final void envoyerMail(final String to, final  Users users, String datedeb, String datefin) {
+	  public final void envoyerMailScolarité(final String to, final  Users users, String datedeb, String datefin) {
 	   Properties props = new Properties();
 	   props.put("mail.smtp.host", this.HOST);
 	   props.put("mail.smtp.auth", "true");
@@ -60,5 +60,98 @@ public class Mail {
 	   
 	     } catch (MessagingException e) {e.printStackTrace();}
 	 }
+	  
+	  
+	  public final void envoyerMailAbsenceEtudiant(final String to, final  Users users) {
+		   Properties props = new Properties();
+		   props.put("mail.smtp.host", this.HOST);
+		   props.put("mail.smtp.auth", "true");
+		   props.put("mail.smtp.starttls.enable", "true");
+
+		   Authenticator auth = new Authenticator() {
+		      protected PasswordAuthentication getPasswordAuthentication() {
+		              return new PasswordAuthentication(USER, MDP);
+		      }
+		    };
+		    Session session = Session.getInstance(props, auth);
+		    
+		    try {
+		     MimeMessage message = new MimeMessage(session);
+		     message.setFrom(new InternetAddress(USER));
+		     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		     message.setSubject("Récapitulatif");
+		     message.setText("" +
+	                 "Bonjour,"+
+	                 "\nMr/Mme"+users.getNom()+" "+users.getPrenom()+" vous avez été notifié absent pour...."+
+	                 "\nPour justifier cette absence, veuillez deposer un justificatif via l'application Gest Appel."
+	                 +"\nCordialement,"+
+	                 "\nLa scolarité");
+		     
+		    Transport.send(message);
+		   
+		     } catch (MessagingException e) {e.printStackTrace();}
+		 }
 	
+	  public final void sendMailValidationJustif(final String to, final int i ) {
+		   Properties props = new Properties();
+		   props.put("mail.smtp.host", this.HOST);
+		   props.put("mail.smtp.auth", "true");
+		   props.put("mail.smtp.starttls.enable", "true");
+
+		   Authenticator auth = new Authenticator() {
+		      protected PasswordAuthentication getPasswordAuthentication() {
+		              return new PasswordAuthentication(USER, MDP);
+		      }
+		    };
+		    Session session = Session.getInstance(props, auth);
+		    
+		    try {
+		     MimeMessage message = new MimeMessage(session);
+		     message.setFrom(new InternetAddress(USER));
+		     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		     message.setSubject("Récapitulatif");
+		     message.setText("" +
+	                 "Bonjour,"+
+	                 "\nMr/Mme votre depot de justifiatif a été validé !"+
+	                 "\nCordialement,"+
+	                 "\nLa scolarité");
+		     
+		    Transport.send(message);
+		   
+		     } catch (MessagingException e) {e.printStackTrace();}
+		 }
+	  
+	  
+	  
+	  
+	  public final void sendMailRefusJustif(final String to, final  int i) {
+		   Properties props = new Properties();
+		   props.put("mail.smtp.host", this.HOST);
+		   props.put("mail.smtp.auth", "true");
+		   props.put("mail.smtp.starttls.enable", "true");
+
+		   Authenticator auth = new Authenticator() {
+		      protected PasswordAuthentication getPasswordAuthentication() {
+		              return new PasswordAuthentication(USER, MDP);
+		      }
+		    };
+		    Session session = Session.getInstance(props, auth);
+		    
+		    try {
+		     MimeMessage message = new MimeMessage(session);
+		     message.setFrom(new InternetAddress(USER));
+		     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		     message.setSubject("Récapitulatif");
+		     message.setText("" +
+		    		 "Bonjour,"+
+	                 "\nMr/Mme votre depot de justifiatif a été refusé ! Merci de deposer un nouveau document dans l'espace dédié a cet effet ! "+
+	                 "\nCordialement,"+
+	                 "\nLa scolarité");
+		     
+		    Transport.send(message);
+		   
+		     } catch (MessagingException e) {e.printStackTrace();}
+		 }
+	  
+	  
 }
