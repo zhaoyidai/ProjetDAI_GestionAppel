@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.TestHibernate;
+import enumtype.AppelEtat;
+import metier.Mail;
+
 /**
  * Servlet implementation class ValidationAbsenceController
  */
@@ -22,25 +26,33 @@ public class ValidationAbsenceController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Je recupere les valaurs cochées dans mon formulaire sur Supprimer.jsp et disponible dans l'url de la requete HTTP
-				String[] values = request.getParameterValues("chbx");
+				String[] listevalider = (String[])request.getParameterValues("valider");
+				String[] listerefuser = (String[])request.getParameterValues("refuser");
 				//Je crée une liste de message de type Integer
 				ArrayList<Integer> listevalidation = new ArrayList<>();
 				
-				if(values == null) {
+				if(listevalider == null && listerefuser == null) {
 					request.setAttribute("checkbox_vide", "Veuillez selectionner des élements a supprimer !");
 					request.getRequestDispatcher("ConsultationJustif").forward(request, response);
-				}else {
-					//Je transvase mes valeurs en integer dans ma nouvelle liste en integer
-					for(String m : values) {
-						listevalidation.add(Integer.parseInt(m));
+				}
+				if(listevalider!=null){
+					for(String i:listevalider) {
+						int idu=Integer.valueOf(i);
+						Mail mail = new Mail();
+						mail.sendMailValidationJustif("chartelain.david@gmail.com",idu);
 					}
-					//Je crée une nouvelle session
-					HttpSession session = request.getSession();
-					//je crée un nouvel attribut listeIDsession dans ma session en affectant a celui ci ma liste d'ID (listemessage)
-					session.setAttribute("liste", listevalidation);
-					//Je redirectionne vers ma page Confirmation.jsp
-					request.getRequestDispatcher("Confirmation").forward(request, response);
-	}
+				}
+				if(listerefuser!=null) {
+					for(String i:listerefuser) {
+						int idu=Integer.valueOf(i);
+						Mail mail = new Mail();
+						mail.sendMailRefusJustif("chartelain.david@gmail.com",idu);
+					}
+				}
+					
+					
+	
+	
 	}
 
 	/**

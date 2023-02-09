@@ -52,6 +52,34 @@ function onlyStatus(){
 	}
 	}
  }
+ 
+  function onlyCheckJustif(name,id){
+	 /*console.log(name);
+	 console.log(i);*/
+	 var table = document.getElementById("dataTable");
+	 for (var i = 1, row; row = table.rows[i]; i++) {
+		 /*console.log(i);*/
+		 if(i==id){
+			 /*console.log(table.rows[i].cells[5].firstChild.name);*/
+		 	/*table.rows[i].cells[6].innerHTML="<input type=\"checkbox\" value=\"4\" name=\"retard\" onchange=\"onlyCheck('presence',"+id+") checked>";}
+			*/
+			/*console.log(table.rows[i].cells[6].firstChild.checked);*/
+			
+			/*table.rows[i].cells[6].innerHTML="<input type=\"checkbox\" value=\"4\" name=\"Retard\" onchange=\"onlyCheck(\"presence\","+id+") checked>";}
+			*/
+			
+			
+			
+			if(table.rows[i].cells[4].firstChild.name==name){
+				table.rows[i].cells[5].firstChild.checked=false;
+			}
+			else if(table.rows[i].cells[5].firstChild.name==name){
+				table.rows[i].cells[4].firstChild.checked=false;
+			}
+			
+	}
+	}
+ }
 
  
  document.addEventListener("DOMContentLoaded", () => {

@@ -52,6 +52,8 @@ public class DepotFichierController extends HttpServlet {
     public static final int TAILLE_TAMPON = 10240;
     
     public static final String CHEMIN_FICHIERS = "C://Justificatif/";
+    
+    private static final SimpleDateFormat DFDATE = new SimpleDateFormat("dd-MM-yyyy");
    
     
        
@@ -104,9 +106,8 @@ public class DepotFichierController extends HttpServlet {
             System.out.print(debut);
             String fin = request.getParameter("fin");
             try {
-				Date datedeb =new SimpleDateFormat("dd-MM-yyyy").parse(debut);
-				Date datefin =new SimpleDateFormat("dd-MM-yyyy").parse(fin);
-				justificatif.createJustificatif(datedeb, datefin, chemin, false, users);
+
+				justificatif.createJustificatif(DFDATE.parse(debut), DFDATE.parse(fin), chemin, false, users);
 				//Un mail est envoyé à la scolarité à chaque insertion de justificatif
 				Mail mail = new Mail();
 				mail.envoyerMailScolarité("chartelain.david@gmail.com", users, debut, fin);

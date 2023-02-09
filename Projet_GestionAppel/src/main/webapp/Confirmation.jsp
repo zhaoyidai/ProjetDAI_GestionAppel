@@ -150,47 +150,35 @@
 									</div></li>
 					</ul>
 				</nav>
-			</div>
+			
 			<!-- End of Topbar -->
 			<!-- Begin Page Content -->
 			<div class="container-fluid">
 				<!-- Page Heading -->
-				<div
-					class="d-sm-flex align-items-center justify-content-between mb-4">
-					<h1 class="h3 mb-0 text-gray-800">Listes des abscences</h1>
+				<div>
+					<h1 class="h3 mb-0 text-gray-800">Voulez vous confirmer les absences ?</h1>
 				</div>
 				<!-- Milieu -->
 				<div class="row">
-					<form method="get" action="">
-						<table border="1" class="table table-bordered" id="dataTable"
+				<table border="1" class="table table-bordered" id="dataTable"
 							width="100%" cellspacing="0">
-							<thead>
-								<tr>
-									<th>Etudiant</th>
-									<th>Date de debut</th>
-									<th>Date de fin</th>
-									<th>Justificatif</th>
-									<th>Etat</th>
-									<th>Validation</th>
-								</tr>
-							</thead>
+					<form action="CtrlConfirmationValidation" method="get">					
 							<%
-							ArrayList<Justificatif> just = (ArrayList<Justificatif>) request.getAttribute("Justificatif");
-							for (Justificatif j : just) {
-								out.println("<tr><td>" + j.getUsersJustificatif().getNom() + " " + j.getUsersJustificatif().getPrenom()
-								+ "</td><td>" + j.getDateDeb() + "</td><td>" + j.getDateFin() + "</td><td><a href='' class='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'><i class='fas fa-download fa-sm text-white-50'></i> Justificatifs dabscences</a></td><td>"
-								+ j.isValidation() + "</td><td><input type='checkbox' name='chbx' value='"+ j.getUsersJustificatif().getId()+ "'/> Valider</td></tr>");
+							ArrayList<Integer> just = (ArrayList<Integer>) session.getAttribute("liste");
+							for (Integer j : just) {%>
+								<tr>
+								<td class='style1'><%= j %></td>
+								</tr>
+								<% 
 							}
-							System.out.print(just.size());
 							%>
-						</table>
-						<br> <a class="btn btn-success btn-icon-split center"> <span class="icon text-white-50"> <i
-								class="fas fa-check"></i>
-						</span> <span class="text"><input
-								class="btn btn-success btn-icon-split" type='submit'
-								value='VALIDER' /></span>
-						</a>
 					</form>
+					</table>
+					<input type="submit" value="Oui" class="btn btn-success btn-icon-split center btn-lg" />
+ 					</form>
+					<a href="ScolJustificatifController" class="btn btn-primary btn-lg">Non</a>
+ 					<a href="ScolJustificatifController" class="btn btn-primary btn-lg">Annuler</a>
+ 					<p class="lead mb-5">${requestScope.msg_error}</p>
 				</div>
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
@@ -202,7 +190,7 @@
 				</footer>
 				<!-- End of Footer -->
 			</div>
-			<!-- End of Content Wrapper -->
+			</div><!-- End of Content Wrapper -->
 		</div>
 		<!-- End of Page Wrapper -->
 		<!-- Scroll to Top Button-->
