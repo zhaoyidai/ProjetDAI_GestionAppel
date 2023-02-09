@@ -36,7 +36,8 @@ public class JustificatifDAO extends DAO<Justificatif> {
 		ArrayList<Justificatif> listeJustif = new ArrayList<>();
 		String hql = "select j " +
 				"from Justificatif j,Users u " +
-				"where j.usersJustificatif.id = u.id ";
+				"where j.usersJustificatif.id = u.id " +
+				"and j.validation = 0 ";
 		
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -54,7 +55,38 @@ public class JustificatifDAO extends DAO<Justificatif> {
 		return listeJustif;
 
 }
+	
+	
+	
+	/*
+	 * 	Méthode qui permet de retourner la liste des justificatifs 
+	 */
+	public ArrayList<Justificatif>updateAbsences () {
 
+
+		ArrayList<Justificatif> listeJustif = new ArrayList<>();
+		String hql = "select j " +
+				"from Justificatif j,Users u " +
+				"where j.usersJustificatif.id = u.id " +
+				"and j.validation = 0 ";
+		
+		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+			Transaction transaction=session.beginTransaction();
+			Query<Justificatif>query = session.createQuery(hql);
+		
+			if (!query.getResultList().isEmpty()) {
+				listeJustif =(ArrayList<Justificatif>) query.list();
+
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listeJustif;
+
+}
+	
 	
 	
 	/*

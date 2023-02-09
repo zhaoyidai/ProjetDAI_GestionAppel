@@ -51,7 +51,7 @@ public class DepotFichierController extends HttpServlet {
 
     public static final int TAILLE_TAMPON = 10240;
     
-    public static final String CHEMIN_FICHIERS = Path.of("C:/Users/David_C/git/ProjetDAI_GestionAppel/Projet_GestionAppel/src/main/webapp/justificatif/").toString() ;
+    public static final String CHEMIN_FICHIERS = "C://Justificatif/";
    
     
        
@@ -79,35 +79,37 @@ public class DepotFichierController extends HttpServlet {
 
         // On récupère le champ du fichier
         Part part = request.getPart("fichier");
-            
+           
+        File dossier = new File("C://Justificatif/"); 
+        
         // On vérifie qu'on a bien reçu un fichier
         String nomFichier = getNomFichier(part);
 
-        // Si on a bien un fichier
-        if (nomFichier != null && !nomFichier.isEmpty()|| part == null) {
-            String nomChamp = part.getName();
-            // Corrige un bug du fonctionnement d'Internet Explorer
-             nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/') + 1)
-                    .substring(nomFichier.lastIndexOf('\\') + 1);
-
-            // On écrit définitivement le fichier sur le disque
-            ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
+		// si le directory n'existe pas le creer
+		if (!dossier.exists()) {
+			boolean res = dossier.mkdir();
+		}
+		//Créer une copie du PDF
+		//on recupere le pdf
+		String nomfichier = getNomFichier(part);
+		System.out.println(nomfichier);
+		if (nomfichier!= null) {
+				ecrireFichier(part, nomfichier, CHEMIN_FICHIERS );
+				String chemin = "http://localhost:8080/Projet_GestionAppel/fichier/" + nomfichier;
             
-
-            request.setAttribute(nomChamp, nomFichier);
             JustificatifDAO justificatif = new JustificatifDAO();
             Users users = (Users) request.getSession().getAttribute("auth");
            
             String debut = request.getParameter("debut");
+            System.out.print(debut);
             String fin = request.getParameter("fin");
             try {
 				Date datedeb =new SimpleDateFormat("dd-MM-yyyy").parse(debut);
 				Date datefin =new SimpleDateFormat("dd-MM-yyyy").parse(fin);
-				String chemin = request.getContextPath() + nomFichier;
 				justificatif.createJustificatif(datedeb, datefin, chemin, false, users);
 				//Un mail est envoyé à la scolarité à chaque insertion de justificatif
 				Mail mail = new Mail();
-				mail.envoyerMail("chartelain.david@gmail.com", users,datedeb,datefin);
+				mail.envoyerMail("chartelain.david@gmail.com", users,debut,fin);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
