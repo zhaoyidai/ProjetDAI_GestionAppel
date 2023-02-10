@@ -543,8 +543,63 @@ public class TestHibernate
 			return cours;
 			}
 	}
-
-
+	public static List<Cours> getEtuCours(int idu) {
+//		lescoursParticipes
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, idu);
+			List<Cours> cours=new ArrayList<>();
+			for(Cours c:u.getLescoursParticipes()) {
+				cours.add(c);
+				
+			}
+			return cours;
+			}
+	}
+	
+	public static Users getUser(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			return session.get(Users.class, id);
+			}
+	}
+	
+	public static List<List> listStaus(int idu,List<Integer> seances) {
+		List<List> assis=new ArrayList<>();
+		List<Integer> abs=new ArrayList<>();
+		List<Integer> pres=new ArrayList<>();
+		List<Integer> retas=new ArrayList<>();
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			for(int ids:seances) {
+				
+				AssisterId asi=new AssisterId(idu,ids);
+				Assister a=session.get(Assister.class, asi);
+				if(a.getStatus()==AppelEtat.ABSENCE || a.getStatus()==AppelEtat.ABSENCE_JUSTIFIE) {
+					abs.add(ids);
+				}else if(a.getStatus()==AppelEtat.RETARD) {
+					retas.add(ids);
+				}else {
+					pres.add(ids);
+				}
+			}
+			assis.add(pres);
+			assis.add(retas);
+			assis.add(abs);
+			
+			return assis;
+		}
+	}
+	
 	/**
 	 * Programme de test.
 	 * @throws ParseException

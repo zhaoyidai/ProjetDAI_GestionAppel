@@ -28,8 +28,10 @@ public class CtrlAnalyse extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idu = request.getParameter("idu");
+		int id=Integer.valueOf(idu);
 		List<CoursSeances> allcours=new ArrayList<>();
-		for(Cours c:TestHibernate.allCours()) {
+		for(Cours c:TestHibernate.getEtuCours(id)) {
 			CoursSeances cs=new CoursSeances(c.getIdC(),c.getNomC());
 			allcours.add(cs);
 		}

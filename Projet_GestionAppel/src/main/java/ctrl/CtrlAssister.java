@@ -28,13 +28,21 @@ public class CtrlAssister extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		0:presence, 1:retard, 2 absence
-		List<ListAssister> listeas=new ArrayList<>();
-		for(Users u:TestHibernate.listeAssister()) {
-			ListAssister lu=new ListAssister(u.getId());
-			listeas.add(lu);
+		String[] listeCours=(String[])request.getParameterValues("idc");
+		String idu = request.getParameter("idu");
+		int id=Integer.valueOf(idu);
+		//		0:presence, 1:retard, 2 absence
+		Users u=TestHibernate.getUser(id);
+		List<Integer> idsCours=new ArrayList<>();
+		for(String ids:listeCours) {
+			int idsint=Integer.valueOf(ids);
+			idsCours.add(idsint);
 		}
-		String SeanceJsonString = new Gson().toJson(listeas);
+		
+			ListAssister lu=new ListAssister(u.getId(),u.getNom(),u.getPrenom(),idsCours);
+			
+		
+		String SeanceJsonString = new Gson().toJson(lu);
 		
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

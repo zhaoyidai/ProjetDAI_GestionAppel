@@ -6,17 +6,20 @@ import metier.Cours;
 
 public class ListAssister {
 private int idU;
-private List<Integer> cours;
+private String nomU;
+private String prenomU;
 private List<Integer> presences;
 private List<Integer> retards;
 private List<Integer> absences;
-public ListAssister(int idU) {
+public ListAssister(int idU,String nom,String prenom,List<Integer> ids) {
 	super();
 	this.idU = idU;
-	this.cours=TestHibernate.getCours(idU);
-	this.presences = TestHibernate.listStaus(idU).get(0);
-	this.retards = TestHibernate.listStaus(idU).get(1);
-	this.absences = TestHibernate.listStaus(idU).get(2);
+	this.nomU=nom;
+	this.prenomU=prenom;
+	
+	this.presences = TestHibernate.listStaus(idU,ids).get(0);
+	this.retards = TestHibernate.listStaus(idU,ids).get(1);
+	this.absences = TestHibernate.listStaus(idU,ids).get(2);
 }
 
 
