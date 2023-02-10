@@ -6,6 +6,12 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="metier.Users"%>
+<%@page import="enumtype.Statut"%>
+<%@page import="dao.EtudiantPresence"%>
+
+
+
 <html>
 <head>
 <title>Analyse Presences</title>
@@ -46,7 +52,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/compte/accueil">
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -58,6 +64,9 @@
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
 					<!-- Nav Item - Utilities Collapse Menu -->
+						<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
 						data-target="#collapseUtilities"> <i
@@ -72,10 +81,6 @@
 					<!-- Nav Item - Tables -->
 					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-fw fa-table"></i> <span>Récapitulatif
-								alternance</span></a></li>
 				</c:when>
 			</c:choose>
 

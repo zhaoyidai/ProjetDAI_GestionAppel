@@ -35,6 +35,8 @@ Emploi du Temps</title>
 
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="formAccueil/css/style1.css" rel="stylesheet">
+
 </head>
 <body>
 	<%
@@ -219,33 +221,46 @@ Emploi du Temps</title>
 					</p>
 					<!-- Milieu -->
 					<div class="row">
-						<h4>Identifiant : ${sessionScope.id}</h4>
 					</div>
 					<div class="row">
-						<h4>Nom : ${sessionScope.nom}</h4>
 					</div>
 					<div class="row">
-						<h4>Prenom : ${sessionScope.prenom}</h4>
 					</div>
 					<div class="row">
-						<h4>Email : ${sessionScope.email}</h4>
 					</div>
 					<div class="row">
-						<h4>Statut : ${sessionScope.statut}</h4>
 					</div>
 					<div class="row">
-						<h4>Contact : ${sessionScope.num}</h4>
 					</div>
-					<div class="row">
-						<h4>Profil : <img src="${sessionScope.photo}"/> </h4>
-						<form method="post" action="DepotFichierController?type_action=upload"
+					<div class="row">						
+						<link href="css/style1.css" rel="stylesheet">
+
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> 
+    <div class="card p-4"> <div class=" image d-flex flex-column justify-content-center align-items-center"> 
+        <button class="btn btn-secondary"> <img src="${sessionScope.photo}" height="100" width="100" />
+        </button>
+        		<span class="name mt-3">${sessionScope.id}</span>
+         <span class="name mt-3">${sessionScope.nom}</span>
+         <span class="name mt-3">${sessionScope.prenom}</span>
+          <span class="name mt-3">${sessionScope.email}</span>
+          <span class="name mt-3">${sessionScope.statut}</span>
+          <span class="name mt-3">${sessionScope.num}</span> <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
+             <span></span> </div> <div class="d-flex flex-row justify-content-center align-items-center mt-3">  </div>
+                 <div class=" d-flex mt-2">  </div>
+                  <div class="text mt-3"> </div> 
+                  		<form method="post" action="DepotFichierController?type_action=upload"
 							enctype="multipart/form-data">
 							<p>
-								<label for="fichier">Photo a upload : </label> <input
+								<label for="fichier"></label> <input
 									type="file" name="fichier" id="fichier" />
 							</p>
-							<input type="submit" />
+							<center><input type="submit" class="btn1 btn-dark"/></center>
 						</form>
+                  <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span>
+                    <i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div> <div class=" px-2 rounded mt-4 date "></div> </div>
+                 </div>
+</div>
+						
 					</div>
 
 					<!-- Content Row -->

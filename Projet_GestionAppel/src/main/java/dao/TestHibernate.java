@@ -343,7 +343,7 @@ public class TestHibernate
 //				System.out.println(us.getEmail());
 				AssisterId ai=new AssisterId(us.getId(),id);
 //				System.out.println(ai.getCodeSeance());
-				Assister a=new Assister(ai,AppelEtat.PRESENCE,us,s);
+				Assister a=new Assister(ai,AppelEtat.PRESENCE,us,s,0);
 //				System.out.println(ai.getCodeSeance());
 //				session.save(a);
 //				
