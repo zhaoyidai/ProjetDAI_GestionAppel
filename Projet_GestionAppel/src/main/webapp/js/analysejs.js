@@ -10,6 +10,9 @@ function afficheCours ()
 	var e = document.getElementById("etudiants");
 	
 	var value = e.value;
+	var tablet = document.getElementById("table");
+			tablet.innerHTML="<tr><td>Numéro_étudiant</td><td>Nom</td><td>Prénom</td><td>Présence</td><td>Retard</td><td>Absent</td><td>Taux d'Absence</td></tr>";
+			
 
 	// Requête au serveur avec les paramètres éventuels.
 	xhr.open("GET","CtrlAnalyse?idu="+value);
