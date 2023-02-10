@@ -1,9 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@page import="metier.Users"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="java.sql.*" %>
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<title>Analyse Presences</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" href="css/styles.css">
@@ -19,10 +24,18 @@
 
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
-<title>Absences</title>
 </head>
-<body>
-	<!-- Page Wrapper -->
+<body id="page-top">
+
+	<section class="clean-block clean-hero">
+		<div class="text"></div>
+	</section>
+
+
+
+
+
+
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -44,9 +57,6 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-					<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
-					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -60,9 +70,12 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link"
-						href="CtrlAbsence?type_action=absence"> <i
+					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
+					<!-- Nav Item - Tables -->
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="fas fa-fw fa-table"></i> <span>RÃ©capitulatif
+								alternance</span></a></li>
 				</c:when>
 			</c:choose>
 
@@ -157,16 +170,23 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="${ sessionScope.photo }">
+										src="formAccueil/img/undraw_profile.svg">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-											<div class="dropdown-divider"></div> <a class="dropdown-item"
-											href="DeconnexionController" data-target="#logoutModal">
-												<i
-												class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-												Deconnexion
+										<a class="dropdown-item" href="#"> <i
+											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+											Profil
+										</a> <a class="dropdown-item" href="#"> <i
+											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+											Modifier mon profil
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="DeconnexionController"
+											data-target="#logoutModal"> <i
+											class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+											Deconnexion
 										</a>
 									</div></li>
 					</ul>
@@ -174,52 +194,75 @@
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<ul>
-					
-						<!-- Nav Item - Accueil enseigants -->
-						<li class="nav-item"><a class="nav-link collapsed"
-							href="CtrlRedirectIndicateur?type_action=indicateur"> <i
-							class="fas fa-fw fa-tachometer-alt"></i> <span>Indicateur
-									des statuts</span>
-						</a></li>
-						<!-- Nav Item - Utilities Collapse Menu -->
-						<li class="nav-item"><a class="nav-link collapsed"
-							href="CtrlRedirectGraph?type_action=graphique"
-							data-target="#collapseUtilities"> <i
-								class="fas fa-fw fa-wrench"></i> <span>Graphique des
-									absences par séance</span>
-						</a></li>
-						<!-- Nav Item - Pages Collapse Menu -->
-						<li class="nav-item"><a class="nav-link collapsed"
-							href="ctrlListeAbsence?id=${sessionScope.id}"
-							data-target="#collapsePages"> <i class="fas fa-fw fa-folder"></i>
-								<span>Liste absents avec plus de 3 absences injustifiées</span>
-						</a></li>
-						<style>
-						ul{
-						  list-style-type: none;
-						}
-						li::before{
-						  display: inline-block;
-						  position: relative;
-						  width: 1em;
-						  height: 1em;
-						  top: 0.2rem;
-						  margin-right: 0.4rem;
-						  content: "";
-						  background-image: url(logo-karac.png);
-						  background-size: contain;
-						}
-						</style>
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Liste d'etudiant</h1>
+					</div>
+					<strong style="color: green">${requestScope.msg_info}</strong>
+					<!-- Milieu -->
+					<div class="row">
+						<section class="clean-block clean-hero"></section>
+
+
+<div id="cours"></div>
+<table id="table" border="1" class="table table-bordered"
+								id="dataTable" width="100%" cellspacing="0">
+								<tr>
+									
+									<td>NumÃ©ro_Ã©tudiant</td>
+									<td>Nom</td>
+									<td>PrÃ©nom</td>
+									
+								</tr>
+			<%
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			Connection connection = DriverManager.getConnection(
+			
+			"jdbc:mysql://localhost:3307/db_21708799", "21708799", "01053S");
+			
+			Statement statement = connection.createStatement();
+			
+			ResultSet resultSet = statement.executeQuery("SELECT u.CodeU, u.Nom, u.Prenom FROM Users u,Assister a,Seance s WHERE a.CodeUsers =u.CodeU AND s.idSeance=a.CodeSeance AND a.status = 'ABSENCE' Group by u.CodeU, u.Nom, u.Prenom Having count(a.status)>=3");
+			
+			while (resultSet.next()) {
+			
+			int Numero_Etudiant = resultSet.getInt("u.CodeU");
+			
+			String Nom = resultSet.getString("u.Nom");
+			
+			String Prenom = resultSet.getString("u.Prenom");
+			
+			out.println("<tr><td>" + Numero_Etudiant +"</td><td>" + Nom + "</td><td>" + Prenom + "</td></tr>");
+			
+			}
+			
+			%>
+
+	</table>
+
+
+
+
+					</div>
+					<div class="row">
 						
-					</ul>
+						<!-- Pie Chart -->
+						<div class="col-xl-4 col-lg-5"></div>
+					</div>
+					<!-- Content Row -->
+					<div class="row"></div>
 				</div>
+				<!-- /.container-fluid -->
 			</div>
+			<!-- End of Main Content -->
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Home Web &copy; La créativité autour du web</span>
+						<span>Home Web &copy; La crÃ©ativitÃ© autour du web</span>
 					</div>
 				</div>
 			</footer>
@@ -248,6 +291,6 @@
 	<!-- Page level custom scripts -->
 	<script src="formAccueil/js/demo/chart-area-demo.js"></script>
 	<script src="formAccueil/js/demo/chart-pie-demo.js"></script>
-	<script type="text/JavaScript" src="js/fonctionjs.js"></script>
+	<script type="text/JavaScript" src="js/analysejs.js"></script>
 </body>
 </html>
