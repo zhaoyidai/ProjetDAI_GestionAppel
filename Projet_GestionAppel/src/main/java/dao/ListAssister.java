@@ -17,9 +17,9 @@ public ListAssister(int idU,String nom,String prenom,List<Integer> ids) {
 	this.nomU=nom;
 	this.prenomU=prenom;
 	
-	this.presences = TestHibernate.listStaus(idU,ids).get(0);
-	this.retards = TestHibernate.listStaus(idU,ids).get(1);
-	this.absences = TestHibernate.listStaus(idU,ids).get(2);
+	this.presences = TestHibernate.listStaus(idU).get(0);
+	this.retards = TestHibernate.listStaus(idU).get(1);
+	this.absences = TestHibernate.listStaus(idU).get(2);
 }
 
 

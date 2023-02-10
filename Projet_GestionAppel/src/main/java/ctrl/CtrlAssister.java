@@ -35,6 +35,7 @@ public class CtrlAssister extends HttpServlet {
 		Users u=TestHibernate.getUser(id);
 		List<Integer> idsCours=new ArrayList<>();
 		for(String ids:listeCours) {
+			
 			int idsint=Integer.valueOf(ids);
 			idsCours.add(idsint);
 		}

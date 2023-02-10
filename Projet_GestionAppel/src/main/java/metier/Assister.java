@@ -25,8 +25,7 @@ public class Assister {
 	@Column(name = "Status")
 	private AppelEtat status;
 	
-	@Column(name="CodeJustificatif")
-	private int codeJ;
+	
 	
 	/**
 	 * Relations.
@@ -79,13 +78,7 @@ public class Assister {
 		return users;
 	}
 
-	public int getCodeJ() {
-		return codeJ;
-	}
 
-	public void setCodeJ(int codeJ) {
-		this.codeJ = codeJ;
-	}
 
 	public void setUsers(Users users) {
 		this.users = users;

@@ -509,7 +509,10 @@ public class TestHibernate
 	            t = session.beginTransaction();}
 			Cours c=session.get(Cours.class, idC);
 			for(Seance s:c.getSeance()) {
-				etus.add(s.getIdS());
+				if(s.getStatutFicheAppel()==FicheAppelEtat.VALIDER) {
+					etus.add(s.getIdS());
+				}
+				
 			}
 			return etus;
 			
@@ -557,7 +560,7 @@ public class TestHibernate
 			String hql="Select s "+
 						"from Seance s,Users u,Assister a "
 						+ "where u.id = :id "
-						+ "and s.idS = a.seance.idS and a.users.id=u.id";
+						+ "and s.idS = a.seance.idS and a.users.id=u.id and s.StatutFicheAppel='VALIDER'";
 			Query<Seance>query = session.createQuery(hql);
             query.setParameter("id", idu);
             
@@ -621,6 +624,8 @@ public class TestHibernate
 			return cours;
 			}
 	}
+	
+	
 	public static List<Cours> getEtuCours(int idu) {
 //		lescoursParticipes
 		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
