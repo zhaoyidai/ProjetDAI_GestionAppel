@@ -39,6 +39,7 @@ public class Assister {
     @JoinColumn(name = "CodeSeance", insertable = false, updatable = false)
 	private Seance seance;
 	
+	@Column(name="CodeJustificatif")
 	private int codeJ;
 	
 	public Assister() {
