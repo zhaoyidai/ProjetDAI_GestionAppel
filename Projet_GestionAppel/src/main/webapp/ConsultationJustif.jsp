@@ -14,7 +14,7 @@
 	rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
-<title>Gesti Appel</title>
+<title>Gestion Appel</title>
 </head>
 <body>
 	<!-- Page Wrapper -->
@@ -26,7 +26,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/compte/accueil">
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -36,10 +36,7 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
-					<!-- Nav Item - Accueil Scolarite -->
-					<li class="nav-item "><a class="nav-link"
-						href="ProfilController?id=${sessionScope.id}"> <i
-							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span></a></li>
+
 					<!-- Nav Item - Charts -->
 					<li class="nav-item active"><a class="nav-link"
 						href="ScolJustificatifController"> <i
@@ -134,13 +131,7 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
+
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i
@@ -156,7 +147,7 @@
 				<!-- Page Heading -->
 				<div
 					class="d-sm-flex align-items-center justify-content-between mb-4">
-					<h1 class="h3 mb-0 text-gray-800">Listes des abscences</h1>
+					<h1 class="h3 mb-0 text-gray-800">Listes des justificatifs</h1>
 				</div>
 				<strong style="color: red">${requestScope.checkbox_vide}</strong>
 				<strong style="color: green">${requestScope.msg_validation}</strong><br>
@@ -194,18 +185,21 @@
 					</form>
 				</div>
 				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
+
+				<!-- End of Footer -->
+			</div>
+			<!-- End of Content Wrapper -->
+			
+		</div>
+						<footer class="sticky-footer bg-white">
 					<div class="container my-auto">
 						<div class="copyright text-center my-auto">
 							<span>Home Web &copy; La créativité autour du web</span>
 						</div>
 					</div>
 				</footer>
-				<!-- End of Footer -->
-			</div>
-			<!-- End of Content Wrapper -->
 		</div>
-		</div>
+		
 		<!-- End of Page Wrapper -->
 		<!-- Scroll to Top Button-->
 		<a class="scroll-to-top rounded" href="#page-top"> <i

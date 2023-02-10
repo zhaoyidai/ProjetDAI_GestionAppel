@@ -1,6 +1,8 @@
-<%@page import="metier.Users"%>
+<%@page import="enumtype.Statut"%>
 <%@page import="org.hibernate.Session"%>
-<%@page import="java.util.List"%>
+<%@page import="metier.Users"%>
+<%@page import="dao.EtudiantPresence"%>
+<%@ page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -10,6 +12,7 @@
 <title>Analyse Presences</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -25,16 +28,6 @@
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
-
-	<section class="clean-block clean-hero">
-		<div class="text"></div>
-	</section>
-
-
-
-
-
-
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -56,6 +49,9 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
+					<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -69,14 +65,12 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
+					<li class="nav-item"><a class="nav-link"
+						href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-fw fa-table"></i> <span>Récapitulatif
-								alternance</span></a></li>
 				</c:when>
 			</c:choose>
+
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -174,13 +168,6 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i
@@ -200,8 +187,10 @@
 					</div>
 					<strong style="color: green">${requestScope.msg_info}</strong>
 					<!-- Milieu -->
-					<div class="row">
+					<div class="row">					
 						<section class="clean-block clean-hero"></section>
+<form action="" method="get">
+						
 <select id="etudiants">
 	<option value="none">------</option>
 <%
@@ -213,6 +202,7 @@ for(int i=0;i<listeEtudiant.size();i++){
 
 out.println("</select>");
 %>
+
 <div id="cours"></div>
 <table id="table" border="1" class="table table-bordered"
 								id="dataTable" width="100%" cellspacing="0">
@@ -221,7 +211,6 @@ out.println("</select>");
 									<td>Numéro_étudiant</td>
 									<td>Nom</td>
 									<td>Prénom</td>
-									
 									<td>Présence</td>
 									<td>Retard</td>
 									<td>Absent</td>
@@ -230,8 +219,8 @@ out.println("</select>");
 
 
 	</table>
-
-
+	</select>
+	</form>
 
 
 					</div>
@@ -282,3 +271,4 @@ out.println("</select>");
 	<script type="text/JavaScript" src="js/analysejs.js"></script>
 </body>
 </html>
+

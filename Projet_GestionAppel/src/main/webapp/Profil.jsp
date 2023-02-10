@@ -1,4 +1,5 @@
 <%@page import="org.hibernate.Session"%>
+<%@page import="enumtype.Statut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="metier.Users"%>
@@ -16,7 +17,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Emploi du Temps</title>
+<title>
+Emploi du Temps</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" href="formLogin/css/planning.css">
@@ -53,7 +55,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/compte/accueil">
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -84,7 +86,20 @@
 					<li class="nav-item"><a class="nav-link"
 						href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-				</c:when>
+					</c:when>
+							
+					<c:when test="${sessionScope.statut == Statut.ETUDIANT}">
+						<li class="nav-item "><a class="nav-link"
+							href="ProfilController?id=${sessionScope.id}"> <i
+								class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+						</a></li>
+						<!-- Nav Item - Pages Collapse Menu -->
+						<li class="nav-item"><a class="nav-link collapsed"
+							href="JustificatifController?id=${sessionScope.id}"
+							data-target="#collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Absences</span>
+						</a></li>
+					</c:when>
+							
 			</c:choose>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -181,13 +196,6 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i

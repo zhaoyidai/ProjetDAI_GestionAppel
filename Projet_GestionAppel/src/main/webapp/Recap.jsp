@@ -149,13 +149,7 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
+
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i
@@ -171,7 +165,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Liste des étudiants</h1>
+						<h1 class="h3 mb-0 text-gray-800">Récapitulatif de la fiche d'appel</h1>
 
 					</div>
 					<!-- Milieu -->

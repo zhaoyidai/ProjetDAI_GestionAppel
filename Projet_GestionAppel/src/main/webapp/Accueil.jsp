@@ -90,10 +90,7 @@
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
 				</c:when>
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
-					<li class="nav-item "><a class="nav-link"
-						href="ProfilController?id=${sessionScope.id}"> <i
-							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
-					</a></li>
+
 					<!-- Nav Item - Accueil Scolarite -->
 					<li class="nav-item active"><a class="nav-link"
 						href="/compte/accueil"> <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -203,13 +200,7 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
+
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i

@@ -162,9 +162,6 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
 											<div class="dropdown-divider"></div> <a class="dropdown-item"
 											href="DeconnexionController" data-target="#logoutModal">
 												<i
@@ -178,9 +175,11 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<ul>
+					
 						<!-- Nav Item - Accueil enseigants -->
-						<li class="nav-item active"><a class="nav-link"
-							href="CtrlRedirectIndicateur?type_action=indicateur"> <span>Indicateur
+						<li class="nav-item"><a class="nav-link collapsed"
+							href="CtrlRedirectIndicateur?type_action=indicateur"> <i
+							class="fas fa-fw fa-tachometer-alt"></i> <span>Indicateur
 									des statuts</span>
 						</a></li>
 						<!-- Nav Item - Utilities Collapse Menu -->
@@ -196,6 +195,23 @@
 							data-target="#collapsePages"> <i class="fas fa-fw fa-folder"></i>
 								<span>Liste absents avec plus de 3 absences injustifiées</span>
 						</a></li>
+						<style>
+						ul{
+						  list-style-type: none;
+						}
+						li::before{
+						  display: inline-block;
+						  position: relative;
+						  width: 1em;
+						  height: 1em;
+						  top: 0.2rem;
+						  margin-right: 0.4rem;
+						  content: "";
+						  background-image: url(logo-karac.png);
+						  background-size: contain;
+						}
+						</style>
+						
 					</ul>
 				</div>
 			</div>
