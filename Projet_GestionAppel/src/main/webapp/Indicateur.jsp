@@ -40,7 +40,7 @@
 <button style="background-color:orange" disabled ><p style="color:white"><strong>ABSENCE JUSTIFIEE</strong></p></button>
 <button style="background-color:yellow" disabled ><p style="color:Black"><strong>RETARD</strong></p></button>
 <button style="background-color:grey" disabled ><p style="color:white"><strong>NON NOTIFIER</strong></p></button><br>
-<a href="CtrlAbsence?type_action=absence"><button style="background-color:grey"  ><p style="color:green"><strong>Retour</strong></p></button></a>
+<a href="CtrlAbsence?type_action=absence"><button style="background-color:Blue"  ><p style="color:White"><strong>Retour</strong></p></button></a>
 
 </center>
 <script>

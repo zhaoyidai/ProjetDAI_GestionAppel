@@ -44,14 +44,14 @@
 	</servlet-mapping>
 	
 	<servlet>
-	<servlet-name>accueil</servlet-name>
-	<jsp-file>/Accueil.jsp</jsp-file>
+		<servlet-name>accueil</servlet-name>
+		<jsp-file>/Accueil.jsp</jsp-file>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>accueil</servlet-name>
 		<url-pattern>/Accueil</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 	<servlet-name>planning</servlet-name>
 	<jsp-file>/Planning.jsp</jsp-file>
@@ -105,10 +105,9 @@
 
 
 	<servlet>
-	<servlet-name>justificatif</servlet-name>
-	<jsp-file>/Justificatif.jsp</jsp-file>
+		<servlet-name>justificatif</servlet-name>
+		<jsp-file>/Justificatif.jsp</jsp-file>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>justificatif</servlet-name>
 		<url-pattern>/Justificatif</url-pattern>
@@ -122,6 +121,15 @@
 	<servlet-mapping>
 		<servlet-name>listeabsences</servlet-name>
 		<url-pattern>/ListeAbsencesSeance</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>listeAbsenceEtudiant</servlet-name>
+		<jsp-file>/ListeAbsenceEtudiant.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>listeAbsenceEtudiant</servlet-name>
+		<url-pattern>/listeAbsenceEtudiant</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

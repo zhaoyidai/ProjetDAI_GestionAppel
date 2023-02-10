@@ -49,7 +49,7 @@ while (resultSet.next()) {
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/compte/accueil">
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -178,13 +178,7 @@ while (resultSet.next()) {
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
+
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i
@@ -201,11 +195,10 @@ while (resultSet.next()) {
 				</div>
 			</div>
 			<div class="row">
-				<a href="CtrlRecap?idSeance=${param.idSeance }"><button
-						id="btn_valider">Valider</button></a> <a
-					href="CtrlPDF?idSeance=${param.idSeance }"><button>PDF</button></a>
-				<!-- Pie Chart -->
+
 				<div class="col-xl-4 col-lg-5"></div>
+				<a href="CtrlAbsence?type_action=absence"><button style="background-color:#FB335B"  >
+				<p style="color:white"><strong>Retour</strong></p></button></a>
 			</div>
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">

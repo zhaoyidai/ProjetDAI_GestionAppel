@@ -1,4 +1,5 @@
 <%@page import="org.hibernate.Session"%>
+<%@page import="enumtype.Statut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="metier.Users"%>
@@ -16,7 +17,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Emploi du Temps</title>
+<title>
+Emploi du Temps</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" href="formLogin/css/planning.css">
@@ -33,6 +35,8 @@
 
 <!-- Custom styles for this template-->
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="formAccueil/css/style1.css" rel="stylesheet">
+
 </head>
 <body>
 	<%
@@ -53,7 +57,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/compte/accueil">
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -84,7 +88,20 @@
 					<li class="nav-item"><a class="nav-link"
 						href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-				</c:when>
+					</c:when>
+							
+					<c:when test="${sessionScope.statut == Statut.ETUDIANT}">
+						<li class="nav-item "><a class="nav-link"
+							href="ProfilController?id=${sessionScope.id}"> <i
+								class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+						</a></li>
+						<!-- Nav Item - Pages Collapse Menu -->
+						<li class="nav-item"><a class="nav-link collapsed"
+							href="JustificatifController?id=${sessionScope.id}"
+							data-target="#collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Absences</span>
+						</a></li>
+					</c:when>
+							
 			</c:choose>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -181,13 +198,6 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#"> <i
-											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profil
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Modifier mon profil
-										</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="DeconnexionController"
 											data-target="#logoutModal"> <i
@@ -211,33 +221,46 @@
 					</p>
 					<!-- Milieu -->
 					<div class="row">
-						<h4>Identifiant : ${sessionScope.id}</h4>
 					</div>
 					<div class="row">
-						<h4>Nom : ${sessionScope.nom}</h4>
 					</div>
 					<div class="row">
-						<h4>Prenom : ${sessionScope.prenom}</h4>
 					</div>
 					<div class="row">
-						<h4>Email : ${sessionScope.email}</h4>
 					</div>
 					<div class="row">
-						<h4>Statut : ${sessionScope.statut}</h4>
 					</div>
 					<div class="row">
-						<h4>Contact : ${sessionScope.num}</h4>
 					</div>
-					<div class="row">
-						<h4>Profil : <img src="${sessionScope.photo}"/> </h4>
-						<form method="post" action="DepotFichierController?type_action=upload"
+					<div class="row">						
+						<link href="css/style1.css" rel="stylesheet">
+
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> 
+    <div class="card p-4"> <div class=" image d-flex flex-column justify-content-center align-items-center"> 
+        <button class="btn btn-secondary"> <img src="${sessionScope.photo}" height="100" width="100" />
+        </button>
+        		<span class="name mt-3">${sessionScope.id}</span>
+         <span class="name mt-3">${sessionScope.nom}</span>
+         <span class="name mt-3">${sessionScope.prenom}</span>
+          <span class="name mt-3">${sessionScope.email}</span>
+          <span class="name mt-3">${sessionScope.statut}</span>
+          <span class="name mt-3">${sessionScope.num}</span> <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
+             <span></span> </div> <div class="d-flex flex-row justify-content-center align-items-center mt-3">  </div>
+                 <div class=" d-flex mt-2">  </div>
+                  <div class="text mt-3"> </div> 
+                  		<form method="post" action="DepotFichierController?type_action=upload"
 							enctype="multipart/form-data">
 							<p>
-								<label for="fichier">Photo a upload : </label> <input
+								<label for="fichier"></label> <input
 									type="file" name="fichier" id="fichier" />
 							</p>
-							<input type="submit" />
+							<center><input type="submit" class="btn1 btn-dark"/></center>
 						</form>
+                  <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span>
+                    <i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div> <div class=" px-2 rounded mt-4 date "></div> </div>
+                 </div>
+</div>
+						
 					</div>
 
 					<!-- Content Row -->
