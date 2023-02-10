@@ -68,7 +68,14 @@
 		<servlet-name>recap</servlet-name>
 		<url-pattern>/Recap</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+	<servlet-name>analyse</servlet-name>
+	<jsp-file>/Analyse.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>analyse</servlet-name>
+		<url-pattern>/Analyse</url-pattern>
+	</servlet-mapping>
 	<servlet>
 	<servlet-name>cours</servlet-name>
 	<jsp-file>/Cours.jsp</jsp-file>

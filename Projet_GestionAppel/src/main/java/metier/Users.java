@@ -111,6 +111,22 @@ public class Users implements Serializable {
 		return id;
 	}
 
+	public Set<Cours> getLescoursEnseignes() {
+		return lescoursEnseignes;
+	}
+
+	public void setLescoursEnseignes(Set<Cours> lescoursEnseignes) {
+		this.lescoursEnseignes = lescoursEnseignes;
+	}
+
+	public Set<Cours> getLescoursParticipes() {
+		return lescoursParticipes;
+	}
+
+	public void setLescoursParticipes(Set<Cours> lescoursParticipes) {
+		this.lescoursParticipes = lescoursParticipes;
+	}
+
 	public Users() {
 		super();
 	}

@@ -208,14 +208,25 @@ public class TestHibernate
 //			
 //			}
 		
-		for(Cours c:TestHibernate.allCours()) {
-			System.out.print(c.getNomC()+" :[ ");
-			
-			for(int i:TestHibernate.listeSeance(c.getIdC())) {
-				System.out.print(i+" ");
-			}
-		}
-		System.out.print("\n ]");
+//		for(Cours c:TestHibernate.allCours()) {
+//			System.out.print(c.getNomC()+" :[ ");
+//			
+//			for(int i:TestHibernate.listeSeance(c.getIdC())) {
+//				System.out.print(i+" ");
+//			}
+//		}
+//		System.out.print("\n ]");
+		
+		
+//		for(Users u:TestHibernate.listeAssister()) {
+//			for(List<Integer> lis:TestHibernate.listStaus(u.getId())) {
+//				System.out.println(lis);
+//			}
+//		}
+		
+		TestHibernate.getCours(1);
+		
+//		TestHibernate.testlist(1);
 		}
 
 	public static boolean affichestatusvalide(int id) {
@@ -404,7 +415,7 @@ public class TestHibernate
 
 				return cours;
 	            	}
-	            transaction.commit();
+	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
@@ -427,8 +438,168 @@ public class TestHibernate
 			}
 	}
 	
+//	liste des tous les etudiant
+	public static List<Users> listeAssister() {
+		String hql = "select u " +
+				"from Users u "
+				+ "where u.statut = 'ETUDIANT'";
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<Users> etus=new ArrayList<>();
+//			List<Integer> abs=new ArrayList<>();
+//			List<Integer> pres=new ArrayList<>();
+//			List<Integer> retas=new ArrayList<>();
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Query<Users>query = session.createQuery(hql);
+			
 
+			if (!query.getResultList().isEmpty()) {
+				etus=query.list();
 
+				return etus;
+	            	}
+			
+			
+			return null;
+			}
+	}
+	
+	public static List<List> listStaus(int idu) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			List<List> assis=new ArrayList<>();
+			List<Integer> abs=new ArrayList<>();
+			List<Integer> pres=new ArrayList<>();
+			List<Integer> retas=new ArrayList<>();
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, idu);
+			List<Seance> seances=new ArrayList<>();
+			String hql="Select s "+
+						"from Seance s,Users u,Assister a "
+						+ "where u.id = :id "
+						+ "and s.idS = a.seance.idS and a.users.id=u.id";
+			Query<Seance>query = session.createQuery(hql);
+            query.setParameter("id", idu);
+            
+            if (!query.getResultList().isEmpty()) {
+            	seances=query.list();
+            	}
+			for(Seance s:seances) {
+				AssisterId asi=new AssisterId(idu,s.getIdS());
+				Assister a=session.get(Assister.class, asi);
+				if(a.getStatus()==AppelEtat.ABSENCE || a.getStatus()==AppelEtat.ABSENCE_JUSTIFIE) {
+					abs.add(s.getIdS());
+				}else if(a.getStatus()==AppelEtat.RETARD) {
+					retas.add(s.getIdS());
+				}else {
+					pres.add(s.getIdS());
+				}
+			}
+			assis.add(pres);
+			assis.add(retas);
+			assis.add(abs);
+			
+			return assis;
+			
+			}
+	}
+	
+	public static void testlist(int idu) {
+		List<Seance> seances=new ArrayList<>();
+		String hql="Select s from Seance s,Users u,Assister a where u.id = :id "
+					+ "and s.idS = a.seance.idS and a.users.id=u.id";
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Query<Seance>query = session.createQuery(hql);
+	        query.setParameter("id", idu);
+	        
+	        if (!query.getResultList().isEmpty()) {
+	        	seances=query.list();
+	        	}
+			for(Seance s:seances) {
+				System.out.println(s.getIdS());
+			}
+		}
+	}
+	
+	public static List<Integer> getCours(int idu) {
+//		lescoursParticipes
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, idu);
+			List<Integer> cours=new ArrayList<>();
+			for(Cours c:u.getLescoursParticipes()) {
+				cours.add(c.getIdC());
+				
+			}
+			return cours;
+			}
+	}
+	public static List<Cours> getEtuCours(int idu) {
+//		lescoursParticipes
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, idu);
+			List<Cours> cours=new ArrayList<>();
+			for(Cours c:u.getLescoursParticipes()) {
+				cours.add(c);
+				
+			}
+			return cours;
+			}
+	}
+	
+	public static Users getUser(int id) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			return session.get(Users.class, id);
+			}
+	}
+	
+	public static List<List> listStaus(int idu,List<Integer> seances) {
+		List<List> assis=new ArrayList<>();
+		List<Integer> abs=new ArrayList<>();
+		List<Integer> pres=new ArrayList<>();
+		List<Integer> retas=new ArrayList<>();
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			for(int ids:seances) {
+				
+				AssisterId asi=new AssisterId(idu,ids);
+				Assister a=session.get(Assister.class, asi);
+				if(a.getStatus()==AppelEtat.ABSENCE || a.getStatus()==AppelEtat.ABSENCE_JUSTIFIE) {
+					abs.add(ids);
+				}else if(a.getStatus()==AppelEtat.RETARD) {
+					retas.add(ids);
+				}else {
+					pres.add(ids);
+				}
+			}
+			assis.add(pres);
+			assis.add(retas);
+			assis.add(abs);
+			
+			return assis;
+		}
+	}
+	
 	/**
 	 * Programme de test.
 	 * @throws ParseException

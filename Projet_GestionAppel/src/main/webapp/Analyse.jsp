@@ -1,15 +1,13 @@
-<%@page import="enumtype.Statut"%>
-<%@page import="org.hibernate.Session"%>
 <%@page import="metier.Users"%>
-<%@page import="dao.EtudiantPresence"%>
-<%@ page import="java.util.List"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<title>Cours</title>
+<title>Analyse Presences</title>
 <meta name="viewport" charset="UTF-8"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" href="css/styles.css">
@@ -27,11 +25,23 @@
 <link href="formAccueil/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
+
+	<section class="clean-block clean-hero">
+		<div class="text"></div>
+	</section>
+
+
+
+
+
+
 	<div id="wrapper">
+
 		<!-- Sidebar -->
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
+
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
@@ -41,13 +51,11 @@
 				</div>
 				<div class="sidebar-brand-text mx-3">Gestion d'appel</div>
 			</a>
+
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-				<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
-					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -63,14 +71,21 @@
 					<!-- Nav Item - Tables -->
 					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
+					<!-- Nav Item - Tables -->
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="fas fa-fw fa-table"></i> <span>Récapitulatif
+								alternance</span></a></li>
 				</c:when>
 			</c:choose>
+
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
+
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
 			</div>
+
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -133,6 +148,8 @@
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
+
+
 								<!-- Nav Item - Messages -->
 								<li class="nav-item dropdown no-arrow mx-1"><a
 									class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
@@ -152,7 +169,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="${ sessionScope.photo }">
+										src="formAccueil/img/undraw_profile.svg">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -171,8 +188,6 @@
 											Deconnexion
 										</a>
 									</div></li>
-
-
 					</ul>
 				</nav>
 				<!-- End of Topbar -->
@@ -181,87 +196,56 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Liste des etudiants du cours</h1>
+						<h1 class="h3 mb-0 text-gray-800">Liste d'etudiant</h1>
 					</div>
 					<strong style="color: green">${requestScope.msg_info}</strong>
 					<!-- Milieu -->
 					<div class="row">
-						<form action="CtrlEnregistrer" method="get">
-							<input type="text" style="display: none;" name="idSeance"
-								value="${param.idSeance }">
-							<table id="table" border="1" class="table table-bordered"
+						<section class="clean-block clean-hero"></section>
+<select id="etudiants">
+	<option value="none">------</option>
+<%
+List<Users> listeEtudiant=(List<Users>)request.getAttribute("listeEtudiant");
+
+for(int i=0;i<listeEtudiant.size();i++){
+	out.println("<option value =\""+listeEtudiant.get(i).getId()+"\">"+listeEtudiant.get(i).getNom()+" "+listeEtudiant.get(i).getPrenom()+"</option>");
+}
+
+out.println("</select>");
+%>
+<div id="cours"></div>
+<table id="table" border="1" class="table table-bordered"
 								id="dataTable" width="100%" cellspacing="0">
 								<tr>
-									<td>Photo</td>
+									
 									<td>Numéro_étudiant</td>
 									<td>Nom</td>
 									<td>Prénom</td>
-									<td>Formation</td>
+									
 									<td>Présence</td>
 									<td>Retard</td>
 									<td>Absent</td>
+									<td>Taux d'Absence</td>
 								</tr>
-								<%
-								List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
-								/* List<Users> listeEtudiant = (List<Users>)request.getAttribute("listeEtudiant"); */
-								int row = 1;
 
-								for (EtudiantPresence u : listeEtudiant) {
-									Users us = u.getU();
-									out.println("<tr><td><img  src=\"" + us.getPhoto() + "\"style=\"width: 50px; height: 50px;\" />" + "</td><td>"
-									+ us.getId() + "</td><td>" + us.getNom() + "</td><td>" + us.getPrenom() + "</td><td>" + us.getFormation()
-									+ "</td>");
-									if (u.getStatus().toString() == "PRESENCE") {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ") style=\"zoom:280%\" checked></td>");
-									} else {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name='presence' onchange=onlyCheck(\"presence\"," + row + ") style=\"zoom:280%\"></td>");
-									}
 
-									if (u.getStatus().toString() == "RETARD") {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ") style=\"zoom:280%\" checked></td>");
-									} else {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"retard\" onchange=onlyCheck(\"retard\"," + row + ") style=\"zoom:280%\"></td>");
-									}
+	</table>
 
-									if (u.getStatus().toString() == "ABSENCE") {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"absence\" onchange=onlyCheck(\"absence\"," + row
-										+ ") style=\"zoom:280%\" checked></td></tr>");
-									} else {
-										out.println("<td>" + "<input type='checkbox' value=\"" + us.getId()
-										+ "\" name=\"absence\" onchange=onlyCheck(\"absence\"," + row + ") style=\"zoom:280%\"></td></tr>");
 
-									}
-									row++;
-									/*  out.println(us.toString()); */
-								}
-								out.println("</table>");
-								out.println("<table>");
-								boolean valid = (boolean) request.getAttribute("valideb");
-								if (valid) {
-									out.println("<strong style='color:green;'>La fiche a deja été validé !</strong>");
-								} else {
-									out.println("<input type=\"submit\" value=\"Enregistrer\">");
-								}
-								out.println("</table>");
-								%>
-							</table>
-						</form>
+
+
 					</div>
+					<div class="row">
+						
+						<!-- Pie Chart -->
+						<div class="col-xl-4 col-lg-5"></div>
+					</div>
+					<!-- Content Row -->
+					<div class="row"></div>
 				</div>
+				<!-- /.container-fluid -->
 			</div>
-			<div class="col-xl-4 col-lg-5">
-				<a href="CtrlRecap?idSeance=${param.idSeance }"><button
-						id="btn_valider">Valider</button></a> <a
-					href="CtrlPDF?idSeance=${param.idSeance }"><button>Génerer un PDF</button></a>
-				<!-- Pie Chart -->
-				<div class="col-xl-4 col-lg-5">
-				</div>
-			</div>
+			<!-- End of Main Content -->
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
@@ -295,6 +279,6 @@
 	<!-- Page level custom scripts -->
 	<script src="formAccueil/js/demo/chart-area-demo.js"></script>
 	<script src="formAccueil/js/demo/chart-pie-demo.js"></script>
-	<script type="text/JavaScript" src="js/fonctionjs.js"></script>
+	<script type="text/JavaScript" src="js/analysejs.js"></script>
 </body>
 </html>
