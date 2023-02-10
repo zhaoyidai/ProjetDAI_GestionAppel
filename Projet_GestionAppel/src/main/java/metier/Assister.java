@@ -39,17 +39,20 @@ public class Assister {
     @JoinColumn(name = "CodeSeance", insertable = false, updatable = false)
 	private Seance seance;
 	
+	private int codeJ;
+	
 	public Assister() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Assister(AssisterId id, AppelEtat status, Users users, Seance seance) {
+	public Assister(AssisterId id, AppelEtat status, Users users, Seance seance,int codeJ) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.users = users;
 		this.seance = seance;
+		this.codeJ=codeJ;
 	}
 
 	public AssisterId getId() {
@@ -70,6 +73,14 @@ public class Assister {
 
 	public Users getUsers() {
 		return users;
+	}
+
+	public int getCodeJ() {
+		return codeJ;
+	}
+
+	public void setCodeJ(int codeJ) {
+		this.codeJ = codeJ;
 	}
 
 	public void setUsers(Users users) {
