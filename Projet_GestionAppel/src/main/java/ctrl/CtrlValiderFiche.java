@@ -38,11 +38,11 @@ public class CtrlValiderFiche extends HttpServlet {
 			if(e.getStatus().equals(AppelEtat.ABSENCE)) {
 				System.out.println(e.getStatus());
 				Mail mail = new Mail();
-				mail.envoyerMailAbsenceEtudiant("chartelain.david@gmail.com", e.getU());
+				mail.envoyerMailAbsenceEtudiant("chartelain.david@gmail.com", e.getU() , e.getDateSeance());
 			}
 		}
-		request.setAttribute("msg_info", "Fiche d'Appel"+idSeance+" validé.");
-		request.getRequestDispatcher("Accueil").forward(request, response);
+		request.setAttribute("msg_info", "Fiche d'Appel du cours n°"+idSeance+" validé.");
+		request.getRequestDispatcher("CtrlRedirect?type_action=planning").forward(request, response);
 	}
 
 	/**

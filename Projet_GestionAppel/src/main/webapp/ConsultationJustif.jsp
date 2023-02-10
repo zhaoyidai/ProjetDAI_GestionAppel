@@ -38,7 +38,7 @@
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
 					<!-- Nav Item - Accueil Scolarite -->
 					<li class="nav-item "><a class="nav-link"
-						href="AccueilController"> <i
+						href="ProfilController?id=${sessionScope.id}"> <i
 							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span></a></li>
 					<!-- Nav Item - Charts -->
 					<li class="nav-item active"><a class="nav-link"
@@ -129,7 +129,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -158,6 +158,9 @@
 					class="d-sm-flex align-items-center justify-content-between mb-4">
 					<h1 class="h3 mb-0 text-gray-800">Listes des abscences</h1>
 				</div>
+				<strong style="color: red">${requestScope.checkbox_vide}</strong>
+				<strong style="color: green">${requestScope.msg_validation}</strong><br>
+				<strong style="color: green">${requestScope.msg_validation2}</strong><br>
 				<!-- Milieu -->
 				<div class="row">
 					<form method="get" action="ValidationAbsenceController">

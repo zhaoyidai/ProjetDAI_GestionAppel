@@ -8,7 +8,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Date"%>
-<%@page import="ctrl.CtrlRedirect" %>
+<%@page import="ctrl.CtrlRedirect"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 <link rel="stylesheet" href="js/timetablejs.css">
-    <link rel="stylesheet" href="js/demo.css">
+<link rel="stylesheet" href="js/demo.css">
 <!-- Custom fonts for this template-->
 <link href="formAccueil/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -35,7 +35,7 @@
 <body>
 	<%
 	Users users = (Users) session.getAttribute("auth");
-	if(users == null){
+	if (users == null) {
 		response.sendRedirect("Login");
 	}
 	%>
@@ -62,6 +62,9 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
+				<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -75,12 +78,9 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="CtrlAbsence?type_action=absence"> <i
+					<li class="nav-item"><a class="nav-link"
+						href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-fw fa-table"></i> <span>Récapitulatif
-								alternance</span></a></li>
 				</c:when>
 			</c:choose>
 			<!-- Divider -->
@@ -173,7 +173,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -200,42 +200,33 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Mon planning</h1>
+						<strong><h1 class="h3 mb-0 text-gray-800 solid">Votre
+								planning de cours</h1></strong>
 					</div>
+					<p>
+					<strong style="color: green">${requestScope.msg_info}</strong>
+					</p>
 					<!-- Milieu -->
 					<div class="row">
-						<p>Mon planning</p>
-						
-						<!-- <table border=1px>
-  <tr>
-    <th>Lundi</th>
-    <th>Mardi</th>
-    <th>Mercredi</th>
-  </tr> -->
-						<!-- <ul> -->
+						<h5 style="color: red;">Selectionner une date :</h5>
 						<select id="semaine">
-						<option value="none">------</option>
-<%
-List<String> seaminesaffi=(List<String>)request.getAttribute("semainesaff");
-List<Integer> semaines=(List<Integer>)request.getAttribute("semaines");
-for(int i=0;i<seaminesaffi.size();i++){
-	out.println("<option value =\""+semaines.get(i)+"\">"+seaminesaffi.get(i)+"</option>");
-}
+							<option value="none">--Sélectionner--</option>
+							<%
+							List<String> seaminesaffi = (List<String>) request.getAttribute("semainesaff");
+							List<Integer> semaines = (List<Integer>) request.getAttribute("semaines");
+							for (int i = 0; i < seaminesaffi.size(); i++) {
+								out.println("<option value =\"" + semaines.get(i) + "\">" + seaminesaffi.get(i) + "</option>");
+							}
 
-out.println("</select>");
-
-%>
-
-						<!-- 	</li>
-						</ul> -->
-						<!--  </table> -->
+							out.println("</select>");
+							%>
+						
 					</div>
 
 					<!-- Content Row -->
 
 					<div class="row">
-<div id="edt" class="row">
-</div>
+						<div id="edt" class="row"></div>
 
 						<!-- Pie Chart -->
 						<div class="col-xl-4 col-lg-5"></div>
@@ -246,11 +237,11 @@ out.println("</select>");
 
 				</div>
 				<!-- /.container-fluid -->
-<div class="timetable"></div>
-<span id="cachee" style="display:none"></span>
-    <script src="js/timetable.js"></script>
+				<div class="timetable"></div>
+				<span id="cachee" style="display: none"></span>
+				<script src="js/timetable.js"></script>
 
-    <script>
+				<script>
     function joursemaine(nbs){
     	nbs=nbs-1;
     	switch (nbs) {

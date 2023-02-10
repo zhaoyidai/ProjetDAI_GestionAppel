@@ -36,6 +36,9 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
+				<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Accueil Scolarite -->
 					<li class="nav-item active"><a class="nav-link"
 						href="AccueilController"> <i
@@ -129,7 +132,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

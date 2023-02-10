@@ -41,7 +41,7 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut== Statut.ETUDIANT}">
-					<li class="nav-item "><a class="nav-link" href="#">
+					<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
 							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
 					</a></li>
 					<!-- Nav Item - Pages Collapse Menu -->
@@ -143,7 +143,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -209,7 +209,8 @@
  						}
 						%>
 						</table>
-						
+						<strong style="color: green">${requestScope.msg_validation}</strong>
+						<strong style="color: green">${requestScope.msg_error}</strong>
 						
 					<!-- Milieu -->
 					<div class="row">
@@ -219,7 +220,7 @@
 								<c:out value="Le fichier ${ fichier } (${ description }) a été uploadé !"/>
 							</p>
 						</c:if>
-						<form method="post" action="DepotFichierController?"
+						<form method="post" action="DepotFichierController?type_action="
 							enctype="multipart/form-data">
 							<p>
 								<label for="description">Description du fichier : </label> <input

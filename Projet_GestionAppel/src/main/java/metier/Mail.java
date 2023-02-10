@@ -18,7 +18,7 @@ public class Mail {
 	  /**
 	   * Adresse de la boite mail d'envoi.
 	   */
-	  private static final String USER = "homeweb31@outlook.com";
+	  private static final String USER = "home-web31@outlook.com";
 	  /**
 	   * Mot de passe de la boite mail d'envoi.
 	   */
@@ -62,7 +62,7 @@ public class Mail {
 	 }
 	  
 	  
-	  public final void envoyerMailAbsenceEtudiant(final String to, final  Users users) {
+	  public final void envoyerMailAbsenceEtudiant(final String to, final  Users users , Date idS) {
 		   Properties props = new Properties();
 		   props.put("mail.smtp.host", this.HOST);
 		   props.put("mail.smtp.auth", "true");
@@ -82,7 +82,7 @@ public class Mail {
 		     message.setSubject("Récapitulatif");
 		     message.setText("" +
 	                 "Bonjour,"+
-	                 "\nMr/Mme"+users.getNom()+" "+users.getPrenom()+" vous avez été notifié absent pour...."+
+	                 "\nMr/Mme"+users.getNom()+" "+users.getPrenom()+" vous avez été notifié absent pour la seance du "+idS+
 	                 "\nPour justifier cette absence, veuillez deposer un justificatif via l'application Gest Appel."
 	                 +"\nCordialement,"+
 	                 "\nLa scolarité");

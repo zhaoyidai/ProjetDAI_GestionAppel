@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import metier.Users;
+
 /**
  * Servlet implementation class ProfilController
  */
@@ -18,8 +20,9 @@ public class ProfilController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Users u = (Users) request.getSession().getAttribute("auth");
+		request.setAttribute("users", u);
+		request.getRequestDispatcher("Profil.jsp").forward(request, response);
 	}
 
 	/**

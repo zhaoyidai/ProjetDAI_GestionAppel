@@ -35,7 +35,7 @@ Paragraph p2 = new Paragraph();
 List<EtudiantPresence> etudiants=(List<EtudiantPresence>)request.getAttribute("listeEtudiant");
 
 
-p2.add("Récapitulatif d'absences du" + etudiants.get(0).getDateSeance()); //no alignment
+p2.add("Récapitulatif d'absences du " + etudiants.get(0).getDateSeance()); //no alignment
 
 
 document.add(p2);

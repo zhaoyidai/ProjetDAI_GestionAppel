@@ -31,7 +31,7 @@
 <body id="page-top">
 	<%
 	Users users = (Users) session.getAttribute("auth");
-	if(users == null){
+	if (users == null) {
 		response.sendRedirect("Login");
 	}
 	%>
@@ -57,8 +57,9 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut== Statut.ETUDIANT}">
-					<li class="nav-item active"><a class="nav-link" href="#">
-							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Accueil</span>
+					<li class="nav-item "><a class="nav-link"
+						href="ProfilController?id=${sessionScope.id}"> <i
+							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
 					</a></li>
 					<!-- Nav Item - Pages Collapse Menu -->
 					<li class="nav-item"><a class="nav-link collapsed"
@@ -67,6 +68,10 @@
 					</a></li>
 				</c:when>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
+					<li class="nav-item "><a class="nav-link"
+						href="ProfilController?id=${sessionScope.id}"> <i
+							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -80,14 +85,15 @@
 							<span>Cours</span>
 					</a></li>
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="CtrlAbsence?type_action=absence"> <i
+					<li class="nav-item"><a class="nav-link"
+						href="CtrlAbsence?type_action=absence"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-fw fa-table"></i> <span>Récapitulatif
-								alternance</span></a></li>
 				</c:when>
 				<c:when test="${sessionScope.statut == Statut.SCOLARITE}">
+					<li class="nav-item "><a class="nav-link"
+						href="ProfilController?id=${sessionScope.id}"> <i
+							class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Accueil Scolarite -->
 					<li class="nav-item active"><a class="nav-link"
 						href="/compte/accueil"> <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -192,7 +198,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -223,11 +229,6 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Accueil</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Justificatifs
-							d'abscences</a>
-
 					</div>
 
 					<!-- Milieu -->

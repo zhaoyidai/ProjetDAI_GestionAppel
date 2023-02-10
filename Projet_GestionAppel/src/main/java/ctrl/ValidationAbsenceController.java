@@ -31,15 +31,13 @@ public class ValidationAbsenceController extends HttpServlet {
 				//Je crée une liste de message de type Integer
 				ArrayList<Integer> listevalidation = new ArrayList<>();
 				
-				if(listevalider == null && listerefuser == null) {
-					request.setAttribute("checkbox_vide", "Veuillez selectionner des élements a supprimer !");
-					request.getRequestDispatcher("ConsultationJustif").forward(request, response);
-				}
+				try {
 				if(listevalider!=null){
 					for(String i:listevalider) {
 						int idu=Integer.valueOf(i);
 						Mail mail = new Mail();
 						mail.sendMailValidationJustif("chartelain.david@gmail.com",idu);
+						request.setAttribute("msg_validation", "Les justificatifs ont été validé avec succès !");
 					}
 				}
 				if(listerefuser!=null) {
@@ -47,12 +45,16 @@ public class ValidationAbsenceController extends HttpServlet {
 						int idu=Integer.valueOf(i);
 						Mail mail = new Mail();
 						mail.sendMailRefusJustif("chartelain.david@gmail.com",idu);
+						request.setAttribute("msg_validation2", "Les justificatifs rejetés ont été notifié aux éleves concernés !");
 					}
 				}
+				request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
+				}catch (Exception e) {
+						request.setAttribute("checkbox_vide", "Veuillez selectionner des élements a supprimer !");
+						request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
 					
-					
-	
-	
+				}
+
 	}
 
 	/**

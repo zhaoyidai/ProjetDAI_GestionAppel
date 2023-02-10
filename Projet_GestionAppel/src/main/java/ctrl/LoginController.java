@@ -50,6 +50,10 @@ public class LoginController extends HttpServlet {
 					request.getSession().setAttribute("nom", usersId.getNom());
 					request.getSession().setAttribute("prenom", usersId.getPrenom());
 					request.getSession().setAttribute("statut", usersId.getStatut());
+					request.getSession().setAttribute("num", usersId.getNumTel());
+					request.getSession().setAttribute("photo", usersId.getPhoto());
+
+
 					if(usersId.getStatut() == Statut.ENSEIGNANT) {
 						response.sendRedirect("CtrlRedirect?type_action=planning");
 					}else if(usersId.getStatut() == Statut.ETUDIANT) {

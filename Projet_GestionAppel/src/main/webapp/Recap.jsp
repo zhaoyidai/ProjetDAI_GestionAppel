@@ -45,7 +45,9 @@
 			<hr class="sidebar-divider my-0">
 			<c:choose>
 				<c:when test="${sessionScope.statut == Statut.ENSEIGNANT}">
-					<!-- Nav Item - Accueil enseigants -->
+					<li class="nav-item "><a class="nav-link" href="ProfilController?id=${sessionScope.id}">
+							<i class="fas fa-fw fa-tachometer-alt"></i> <span>Mon profil</span>
+					</a></li>
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item active"><a class="nav-link collapsed"
 						href="CtrlRedirect?type_action=planning"
@@ -61,10 +63,6 @@
 					<!-- Nav Item - Tables -->
 					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="fas fa-fw fa-table"></i> <span>Absences Etudiants</span></a></li>
-					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="fas fa-fw fa-table"></i> <span>Récapitulatif
-								alternance</span></a></li>
 				</c:when>
 			</c:choose>
 			<!-- Divider -->
@@ -146,7 +144,7 @@
 									aria-expanded="false"> <span
 										class="mr-2 d-none d-lg-inline text-gray-800 ">${ sessionScope.prenom }
 											${ sessionScope.nom }</span> <img class="img-profile rounded-circle"
-										src="formAccueil/img/undraw_profile.svg">
+										src="${ sessionScope.photo }">
 								</a> <!-- Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -180,19 +178,19 @@
 					<div class="row">
 
 
-						<table id="table" border="1">
+						<table id="table" border="1" class="table table-bordered"
+							id="dataTable" width="100%" cellspacing="0">
 							<tr>
 								<td>Photo</td>
 								<td>Numéro_étudiant</td>
 								<td>Nom</td>
 								<td>Prénom</td>
 								<td>Formation</td>
-								<td>Présence</td>
+								<td>Status FCV2A</td>
+								<td>Pointage</td>
 							</tr>
 							<%
 							List<EtudiantPresence> listeEtudiant = (List<EtudiantPresence>) request.getAttribute("listeEtudiant");
-
-
 
 							for (EtudiantPresence u : listeEtudiant) {
 								Users us = u.getU();
@@ -205,18 +203,20 @@
 									out.println("<td>Absente</td>");
 								} else {
 									out.println("<td>Presente</td>");
-								} 
-								out.println("<td>"+u.getStatus().toString()+"</td>");
+								}
+								out.println("<td>" + u.getStatus().toString() + "</td>");
 							}
 							%>
 						</table>
-						<a href="CtrlValiderFiche?ids=${param.idSeance }"><button
-								id="btn_valider">Valider</button></a> <a href="CtrlRedirect?type_action=planning">Retour</a>
 					</div>
 					<!-- Content Row -->
-					<div class="row">
+					<div>
 						<!-- Pie Chart -->
-						<div class="col-xl-4 col-lg-5"></div>
+						<div class="col-xl-4 col-lg-5">
+							<a href="CtrlValiderFiche?ids=${param.idSeance }">
+							<button id="btn_valider">Valider</button></a>
+							 <a href="CtrlRedirect?type_action=planning"><button id="btn_valider">Retour</button></a>
+						</div>
 					</div>
 					<!-- Content Row -->
 					<div class="row"></div>

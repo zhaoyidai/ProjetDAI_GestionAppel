@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.catalina.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -55,7 +57,33 @@ public class UsersDao extends DAO<Users> {
         }
         return false;
     }
-   
+    
+    
+//	  public void updatePhotoProfil(String chemin , int user) {
+//		  String hql = "update Users u set u.photo=chemin' where u.id=:user";
+//	        try (Session session = getSession()){
+//	            getTransaction(session);
+//	            Query query = session.createQuery(hql);
+//	            query.setParameter("chemin", chemin);
+//	            query.setParameter("user", user);
+//	            query.executeUpdate();
+//	            session.clear();
+//	            session.close();
+//	        }
+//	    }
+    
+	  public static void updatePhotoProfil(String chemin,int user){
+		  	Session sess=null;
+		  	try {
+			  String hql = "update Users u set u.photo = :chemin' where u.id = :user";
+			  Query query = sess.createQuery(hql);
+			  query.setString("chemin", chemin);
+	          query.setInteger("user", user);
+	          int rowCount = query.executeUpdate();
+		    } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	  }
 
 //    // méthode permettant d'avoir la liste des étudiants
 //    public List<Users> listEtudiant(){
