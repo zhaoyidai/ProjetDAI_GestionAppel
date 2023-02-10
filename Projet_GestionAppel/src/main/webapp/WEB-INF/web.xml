@@ -114,6 +114,16 @@
 		<url-pattern>/Justificatif</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+	<servlet-name>listeabsences</servlet-name>
+	<jsp-file>/ListeAbsencesSeance.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>listeabsences</servlet-name>
+		<url-pattern>/ListeAbsencesSeance</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 	<servlet-name>profil</servlet-name>
 	<jsp-file>/Profil.jsp</jsp-file>

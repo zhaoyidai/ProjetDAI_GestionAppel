@@ -2,6 +2,7 @@ package ctrl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.TestHibernate;
 import enumtype.AppelEtat;
 import metier.Mail;
+import metier.Seance;
 
 /**
  * Servlet implementation class ValidationAbsenceController
@@ -25,35 +27,79 @@ public class ValidationAbsenceController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		//Je recupere les valaurs cochées dans mon formulaire sur Supprimer.jsp et disponible dans l'url de la requete HTTP
-				String[] listevalider = (String[])request.getParameterValues("valider");
-				String[] listerefuser = (String[])request.getParameterValues("refuser");
-				//Je crée une liste de message de type Integer
-				ArrayList<Integer> listevalidation = new ArrayList<>();
+			
+				String action = request.getParameter("type_action");
 				
-				try {
-				if(listevalider!=null){
-					for(String i:listevalider) {
-						int idu=Integer.valueOf(i);
-						Mail mail = new Mail();
-						mail.sendMailValidationJustif("chartelain.david@gmail.com",idu);
-						request.setAttribute("msg_validation", "Les justificatifs ont été validé avec succès !");
-					}
+				Integer codeJ = Integer.parseInt(request.getParameter("idJ"));
+				Integer idU = Integer.parseInt(request.getParameter("idU"));
+
+
+				switch(action) {
+				case "valider":
+					request.setAttribute("idU", idU);
+					TestHibernate.etuSeancelistAbs(idU);
+					List<Seance> seance = (List<Seance>) TestHibernate.etuSeancelistAbs(idU);
+					request.setAttribute("seance", seance);
+					request.setAttribute("codeJ", codeJ);
+					request.getRequestDispatcher("ListeAbsencesSeance").forward(request, response);
+					break;
+				
+				case "refuser" :
+					TestHibernate.updateJustifRefus(codeJ);
+					Mail mail = new Mail();
+					mail.sendMailRefusJustif("chartelain.david@gmail.com",idU);
+					request.setAttribute("infos", "Le mail de refus a été envoyé a l'etudiant !");
+					request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
+					break;
 				}
-				if(listerefuser!=null) {
-					for(String i:listerefuser) {
-						int idu=Integer.valueOf(i);
-						Mail mail = new Mail();
-						mail.sendMailRefusJustif("chartelain.david@gmail.com",idu);
-						request.setAttribute("msg_validation2", "Les justificatifs rejetés ont été notifié aux éleves concernés !");
-					}
-				}
-				request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
-				}catch (Exception e) {
-						request.setAttribute("checkbox_vide", "Veuillez selectionner des élements a supprimer !");
-						request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
-					
-				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				//Je crée une liste de message de type Integer
+//				ArrayList<Integer> listevalidation = new ArrayList<>();
+//				
+//				try {
+//				if(listevalider!=null){
+//					for(String i:listevalider) {
+//						int idu=Integer.valueOf(i);
+//						Mail mail = new Mail();
+//						mail.sendMailValidationJustif("chartelain.david@gmail.com",idu);
+//						request.setAttribute("msg_validation", "Les justificatifs ont été validé avec succès !");
+//					}
+//				}
+//				if(listerefuser!=null) {
+//					for(String i:listerefuser) {
+//						int idu=Integer.valueOf(i);
+//						Mail mail = new Mail();
+//						mail.sendMailRefusJustif("chartelain.david@gmail.com",idu);
+//						request.setAttribute("msg_validation2", "Les justificatifs rejetés ont été notifié aux éleves concernés !");
+//					}
+//				}
+//				request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
+//				}catch (Exception e) {
+//						request.setAttribute("checkbox_vide", "Veuillez selectionner des élements a supprimer !");
+//						request.getRequestDispatcher("ScolJustificatifController").forward(request, response);
+//					
+//				}
 
 	}
 

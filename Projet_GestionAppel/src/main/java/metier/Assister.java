@@ -25,6 +25,9 @@ public class Assister {
 	@Column(name = "Status")
 	private AppelEtat status;
 	
+	@Column(name="CodeJustificatif")
+	private int codeJ;
+	
 	/**
 	 * Relations.
 	 */
@@ -86,6 +89,16 @@ public class Assister {
 
 	public AppelEtat getStatus() {
 		return status;
+	}
+
+	
+	
+	public int getCodeJ() {
+		return codeJ;
+	}
+
+	public void setCodeJ(int codeJ) {
+		this.codeJ = codeJ;
 	}
 
 	@Override

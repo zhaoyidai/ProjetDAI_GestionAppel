@@ -23,6 +23,7 @@ import javax.servlet.http.Part;
 import org.hibernate.Session;
 
 import dao.JustificatifDAO;
+import dao.TestHibernate;
 import dao.UsersDao;
 
 import javax.servlet.*;
@@ -105,13 +106,13 @@ public class DepotFichierController extends HttpServlet {
 				ecrireFichier(p, nomfich, CHEMIN_FICHIERS );
 				String chemin = "http://localhost:8080/Projet_GestionAppel/fichier/" + nomfich;
 
-				UsersDao user = new UsersDao();
-				Users users = (Users) request.getSession().getAttribute("auth");
-				int id = users.getId();
+
+				int id=((Users)request.getSession().getAttribute("auth")).getId();
+
 				String debut = request.getParameter("debut");
 				System.out.print(debut);
 				String fin = request.getParameter("fin");
-				user.updatePhotoProfil(chemin, id);  
+				TestHibernate.updatePhotoProfil(chemin, id);  
 			}
 
 			this.getServletContext().getRequestDispatcher("/Profil.jsp").forward(request, response);	
@@ -172,7 +173,7 @@ public class DepotFichierController extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/Justificatif.jsp").forward(request, response);
 				break;
 			}
-			
+
 		}
 	}
 

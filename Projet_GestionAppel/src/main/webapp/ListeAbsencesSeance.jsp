@@ -1,5 +1,7 @@
 <%@ page import="metier.Justificatif"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+<%@ page import="metier.Seance"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -156,45 +158,48 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Listes des justificatifs</h1>
+						<h1 class="h3 mb-0 text-gray-800">Listes des seances</h1>
 					</div>
-					<strong style="color: green">${requestScope.msg_vide}</strong>
 					<strong style="color: red">${requestScope.checkbox_vide}</strong> <strong
 						style="color: green">${requestScope.msg_validation}</strong><br>
 					<strong style="color: green">${requestScope.msg_validation2}</strong><br>
 					<!-- Milieu -->
 					<div class="row">
-						<form method="get" action="ValidationAbsenceController">
+
+						<form method="get" action="UpdateStatusJusticatif">
 							<table border="1" class="table table-bordered" id="dataTable"
 								width="100%" cellspacing="0">
+								<%
+								int justi = (int)request.getAttribute("codeJ");
+								out.println("<input type=\"text\" style=\"display: none;\" name=\"justi\" value="+justi +">");
+								%>
+								<input type="text" style="display: none;" name="idU"
+								value="${param.idU}">
 								<thead>
 									<tr>
-										<th class="text-center">Etudiant</th>
+										<th class="text-center">Validation</th>
+										<th class="text-center">Cours</th>
 										<th class="text-center">Date de debut</th>
-										<th class="text-center">Date de fin</th>
-										<th class="text-center">Justificatif</th>
-										<th colspan="2" class="text-center">Validation</th>
+
 									</tr>
 								</thead>
-								
-
 								<%
-								ArrayList<Justificatif> just = (ArrayList<Justificatif>) request.getAttribute("Justificatif");
-								int row = 1;
-								for (Justificatif j : just) {
-									out.println("<tr><td>" + j.getUsersJustificatif().getNom() + " " + j.getUsersJustificatif().getPrenom() + "</td>"
-									+ "<td>" + j.getDateDeb() + "</td><td>" + j.getDateFin() + "</td>" + "<td><a href=" + j.getUrl()
-									+ " class='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'><i class='fas fa-download fa-sm text-white-50'></i> Justificatifs abscences</a></td>"
-									+ "<td><a  href='ValidationAbsenceController?idJ=" + j.getCodeJust() + "&type_action=valider&idU="
-									+ j.getUsersJustificatif().getId() + "'/>Valider</a> </td>"
-									+ "<td><a href='ValidationAbsenceController?idJ=" + j.getCodeJust() + "&type_action=refuser&idU="
-									+ j.getUsersJustificatif().getId() + "'/>Refuser</a></td></tr>");
-									row++;
+								Integer codeJ = (Integer) request.getAttribute("codeJ");
+								Integer u = (Integer) request.getAttribute("idU");
+								List<Seance> l = (List<Seance>) request.getAttribute("seance");
+								for (Seance s : l) {
+									out.println("<tr><td><input type='checkbox' value= " + s.getIdS() + " name='seance' style=\"zoom:280%\" ></td>");
+									out.println("<td>" + s.getCoursSeance().getNomC() + "</td>");
+									out.println("<td>" + s.getDateSeance() + "</td></tr>");
 								}
 								%>
 							</table>
-							
-							<br>
+							<br> <a class="btn btn-success btn-icon-split center"> <span
+								class="icon text-white-50"> <i class="fas fa-check"></i>
+							</span> <span class="text"><input
+									class="btn btn-success btn-icon-split" type='submit'
+									value='VALIDER' /></span>
+							</a>
 						</form>
 					</div>
 					<!-- Footer -->

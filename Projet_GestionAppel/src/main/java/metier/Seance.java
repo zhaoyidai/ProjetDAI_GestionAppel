@@ -160,6 +160,16 @@ public class Seance implements Serializable {
 	public void setStatutFicheAppel(FicheAppelEtat statutFicheAppel) {
 		StatutFicheAppel = statutFicheAppel;
 	}
+	
+	
+
+	public static SimpleDateFormat getDfdate() {
+		return DFDATE;
+	}
+
+	public static SimpleDateFormat getDfheure() {
+		return DFHEURE;
+	}
 
 	@Override
 	public int hashCode() {

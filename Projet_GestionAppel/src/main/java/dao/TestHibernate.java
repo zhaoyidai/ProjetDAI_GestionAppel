@@ -23,7 +23,7 @@ import enumtype.Statut;
 import metier.Assister;
 import metier.AssisterId;
 import metier.Cours;
-
+import metier.Justificatif;
 import metier.Seance;
 import metier.Users;
 
@@ -224,7 +224,9 @@ public class TestHibernate
 //			}
 //		}
 		
-		TestHibernate.getCours(1);
+//		TestHibernate.getCours(1);
+//		TestHibernate.etuSeancelistAbs(12);
+		TestHibernate.updateJustifRefus(8);
 		
 //		TestHibernate.testlist(1);
 		}
@@ -264,6 +266,82 @@ public class TestHibernate
 			
 			}
 		
+	}
+	
+	public static void updatePhotoProfil(String chemin,int user){
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Users u=session.get(Users.class, user);
+			u.setPhoto(chemin);
+			session.update(u);
+			t.commit();
+	    } catch (Exception e) {
+            e.printStackTrace();
+        }
+  }
+	
+	
+	public static void updateJustifRefus(int codeJ){
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Justificatif u=session.get(Justificatif.class, codeJ);
+			u.setValidation(true);
+			session.update(u);
+			t.commit();
+	    } catch (Exception e) {
+            e.printStackTrace();
+        }
+  }
+	
+	public static void updateJustifica(int idu,int idSeance,int codej) {
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			AssisterId aid=new AssisterId(idu,idSeance);
+			Assister a=session.get(Assister.class, aid);
+			a.setCodeJ(codej);
+			a.setStatus(AppelEtat.ABSENCE_JUSTIFIE);
+			session.update(a);
+			t.commit();
+			}
+		
+		
+		
+	}
+	
+	
+	public static List<Seance> etuSeancelistAbs(int idu) {
+		List<Seance> seances=new ArrayList<>();
+		String hql="Select s from Seance s,Users u,Assister a where u.id = :id "
+					+ "and s.idS = a.seance.idS and a.users.id=u.id and a.status='ABSENCE'";
+		try(Session session=HibernateUtil.getSessionFactory().getCurrentSession()){
+			
+			Transaction t = session.getTransaction();
+			if (!TransactionStatus.ACTIVE.equals(t.getStatus())) {
+	            t = session.beginTransaction();}
+			Query<Seance>query = session.createQuery(hql);
+	        query.setParameter("id", idu);
+	        
+	        if (!query.getResultList().isEmpty()) {
+	        	
+	        
+			seances=query.list();
+			
+			for(Seance test:seances) {
+				System.out.println(test.getIdS());
+			}
+			return seances;
+			}
+		}
+		return null;
 	}
 	
 	

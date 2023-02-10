@@ -30,7 +30,14 @@ public class ScolJustifcatifController extends HttpServlet {
 		 ArrayList<Justificatif> justif = new ArrayList<>();
 		 justif = justificatifDAO.loadJustificatif();
 		 request.setAttribute("Justificatif", justif);
-	     request.getRequestDispatcher("ConsultationJustif").forward(request, response);
+		 if(justif.size() == 0 || justif == null) {
+			 request.setAttribute("msg_vide", "Vous n'avez aucun justificatif a consulter...");
+		     request.getRequestDispatcher("ConsultationJustif").forward(request, response);
+
+		 }else {
+			 request.getRequestDispatcher("ConsultationJustif").forward(request, response);
+		 }
+	    
 		
 	}
 

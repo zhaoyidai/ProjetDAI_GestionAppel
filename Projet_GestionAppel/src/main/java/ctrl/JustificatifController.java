@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.SeanceDAO;
+import dao.TestHibernate;
 import dao.UsersDao;
 import metier.Seance;
 
@@ -30,10 +31,9 @@ public class JustificatifController extends HttpServlet {
 		
 		
 		request.setAttribute("id", idU);
-		SeanceDAO seanceDAO = new SeanceDAO();
 		
 		HttpSession sessionliste = request.getSession();
-		List<Seance>seances =  seanceDAO.listAbsencesEtudiant(idU);
+		List<Seance>seances =  TestHibernate.etuSeancelistAbs(idU);
 		sessionliste.setAttribute("listesabsences", seances);
 		
 		request.setAttribute("listeAbscences", seances);
